@@ -33,6 +33,7 @@ class Cep extends Model
 
 
         $cidades = Cep::CepDB()->select(DB::raw($sql), ['uf' => $uf]);
+
         if(!empty($cidades)){
             return $cidades;
         }else{

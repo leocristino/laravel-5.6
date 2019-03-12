@@ -20,15 +20,10 @@ class User extends CawModelUser
 
     protected $table    =  'user';
     protected $fillable = [
-        'user',
+        'name',
         'email',
-        'senha',
-        /*'comissionado',*/
-        'id_user_grupo',
-        'id_pessoa_vendedor',
-        'data_cad',
-        'id_pessoa_agencia',
-        'ativo'
+        'password',
+        'active'
     ];
 
     /**
@@ -39,7 +34,7 @@ class User extends CawModelUser
     protected $hidden = [
         'password'
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public static function getList(Request $request){
 

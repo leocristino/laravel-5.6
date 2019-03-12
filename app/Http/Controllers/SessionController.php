@@ -18,7 +18,7 @@ class SessionController extends Controller
 
     public function create(){
         $this->validate(request(), [
-            'email' => 'required|max:20',
+            'email' => 'required|max:50',
             'password' => 'required'
         ]);
 

@@ -35,7 +35,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label>Senha <small v-show="form.data.id != undefined">(deixe em branco para manter a mesma)</small></label>
-                                    <input type="text" class="form-control" v-model="form.data.senha" maxlength="20" :required="form.data.id == undefined"/>
+                                    <input type="password" class="form-control" v-model="form.data.password" maxlength="20" :required="form.data.id == undefined"/>
                                 </div>
 
 
@@ -54,7 +54,7 @@
 
                                 <div class="form-group col-md-12">
                                     <hr>
-                                    <label><input type="checkbox" class="form-check-input" v-model="form.data.ativo" value="S"> Ativo</label>
+                                    <label><input type="checkbox" class="form-check-input" v-model="form.data.active" value="S"> Ativo</label>
                                 </div>
 
                                 <div class="clearfix">

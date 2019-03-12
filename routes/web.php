@@ -33,7 +33,7 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::resource('/user_grupo', 'UserGrupoController');
 
     Route::get('/pessoa/list-pessoa', 'PessoaController@listPessoa');
-    Route::resource('/pessoa', 'PessoaController');
+    Route::resource('/person', 'PersonController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

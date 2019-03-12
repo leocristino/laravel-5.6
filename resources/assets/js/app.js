@@ -20,6 +20,14 @@ Vue.use(money, {precision: 2});
 import Datepicker from 'vue2-datepicker';
 Vue.use(Datepicker);
 
+//https://github.com/probil/v-mask
+// import VueMask from 'v-mask';
+// Vue.use(VueMask);
+
+//https://vuejs-tips.github.io/vue-the-mask/
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask);
+
 //https://github.com/moreta/vue-search-select
 //import { ModelListSelect, ModelSelect , BasicSelect , MultiSelect, ListSelect, MultiListSelect} from 'vue-search-select'
 
@@ -31,9 +39,8 @@ Vue.use(Datepicker);
 require('./util');
 require('./user');
 require('./password');
-require('./user-grupo');
 require('./login');
-require('./pessoa');
+require('./person');
 
 
 if(window.vue == undefined) {

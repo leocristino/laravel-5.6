@@ -25,6 +25,7 @@
     "v-money": "^0.8.1",
     "vue-multiselect": "^2.1.0",
     "vue-search-select": "^2.6.1",
+    "vue-the-mask": "^0.11.1",
     "vue2-datepicker": "^1.9.7"
   }
 }

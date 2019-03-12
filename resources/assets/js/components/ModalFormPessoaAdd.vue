@@ -102,14 +102,14 @@
         },
         mounted() {
             this.form = new Form();
-            this.form.data.ativo = true;
+            this.form.data.active = true;
             this.form.data.tipo = 'F';
             this.$forceUpdate();
         },
         methods:{
             configModal(tipo_pessoa, txt, fn_confirm){
                 this.form = new Form();
-                this.form.data.ativo = true;
+                this.form.data.active = true;
                 this.form.data.tipo = 'F';
 
                 if(isNaN(txt.replace('.', '').replace('-', ''))) {

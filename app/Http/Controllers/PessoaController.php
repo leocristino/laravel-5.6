@@ -7,7 +7,7 @@ use App\Models\CbGeralTipoPessoa;
 use App\Models\Cep;
 use App\Models\Helpers\CawHelpers;
 use App\Models\Pessoa;
-use App\Models\PessoaTipoPessoa;
+use App\Models\PersonTypePerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function MongoDB\BSON\toJSON;
@@ -29,7 +29,7 @@ class PessoaController extends Controller
     {
         $pessoa = new Pessoa();
         $pessoa->tipo = 'F';
-        $pessoa->ativo = 'S';
+        $pessoa->active = 'S';
         $pessoa['pessoa_tipo_pessoa'] = [];
         return view('pessoa.form',
             [

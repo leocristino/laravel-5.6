@@ -31,6 +31,10 @@
                     <li><a href="{{URL::to('/')}}/user">Usuários</a></li>
                     @endif
 
+                    @if(\App\Models\Permissao::userHasPermissao('PERSON'))
+                        <li><a href="{{URL::to('/')}}/person">Pessoas</a></li>
+                    @endif
+
                     @if(\App\Models\Permissao::userHasPermissao('USER_GRUPO'))
                     <li><a href="{{URL::to('/')}}/user_grupo">Grupos de Usuários</a></li>
                     @endif

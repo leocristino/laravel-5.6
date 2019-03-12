@@ -26,19 +26,13 @@ class UserController extends Controller
     public function create()
     {
         $user = new User();
+        $user->active = 1;
         $user['permissoes'] = [];
 
-        $user_grupo = UserGrupo::get();
-        foreach ($user_grupo as $item) {
-            $item['permissoes'] = $item->getUserGrupoPermissoes();
-        }
         return view('user.form',
             [
                 'data' => $user,
-                'user_grupo' => $user_grupo,
-                'permissoes' => Permissao::orderBy("nome")->get(),
-                'pessoa_vendedor' => Pessoa::getListTipoPessoa("V"),
-                'pessoa_agencia' => Pessoa::getListTipoPessoa("A"),
+                'permissoes' => Permissao::orderBy("nome")->get()
             ]
         );
     }
@@ -47,8 +41,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user['permissoes'] = $user->getUserPermissoes();
-
-//        dd(Permissao::orderBy("nome")->get());
 
         return view('user.form',
             [
@@ -73,14 +65,15 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            if (empty($request->get('id'))) {
-                $user->data_cad = date("Y-m-d H:i:s");
+            if($request->get('active') == null){
+                $user->active = 0;
+            }else{
+                $user->active = 1;
             }
 
-            if($request->get('ativo') == null){
-                $user->ativo = 'N';
-            }else{
-                $user->ativo = 'S';
+            if (!empty($request->input('password'))) {
+                $senha = $request->input('password');
+                $user->password = bcrypt($senha);
             }
 
             $res = $user->save();

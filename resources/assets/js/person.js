@@ -1,8 +1,9 @@
 import Form from './core/Form';
 import Modal from './components/Modal.vue';
 import { BasicSelect } from 'vue-search-select'
+import {mask} from 'vue-the-mask'
 
-if ($('body[view-name="pessoaform"]').length > 0) {
+if ($('body[view-name="personform"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
@@ -14,6 +15,7 @@ if ($('body[view-name="pessoaform"]').length > 0) {
             cidadeSelected: {},
             cidades: [],
             cpf_cnpj_mask: '',
+            picked: '',
 
             cb_geral_tipo_pessoa: undefined,
             tipos_pessoa: [],
@@ -24,9 +26,6 @@ if ($('body[view-name="pessoaform"]').length > 0) {
             cidadeInstituicaoSelected: {},
             cidadesInstituicao: [],
 
-            masktelefone1: "(##) #####-####",
-            masktelefone2: "(##) #####-####",
-            masktelefone3: "(##) #####-####"
         },
         mounted() {
             this.changeUf();
@@ -36,6 +35,19 @@ if ($('body[view-name="pessoaform"]').length > 0) {
 
         },
         watch: {
+            'picked' : function () {
+                if(this.picked == "J")
+                {
+                    $("#entity").toggle('100')
+                    $("#physical").hide('100')
+                }
+                else
+                {
+                    $("#entity").hide('100')
+                    $("#physical").toggle('100')
+                }
+            },
+
             'form.data.tipo': function(_new, old){
                 this.cpf_cnpj_mask = this.form.data.tipo == 'F' ? '###.###.###-##' : '##.###.###/####-##';
 
@@ -93,13 +105,13 @@ if ($('body[view-name="pessoaform"]').length > 0) {
             findCep(){
                 let thisCopy = Object.assign({} , this);
 
-                this.form.get('/cep/cep', {cep: this.form.data.cep}, function(response){
-                    thisCopy.form.data.logradoro = response.data[0].logradouro;
+                this.form.get('/cep/cep', {cep: this.form.data.zip}, function(response){
+                    thisCopy.form.data.street = response.data[0].logradouro;
                     thisCopy.form.data.id_cidade= response.data[0].cidade_codigo;
-                    thisCopy.form.data.cidade= response.data[0].cidade;
-                    thisCopy.form.data.bairro = response.data[0].bairro;
-                    if(thisCopy.form.data.uf != response.data[0].uf) {
-                        thisCopy.form.data.uf = response.data[0].uf;
+                    thisCopy.form.data.city= response.data[0].cidade;
+                    thisCopy.form.data.district = response.data[0].bairro;
+                    if(thisCopy.form.data.state != response.data[0].uf) {
+                        thisCopy.form.data.state = response.data[0].uf;
                         thisCopy.changeUf();
                     }
 
@@ -113,7 +125,7 @@ if ($('body[view-name="pessoaform"]').length > 0) {
 
             changeUf(){
                 let thisCopy = Object.assign({} , this);
-                let uf = this.form.data.uf == undefined ? 'SP' : this.form.data.uf;
+                let uf = this.form.data.state == undefined ? 'SP' : this.form.data.state;
 
                 this.form.get('/cep/cidades', {uf: uf}, function(response){
                     thisCopy.setCidades(response.data);
@@ -188,29 +200,6 @@ if ($('body[view-name="pessoaform"]').length > 0) {
                         this.cb_geral_tipo_pessoa = [];
                     }else{
                         this.cb_geral_tipo_pessoa = data;
-                    }
-                }
-            },
-
-            updateFormTipoPessoa(){
-                //transforma todos os ids em numero
-                for(var i = 0; i < this.form.data.pessoa_tipo_pessoa.length; i++){
-                    this.form.data.pessoa_tipo_pessoa[i] = parseInt(this.form.data.pessoa_tipo_pessoa[i]);
-                }
-
-                //console.log(this.form.data.pessoa_tipo_pessoa);
-                this.tipos_pessoa = [];
-                for(var i = 0; i < this.cb_geral_tipo_pessoa.length; i++){
-                    var id = this.cb_geral_tipo_pessoa[i].id;
-                    var tipo = this.cb_geral_tipo_pessoa[i].tipo;
-
-                    //verifica se é pessoa juridica - não pode ser passageiro
-                    if(this.form.data.pessoa_tipo_pessoa.indexOf(id) !== -1 && tipo == 'P' && this.form.data.tipo == 'J'){
-                        this.form.data.pessoa_tipo_pessoa.pop(this.form.data.pessoa_tipo_pessoa.indexOf(id));
-                    }
-
-                    if(this.form.data.pessoa_tipo_pessoa.indexOf(id) !== -1 && this.tipos_pessoa.indexOf(tipo) === -1){
-                        this.tipos_pessoa.push(tipo);
                     }
                 }
             },
