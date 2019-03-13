@@ -52,7 +52,7 @@
                                         <input type="text" class="form-control" v-model="form.data.rg" maxlength="20"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4 type-date">
                                         <label>Data Nascimento</label>
                                         <input type="date" class="form-control" v-model="form.data.date_birth" />
                                     </div>
