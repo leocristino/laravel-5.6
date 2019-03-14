@@ -24,7 +24,29 @@
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
                                 <label>CPF / CNPJ</label>
-                                <input type="text" class="form-control" name="cpf_cnpj" value="{{ empty($_GET['cpf_cnpj']) ? '' : $_GET['cpf_cnpj'] }}" />
+                                <input type="text" class="form-control" v-mask="['###.###.###-##', '##.###.###/####-##']" name="cpf_cnpj" value="{{ empty($_GET['cpf_cnpj']) ? '' : $_GET['cpf_cnpj'] }}" />
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-6">
+                                <label>Ativo</label>
+                                <?php
+                                $select = 2;
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "1"){
+                                        $select = 1;
+                                    }
+                                }
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "0"){
+                                        $select = 0;
+                                    }
+                                }
+                                ?>
+                                <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
+                                    <option value=""></option>
+                                    <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
+                                    <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
+                                </select>
                             </div>
                                 <div class="form-group col-md-3 col-sm-6">
                                 <br>
@@ -40,19 +62,23 @@
                                     <table class="table table-bordered table-hover dataTable" >
                                         <thead>
                                             <tr role="row">
-                                                <th>Nome / Nome Social</th>
-                                                <th class="hidden-xs">Fantasy Name</th>
+                                                <th>Nome / Razão Social</th>
                                                 <th class="hidden-xs">CPF / CNPJ</th>
                                                 <th class="hidden-xs">Status</th>
+                                                <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}">
+                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
                                                 <td>{{ $item->name_social_name }}</td>
-                                                <td class="hidden-xs">{{ $item->fantasy_name }}</td>
                                                 <td class="hidden-xs">{{ $item->cpf_cnpj }}</td>
                                                 <td class="hidden-xs"><i class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td>
+                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
+                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
+                                                </td>
+
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>

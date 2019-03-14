@@ -15,7 +15,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Sistema Administrativo Aloha Viagens'),
+    'name' => env('APP_NAME', 'Tatical Monitoramento'),
     'version' => env('APP_VERSION', date('U')),
 
     /*

@@ -17,12 +17,12 @@ class CreatePeopleTable extends Migration
             $table->increments('id');
 
             $table->string('type', 1);
-            $table->string('name_social_name', 100);
+            $table->string('name_social_name', 100)->nullable(true);
             $table->string('fantasy_name', 100)->nullable(true);
-            $table->string('cpf_cnpj', 14);
-            $table->string('rg', 20)->nullable(true);
-            $table->string('ie',20)->nullable(true);
-            $table->date('date_birth')->nullable(true);
+            $table->string('cpf_cnpj', 14)->nullable(true);
+            $table->string('rg', 20)->nullable(true)->nullable(true);
+            $table->string('ie',20)->nullable(true)->nullable(true);
+            $table->date('date_birth')->nullable(true)->nullable(true);
             $table->string('email',100)->nullable(true);
             $table->string('zip',8)->nullable(true);
             $table->string('street',100)->nullable(true);
@@ -34,6 +34,7 @@ class CreatePeopleTable extends Migration
             $table->string('fixed_telephone',20)->nullable(true);
             $table->string('cellphone',20)->nullable(true);
             $table->string('obs',255)->nullable(true);
+            $table->tinyInteger('active')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

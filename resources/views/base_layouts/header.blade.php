@@ -2,11 +2,11 @@
 
     <a href="{{URL::to('/')}}" class="logo">
         <span class="logo-mini">
-            <img src="{{asset('images/logotatical.png')}}" alt="Aloha Viagens" style="max-height: 500px; max-width: 46px">
+            <img src="{{asset('images/logotatical.png')}}" alt="Tatical Monitoramento" style="max-height: 500px; max-width: 33px">
         </span>
 
         <span class="logo-lg">
-            <img src="{{asset('images/logotatical.png')}}" alt="Aloha Viagens" style="max-height: 500px; max-width: 46px">
+            <img src="{{asset('images/logotatical.png')}}" alt="Tatical Monitoramento" style="max-height: 500px; max-width: 33px">
         </span>
     </a>
 
@@ -30,7 +30,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <div class="col-md-12">
-                            <b>{{strtoupper(auth()->user()->user)}} <i class="fa fa-user"></i></b>
+                            <b>{{strtoupper(auth()->user()->name)}} <i class="fa fa-user"></i></b>
                         </div>
                         <div class="col-md-12">
                             <a href="{{URL::to('/')}}/password">Alterar Senha <i class="fas fa-cog"></i></a>

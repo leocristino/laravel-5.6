@@ -14,7 +14,7 @@ if ($('body[view-name="personform"]').length > 0) {
             modal: Modal,
             cidadeSelected: {},
             cidades: [],
-            cpf_cnpj_mask: '',
+            cpf_cnpj_mask: '##.###.###/####-##',
             picked: '',
 
             cb_geral_tipo_pessoa: undefined,
@@ -29,74 +29,29 @@ if ($('body[view-name="personform"]').length > 0) {
         },
         mounted() {
             this.changeUf();
-            this.updateFormTipoPessoa();
+            if(this.form.data.type != null){
+                this.picked = this.form.data.type;
+                if(this.form.data.type == "J"){
+                    this.cpf_cnpj_mask = '##.###.###/####-##';
+                }
+            }
         },
         updated(){
 
         },
         watch: {
             'picked' : function () {
+
+                $("#formFields").hide()
                 if(this.picked == "J")
                 {
-                    $("#entity").toggle('100')
-                    $("#physical").hide('100')
+                    $("#formFields").toggle('100')
+                    this.cpf_cnpj_mask = '##.###.###/####-##'
                 }
-                else
+                else if (this.picked == "F")
                 {
-                    $("#entity").hide('100')
-                    $("#physical").toggle('100')
-                }
-            },
-
-            'form.data.tipo': function(_new, old){
-                this.cpf_cnpj_mask = this.form.data.tipo == 'F' ? '###.###.###-##' : '##.###.###/####-##';
-
-                if(old != undefined) {
-                    //se trocar o tipo, limpa o cpf/cnpj
-                    this.form.data.cpf_cnpj = '';
-
-                    this.updateFormTipoPessoa();
-                }
-            },
-            
-            'form.data.pessoa_tipo_pessoa': function () {
-                this.updateFormTipoPessoa();
-            },
-
-
-            'form.data.telefone1': function (val) {
-                if(val != "") {
-                    if (val != null && val.length > 1) {
-                        if (val.length == 15) {
-                            this.masktelefone1 = "(##) #####-####";
-                        } else {
-                            this.masktelefone1 = "(##) ####-####";
-                        }
-                    }
-                }
-            },
-
-            'form.data.telefone2': function (val) {
-                if(val != "") {
-                    if (val != null && val.length > 1 && val != "") {
-                        if (val.length == 15) {
-                            this.masktelefone2 = "(##) #####-####";
-                        } else {
-                            this.masktelefone2 = "(##) ####-####";
-                        }
-                    }
-                }
-            },
-
-            'form.data.telefone3': function (val) {
-                if(val != "(") {
-                    if (val != null && val.length > 1 && val != "") {
-                        if (val.length == 15) {
-                            this.masktelefone3 = "(##) #####-####";
-                        } else {
-                            this.masktelefone3 = "(##) ####-####";
-                        }
-                    }
+                    $("#formFields").toggle('100')
+                    this.cpf_cnpj_mask = '###.###.###-##'
                 }
             },
 
@@ -107,7 +62,7 @@ if ($('body[view-name="personform"]').length > 0) {
 
                 this.form.get('/cep/cep', {cep: this.form.data.zip}, function(response){
                     thisCopy.form.data.street = response.data[0].logradouro;
-                    thisCopy.form.data.id_cidade= response.data[0].cidade_codigo;
+                    thisCopy.form.data.id_city= response.data[0].cidade_codigo;
                     thisCopy.form.data.city= response.data[0].cidade;
                     thisCopy.form.data.district = response.data[0].bairro;
                     if(thisCopy.form.data.state != response.data[0].uf) {
@@ -115,11 +70,13 @@ if ($('body[view-name="personform"]').length > 0) {
                         thisCopy.changeUf();
                     }
 
-                    if(thisCopy.form.data.bairro == null || thisCopy.form.data.bairro == ''){
-                        thisCopy.$refs.bairro.focus();
-                    }else{
-                        thisCopy.$refs.numero.focus();
+                    if(thisCopy.form.data.district == null || thisCopy.form.data.district == ''){
+                        thisCopy.$refs.district.focus();
                     }
+                    // else
+                    // {
+                    //     thisCopy.$refs.street_number.focus();
+                    // }
                 });
             },
 
@@ -131,81 +88,20 @@ if ($('body[view-name="personform"]').length > 0) {
                     thisCopy.setCidades(response.data);
                 });
             },
-
             setCidades(cidades){
                 this.cidades = cidades;
-                this.cidadeSelected = util.findInArrayObject('value', this.form.data.id_cidade, cidades);
+                this.cidadeSelected = util.findInArrayObject('value', this.form.data.id_city, cidades);
             },
 
             onSelectCidade(item){
                 this.cidadeSelected = item;
-                this.form.data.id_cidade = item.value;
-                this.form.data.cidade = item.text;
-            },
-
-            //pesquisa da instituição
-            changeUfInstituicao(){
-                let thisCopy = Object.assign({} , this);
-                let uf = this.instituicao.uf == undefined ? 'SP' : this.instituicao.uf;
-
-                this.form.get('/cep/cidades', {uf: uf}, function(response){
-                    thisCopy.setCidadesInstituicao(response.data);
-                });
-            },
-
-            setCidadesInstituicao(cidades) {
-                this.cidadesInstituicao = cidades;
-
-                try {
-                    this.cidadeInstituicaoSelected = util.findInArrayObject('value', this.instituicao.id_cidade, cidades);
-                    this.onSelectCidadeInstituicao(this.cidadeInstituicaoSelected);
-                }catch (e){
-                    console.log(e);
-                }
-            },
-
-            onSelectCidadeInstituicao(item){
-                let thisCopy = Object.assign({} , this);
-                this.cidadeInstituicaoSelected = item;
-
-                this.form.get('/cb_geral_instituicao/find', {id_cidade: item.value}, function(response){
-                    thisCopy.setInstituicoes(response.data);
-                });
-            },
-
-            setInstituicoes(instituicoes){
-                this.instituicoes = instituicoes;
-                this.instituicaoSelected = util.findInArrayObject('value', this.instituicao.id, instituicoes);
-            },
-
-            onSelectInstituicao(item){
-                this.instituicaoSelected = item;
-                this.form.data.id_cb_geral_instituicao = item.value;
-            },
-
-            setInstituicao(data){
-                if(this.instituicao.uf == undefined){
-                    if(data != undefined && data != null){
-                        this.instituicao = data;
-                        this.changeUfInstituicao();
-                        this.instituicaoSelected = {value: data.id, text: data.nome};
-                    }
-                }
-            },
-
-            //tipos de pessoa
-            setCbGeralTipoPessoa(data){
-                if(this.cb_geral_tipo_pessoa == undefined){
-                    if(data == null){
-                        this.cb_geral_tipo_pessoa = [];
-                    }else{
-                        this.cb_geral_tipo_pessoa = data;
-                    }
-                }
+                this.form.data.id_city = item.value;
+                this.form.data.city = item.text;
             },
 
             submit_form() {
-                let url = '/pessoa';
+                let url = '/person';
+                this.form.data.type = this.picked
                 this.form.submit(url, this.onSuccess);
             },
 
@@ -227,7 +123,120 @@ if ($('body[view-name="personform"]').length > 0) {
                     console.log(e);
                 }
             },
+            activeDisabled(id, type){
+                if(type == 1){
+                    var msn = "Deseja desativar este registro?";
+                    var btn = "Desativar";
+                }else{
+                    var msn = "Deseja ativar este registro?";
+                    var btn = "Ativar";
+                }
 
+                let originalData = Object.assign({} , this);
+
+                this.$refs.modal.configModal('Aviso', msn, btn, 'Cancelar', function () {
+                    let url = window.baseUrl+'/post/activeDisabled';
+                    originalData.form.post(url, {id: id, type: type}, originalData.onSuccessActiveDisabled);
+                });
+                this.$refs.modal.show();
+            },
+
+        },
+    });
+}
+
+if ($('body[view-name="personindex"]').length > 0) {
+    window.vue = new Vue({
+        el: '#app',
+        components: {
+            Modal,BasicSelect
+        },
+        data: {
+            form: new Form(),
+            modal: Modal,
+            cidadeSelected: {},
+            cidades: [],
+            cpf_cnpj_mask: '##.###.###/####-##',
+            picked: '',
+
+            cb_geral_tipo_pessoa: undefined,
+            tipos_pessoa: [],
+
+            instituicao: {},
+            instituicaoSelected: {},
+            instituicoes:[],
+            cidadeInstituicaoSelected: {},
+            cidadesInstituicao: [],
+
+        },
+        mounted() {
+
+        },
+        updated(){
+
+        },
+        watch: {
+
+
+        },
+        methods: {
+            activeDisabled(id,type)
+            {
+                if(type == 1){
+                    var msn = "Deseja desativar este registro?";
+                    var btn = "Desativar";
+                }else{
+                    var msn = "Deseja ativar este registro?";
+                    var btn = "Ativar";
+                }
+
+                let originalData = Object.assign({} , this);
+
+
+                this.$refs.modal.configModal('Aviso', msn, btn, 'Cancelar', function () {
+                    let url = window.baseUrl+'/person/activeDisabled';
+                    originalData.form.post(url, {id: id, type: type}, originalData.onSuccessActiveDisabled);
+                });
+                this.$refs.modal.show();
+            },
+
+            onSuccessActiveDisabled(response)
+            {
+                try {
+                    if (response.data.result == true){
+                        this.$refs.modal.configModal('Sucesso', response.data.msg, 'OK', '', function () {
+                            $('#modal').modal('hide');
+
+                            if(response.data.type == 1){
+                                $('#check'+response.data.id).removeClass('font-active-none');
+                                $('#times'+response.data.id).addClass('font-active-none');
+
+                                $('#btnCheck'+response.data.id).removeClass('font-active-none');
+                                $('#btnTimes'+response.data.id).addClass('font-active-none');
+
+                                $('#table'+response.data.id).removeClass('danger');
+                            }else{
+                                $('#check'+response.data.id).addClass('font-active-none');
+                                $('#times'+response.data.id).removeClass('font-active-none');
+
+                                $('#btnTimes'+response.data.id).prop( "disabled", false );
+
+                                $('#btnCheck'+response.data.id).addClass('font-active-none');
+                                $('#btnTimes'+response.data.id).removeClass('font-active-none');
+
+                                $('#table'+response.data.id).addClass('danger');
+                            }
+
+                        });
+                        this.$refs.modal.show();
+                    } else {
+                        this.$refs.modal.configModal('Aviso', response.data.msg, '', 'OK');
+                        this.$refs.modal.show();
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            },
         },
     });
 }

@@ -68,7 +68,7 @@ class User extends CawModelUser
                 if (Auth::attempt(['email' => $email, 'password' => $password])){
                     $all_permissions = array_merge($user->getUserPermissoesNickname()->toArray());
 
-                    Session::put('user', $email);
+                    Session::put('user', $user);
                     Session::put('permissoes', $all_permissions);
                     Session::save();
 

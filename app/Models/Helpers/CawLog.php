@@ -17,7 +17,7 @@ class CawLog extends Model
     ];
 
     protected $hidden = [];
-    public $timestamps = false;
+    public $timestamps = true;
 
     /*protected static function boot()
     {

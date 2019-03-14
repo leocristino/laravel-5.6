@@ -6,6 +6,9 @@ body.login, body.login .wrapper{
     background: #dadada;
 }
 
+
+
+
 div.loading{
     position: fixed;
     top: 0;
@@ -155,4 +158,12 @@ a, a:hover, a:focus {
 
 .type-date input{
     line-height:100% !important;
+}
+
+.skin-black .wrapper{
+    min-height: 100vh !important;
+}
+
+.font-active-none{
+  display: none;
 }

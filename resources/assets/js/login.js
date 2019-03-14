@@ -14,6 +14,7 @@ if ($('body[view-name="login"]').length > 0) {
             modal: Modal
         },
         mounted() {
+            this.$refs.email.focus();
         },
         methods: {
             submit_form() {

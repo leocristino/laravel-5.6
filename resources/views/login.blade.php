@@ -3,7 +3,7 @@
 @section('main')
     <div class="login-box">
         <div class="login-logo text-center">
-            <img src="{{asset('images/logotatical.png')}}" alt="Aloha Viagens" style="max-height: 120px">
+            <img src="{{asset('images/logotatical.png')}}" alt="Tatical Monitoramento" style="max-height: 120px">
         </div><!-- /.login-logo -->
         <div class="login-box-body">
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Cep;
+use \DB;
 
 class PersonController extends Controller
 {
@@ -22,19 +23,11 @@ class PersonController extends Controller
     {
         $pessoa = new Person();
 
-        if ($pessoa->type === "J")
-            $pessoa->type = "J";
-        else
-            $pessoa->type = "F";
-
-        $pessoa->type = 'F';
-        $pessoa->active = 'S';
+        $pessoa->active = 1;
         return view('person.form',
             [
                 'data' => $pessoa,
                 'uf' => Cep::listaUFs(),
-//                'cb_geral_tipo_pessoa' => CbGeralTipoPessoa::get(),
-//                'cb_geral_instituicao' => null
             ]
         );
     }
@@ -42,14 +35,12 @@ class PersonController extends Controller
     public function edit($id)
     {
         $pessoa = Person::find($id);
-//        dd($pessoa);
-        $pessoa['pessoa_tipo_pessoa'] = $pessoa->getTipoPessoa();
+
+
         return view('person.form',
             [
                 'data' => $pessoa,
                 'uf' => Cep::listaUFs(),
-//                'cb_geral_tipo_pessoa' => CbGeralTipoPessoa::get(),
-//                'cb_geral_instituicao' => CbGeralInstituicao::find($pessoa->id_cb_geral_instituicao)
             ]
         );
     }
@@ -59,27 +50,57 @@ class PersonController extends Controller
         if(empty($request->get('id'))){
             $pessoa = new Person();
         }else {
-            $pessoa = Pessoa::find($request->get('id'));
+            $pessoa = Person::find($request->get('id'));
         }
 
         $pessoa->fill($request->toArray());
-
         try {
             DB::beginTransaction();
 
-            $res = $pessoa->save();
-            $res2 = $pessoa->setTipoPessoa($request->get('pessoa_tipo_pessoa'));
+            if($request->get('active') == null){
+                $pessoa->active = 0;
+            }else{
+                $pessoa->active = 1;
+            }
 
-            if ($res === true && $res2 === true) {
+            $res = $pessoa->save();
+
+            if ($res === true) {
                 DB::commit();
                 return ['result' => 'true', 'msg' => '', 'pessoa' => $pessoa];
             } else {
                 DB::rollBack();
-                return ['result' => 'false', 'msg' => ($res !== true) ? $res->getMessage() : $res2->getMessage()];
+                return ['result' => 'false', 'msg' => ($res !== true) ? $res->getMessage() : ""];
             }
         }catch (QueryException $e){
             DB::rollBack();
             return ['result' => 'false', 'msg' => $e->getMessage()];
+        }
+    }
+
+    public function activeDisabled(Request $request)
+    {
+        try {
+            $res = Person::activeDisabled($request->id, $request->type);
+
+            if($request->type == 1){
+                $msn = "Registro foi desativado com sucesso.";
+                $type = 0;
+            }else{
+                $type = 1;
+                $msn = "Registro foi ativado com sucesso.";
+            }
+
+            if ($res === true) {
+                DB::commit();
+                return ['result' => true, 'msg' => $msn, 'id' => $request->id, 'type' => $type];
+            } else {
+                DB::rollBack();
+                return ['result' => false, 'msg' => 'Ocorreu um erro, por favor entrar em contato com o Administrador.'];
+            }
+        }catch (QueryException $e){
+            DB::rollBack();
+            return ['result' => false, 'msg' => $e->getMessage()];
         }
     }
 }

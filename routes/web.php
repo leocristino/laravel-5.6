@@ -32,8 +32,9 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::resource('/user', 'UserController');
     Route::resource('/user_grupo', 'UserGrupoController');
 
-    Route::get('/pessoa/list-pessoa', 'PessoaController@listPessoa');
+    Route::get('/person/list-person', 'PessoaController@listPessoa');
     Route::resource('/person', 'PersonController');
+    Route::post('/person/activeDisabled', 'PersonController@activeDisabled');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });
