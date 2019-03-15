@@ -53,6 +53,14 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'history':
+                if(Permissao::userHasPermissao('HISTORY')) {
+                    return $next($request);
+                }
+                break;
+
+
+
         }
 
         //o que não cair nas regras acima, retorna erro!

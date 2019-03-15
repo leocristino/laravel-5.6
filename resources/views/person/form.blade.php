@@ -26,26 +26,36 @@
                                 <div class="form-group col-md-4">
                                     <label>Tipo: </label>
 
-                                    <input type="radio" id="type" name="type" value="F" v-model="picked" required/>
-                                    <label for="F">Física</label>
+                                    <input type="radio" id="typeF" name="typeF" value="F" v-model="picked" required :disabled="this.form.data.id != undefined"/>
+                                    <label for="typeF">Física</label>
 
-                                    <input type="radio" id="type" name="type" value="J" v-model="picked" required/>
-                                    <label for="J">Jurídica</label>
+                                    <input type="radio" id="typeJ" name="type"  value="J" v-model="picked" required :disabled="this.form.data.id != undefined"/>
+                                    <label for="typeJ">Jurídica</label>
                                 </div>
 
                                 <br><br>
 
                                 <div id="formFields" style="display:none;">
-                                    <div class="form-group col-md-4">
-                                        <label v-if="picked == 'F'">Nome</label>
-                                        <label v-else-if="picked == 'J'">Razão Social</label>
-                                        <input type="text" class="form-control" v-model="form.data.name_social_name" required maxlength="100"/>
+                                    <div>
+                                        <div class="form-group" :class="this.picked=='F' ? 'col-md-12' : 'col-md-6'">
+                                            <label v-if="picked == 'F'">Nome</label>
+                                            <label v-else-if="picked == 'J'">Razão Social</label>
+                                            <input type="text" class="form-control" v-model="form.data.name_social_name" required ref="name_social_name" maxlength="100"/>
+                                        </div>
+
+                                        <div class="form-group col-md-6" v-if="picked == 'J'">
+                                            <label >Nome Fantasia</label>
+                                            <input type="text" class="form-control" v-model="form.data.fantasyname" required maxlength="100"/>
+                                        </div>
+
                                     </div>
 
-                                    <div class="form-group col-md-4">
+
+                                    <div class="form-group" :class="this.picked == 'J' ? 'col-md-6' : 'col-md-4'">
                                         <label v-if="picked == 'F'">CPF</label>
-                                        <label v-else-if="picked == 'J'">CNPJ</label>
-                                        <input type="text" class="form-control" v-model="form.data.cpf_cnpj " required v-mask="cpf_cnpj_mask"/>
+                                        <input v-if="picked == 'F'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " required v-mask="['###.###.###-##']"/>
+                                        <label v-if="picked == 'J'">CNPJ</label>
+                                        <input v-if="picked == 'J'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " required v-mask="['##.###.###/####-##']"/>
                                     </div>
 
                                     <div  v-if="picked == 'F'" class="form-group col-md-4">
@@ -53,7 +63,7 @@
                                         <input type="text" class="form-control" v-model="form.data.rg" maxlength="20"/>
                                     </div>
 
-                                    <div v-if="picked == 'J'" class="form-group col-md-4">
+                                    <div v-if="picked == 'J'" class="form-group col-md-6">
                                         <label>Inscrição Estadual</label>
                                         <input type="text" class="form-control" v-model="form.data.ie" maxlength="20"/>
                                     </div>

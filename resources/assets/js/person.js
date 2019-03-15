@@ -14,7 +14,6 @@ if ($('body[view-name="personform"]').length > 0) {
             modal: Modal,
             cidadeSelected: {},
             cidades: [],
-            cpf_cnpj_mask: '##.###.###/####-##',
             picked: '',
 
             cb_geral_tipo_pessoa: undefined,
@@ -31,9 +30,7 @@ if ($('body[view-name="personform"]').length > 0) {
             this.changeUf();
             if(this.form.data.type != null){
                 this.picked = this.form.data.type;
-                if(this.form.data.type == "J"){
-                    this.cpf_cnpj_mask = '##.###.###/####-##';
-                }
+
             }
         },
         updated(){
@@ -41,18 +38,17 @@ if ($('body[view-name="personform"]').length > 0) {
         },
         watch: {
             'picked' : function () {
-
                 $("#formFields").hide()
                 if(this.picked == "J")
                 {
                     $("#formFields").toggle('100')
-                    this.cpf_cnpj_mask = '##.###.###/####-##'
                 }
                 else if (this.picked == "F")
                 {
                     $("#formFields").toggle('100')
-                    this.cpf_cnpj_mask = '###.###.###-##'
                 }
+                this.$refs.name_social_name.focus()
+
             },
 
         },
@@ -102,6 +98,7 @@ if ($('body[view-name="personform"]').length > 0) {
             submit_form() {
                 let url = '/person';
                 this.form.data.type = this.picked
+
                 this.form.submit(url, this.onSuccess);
             },
 
@@ -115,7 +112,7 @@ if ($('body[view-name="personform"]').length > 0) {
                         });
                         this.$refs.modal.show(1500);
                     } else {
-                        this.form.reset();
+                        // this.form.reset();
                         this.$refs.modal.configModal('Erro', response.data.msg, '', 'OK');
                         this.$refs.modal.show();
                     }
@@ -156,7 +153,6 @@ if ($('body[view-name="personindex"]').length > 0) {
             modal: Modal,
             cidadeSelected: {},
             cidades: [],
-            cpf_cnpj_mask: '##.###.###/####-##',
             picked: '',
 
             cb_geral_tipo_pessoa: undefined,

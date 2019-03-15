@@ -41,13 +41,18 @@
                                                 <th class="hidden-xs">E-mail</th>
                                                 <th class="hidden-xs">Status</th>
                                                 <th width="50px"></th>
+                                                <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}">
+                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}">
                                                 <td>{{ $item->name }}</td>
                                                 <td class="hidden-xs">{{ $item->email }}</td>
                                                 <td class="hidden-xs"><i class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td>
+                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
+                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
+                                                </td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>

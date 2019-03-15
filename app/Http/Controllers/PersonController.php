@@ -54,6 +54,7 @@ class PersonController extends Controller
         }
 
         $pessoa->fill($request->toArray());
+
         try {
             DB::beginTransaction();
 
@@ -62,7 +63,6 @@ class PersonController extends Controller
             }else{
                 $pessoa->active = 1;
             }
-
             $res = $pessoa->save();
 
             if ($res === true) {

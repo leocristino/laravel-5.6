@@ -35,8 +35,8 @@
                         <li><a href="{{URL::to('/')}}/person">Pessoas</a></li>
                     @endif
 
-                    @if(\App\Models\Permissao::userHasPermissao('USER_GRUPO'))
-                    <li><a href="{{URL::to('/')}}/user_grupo">Grupos de Usuários</a></li>
+                    @if(\App\Models\Permissao::userHasPermissao('HISTORY'))
+                        <li><a href="{{URL::to('/')}}/history">Histórico de Clientes</a></li>
                     @endif
                 </ul>
             </li>

@@ -26,15 +26,25 @@ Route::post('/changePassword', 'UserController@alterarSenha');
 Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 //    Route::resource('/home', 'HomeController');
 
+    #PESQUISA POR CEP
     Route::get('/cep/cep', 'CepController@findCep');
     Route::get('/cep/cidades', 'CepController@findCidades');
 
+    #USER
     Route::resource('/user', 'UserController');
-    Route::resource('/user_grupo', 'UserGrupoController');
+//    Route::resource('/user_grupo', 'UserGrupoController');
+    Route::post('/user/activeDisabled', 'UserController@activeDisabled');
 
+
+    #PESSOAS
     Route::get('/person/list-person', 'PessoaController@listPessoa');
     Route::resource('/person', 'PersonController');
     Route::post('/person/activeDisabled', 'PersonController@activeDisabled');
+    Route::get('/person/pdf', 'PersonController@pdf');
+    Route::get('/person/csv', 'PersonController@csv');
+
+    #HISTORICO
+    Route::resource('/history', 'HistoryController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

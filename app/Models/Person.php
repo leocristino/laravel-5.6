@@ -76,6 +76,7 @@ class Person extends CawModel
 
     public function save(array $options = [])
     {
+
         if($this->type == 'J')
         {
             if(!CawHelpers::isCNPJ($this->cpf_cnpj)){
@@ -102,6 +103,7 @@ class Person extends CawModel
     {
         if ($value != "")
         {
+            $value = CawHelpers::removeFormatting($value);
             if (strlen($value) == 14)
             {
                 return CawHelpers::mask($value, '##.###.###/####-##');
@@ -147,6 +149,10 @@ class Person extends CawModel
         }catch (QueryException $e){
             return false;
         }
+    }
+
+    public static function getSelect(){
+        return Person::get();
     }
 
 }

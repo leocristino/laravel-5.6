@@ -50,7 +50,7 @@ class CreateUsersTable extends Migration
         );
 
         DB::table('permissao')->insert(
-            ['nome' => 'User', 'nickname' => 'USER']
+            ['nome' => 'Gestão de Usuários', 'nickname' => 'USER']
         );
 
         DB::table('user_permissao')->insert(

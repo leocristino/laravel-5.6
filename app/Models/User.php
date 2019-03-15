@@ -159,4 +159,34 @@ class User extends CawModelUser
             return $e;
         }
     }
+
+    public static function activeDisabled($id_user, $type){
+
+        try {
+            $person = User::where('id', '=', $id_user)
+                ->first();
+
+            if($person != null) {
+
+                if ($type == 1) {
+                    $person->active = 0;
+                } else {
+                    $person->active = 1;
+                }
+
+                $res = $person->save();
+
+                if($res === true){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+
+        }catch (QueryException $e){
+            return false;
+        }
+    }
 }

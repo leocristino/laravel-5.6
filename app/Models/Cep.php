@@ -49,6 +49,7 @@ class Cep extends Model
             return false;
         }
 
+
         $sql = "select e.endereco_logradouro as logradouro, c.cidade_codigo, c.cidade_descricao as cidade, b.bairro_descricao as bairro, uf.uf_sigla as uf
                 from cidade c
                 join uf on uf.uf_codigo = c.uf_codigo
