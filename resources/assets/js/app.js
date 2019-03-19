@@ -41,6 +41,7 @@ require('./user');
 require('./password');
 require('./login');
 require('./person');
+require('./history');
 
 
 if(window.vue == undefined) {

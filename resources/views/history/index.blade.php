@@ -47,7 +47,7 @@
                                             <tr id="table{{ $item->id }}" >
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->created_at }}</td>
-                                                <td class="hidden-xs">{{ $item->contact_time }}</td>
+                                                <td class="hidden-xs">{{ substr($item->contact_time,0,10) }} {{ $item->contact_time_hour }}</td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>

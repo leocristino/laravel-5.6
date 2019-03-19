@@ -49,7 +49,7 @@ class RedirectIfAuthenticated
 
             case 'person':
                 if(Permissao::userHasPermissao('PERSON')) {
-                    return $next($request);
+                   return $next($request);
                 }
                 break;
 

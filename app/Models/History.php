@@ -15,6 +15,7 @@ class History extends CawModel
         'id_person',
         'description',
         'contact_time',
+        'contact_time_hour'
     ];
 
 

@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Cadastro de Histórico [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name_social_name }} ]</h1>
+        <h1>Cadastro de Histórico [ @{{ form.data.id == undefined ? 'Novo' : namePerson }} ]</h1>
     </section>
     <section class="content">
         <div class="row">
@@ -11,6 +11,7 @@
 
                     <div class="hidden">
                         @{{ form.setData(<?= $data ?>) }}
+                        @{{ nomePessoa(<?= $person ?>) }}
 
                     </div>
 
@@ -23,13 +24,12 @@
 
                             <div class="col-md-12">
 
-                                <br><br>
-
                                 <div id="formFields">
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
                                         <label>Cliente</label>
-                                        <select class="form-control" name="" id="">
+                                        <select class="form-control" v-model="person" required>
+                                            <option value="">Selecione um valor</option>
                                             @foreach($person as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach
@@ -37,17 +37,23 @@
                                     </div>
 
                                     <div class="form-group col-md-6 type-date">
-                                        <label>Data de Cadastro</label>
-                                        <input type="date" class="form-control" v-model="form.data.contact_time" />
+                                        <label>Data do Contato</label>
+                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="form.data.contact_time"/>
                                     </div>
-
+                                    <div class="form-group col-md-6">
+                                        <label>Horário</label>
+                                        <input type="time" class="form-control" v-model="form.data.contact_time_hour" />
+                                    </div>
 
 
 
                                     <div class="form-group col-md-12">
                                         <label>Observação</label>
-                                        <textarea v-model="form.data.description" id="description"  class="form-control ckeditor" maxlength="255"></textarea>
+                                        <textarea v-model="form.data.description" id="description"  class="form-control ckeditor" required maxlength="255"></textarea>
                                     </div>
+
+
+                                <br><br>
 
                                 </div>
 

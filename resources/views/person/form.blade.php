@@ -26,7 +26,7 @@
                                 <div class="form-group col-md-4">
                                     <label>Tipo: </label>
 
-                                    <input type="radio" id="typeF" name="typeF" value="F" v-model="picked" required :disabled="this.form.data.id != undefined"/>
+                                    <input type="radio" id="typeF" name="type" value="F" v-model="picked" required :disabled="this.form.data.id != undefined"/>
                                     <label for="typeF">Física</label>
 
                                     <input type="radio" id="typeJ" name="type"  value="J" v-model="picked" required :disabled="this.form.data.id != undefined"/>
@@ -53,9 +53,9 @@
 
                                     <div class="form-group" :class="this.picked == 'J' ? 'col-md-6' : 'col-md-4'">
                                         <label v-if="picked == 'F'">CPF</label>
-                                        <input v-if="picked == 'F'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " required v-mask="['###.###.###-##']"/>
+                                        <input v-if="picked == 'F'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="999.999.999-99" required v-mask="['###.###.###-##']"/>
                                         <label v-if="picked == 'J'">CNPJ</label>
-                                        <input v-if="picked == 'J'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " required v-mask="['##.###.###/####-##']"/>
+                                        <input v-if="picked == 'J'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="99.999.999/9999-99" required v-mask="['##.###.###/####-##']"/>
                                     </div>
 
                                     <div  v-if="picked == 'F'" class="form-group col-md-4">
@@ -73,34 +73,34 @@
                                         <input type="date" class="form-control" v-model="form.data.date_birth" />
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>E-mail</label>
                                         <input type="email" class="form-control" v-model="form.data.email" required maxlength="100"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Telefone Fixo</label>
-                                        <input type="text" class="form-control" v-model="form.data.fixed_telephone" maxlength="20" v-mask="['(##) ####-####', '(##) #####-####']"/>
+                                        <input type="text" class="form-control" v-model="form.data.fixed_telephone" placeholder="(99)9999-9999" maxlength="20" v-mask="['(##) ####-####', '(##) #####-####']"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Celular</label>
-                                        <input type="text" class="form-control" v-model="form.data.cellphone" maxlength="50" v-mask="['(##) ####-####', '(##) #####-####']"/>
+                                        <input type="text" class="form-control" v-model="form.data.cellphone" maxlength="50" placeholder="(99)99999-9999" v-mask="['(##) ####-####', '(##) #####-####']"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>CEP</label>
-                                        <input type="text" class="form-control" v-on:blur="findCep()" v-model="form.data.zip" maxlength="100"  v-mask="['##.###-###']"/>
+                                        <input type="text" class="form-control" v-on:blur="findCep()" v-model="form.data.zip" placeholder="99.999-999" maxlength="100"  v-mask="['##.###-###']"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label>Rua</label>
+                                    <div class="form-group col-md-6">
+                                        <label>Logradouro</label>
                                         <input type="text" class="form-control" v-model="form.data.street" maxlength="100"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label>Número</label>
-                                        <input type="text" class="form-control" v-model="form.data.street_number" maxlength="30"/>
+                                        <input type="text" class="form-control" v-model="form.data.street_number" ref="street_number" maxlength="30"/>
                                     </div>
 
                                     <div class="form-group col-md-4">
@@ -132,7 +132,7 @@
                                         </basic-select>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-8">
                                         <label>Observação</label>
                                         <input type="text" class="form-control" v-model="form.data.obs" maxlength="255"/>
                                     </div>

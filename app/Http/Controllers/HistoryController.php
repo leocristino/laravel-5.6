@@ -35,11 +35,12 @@ class HistoryController extends Controller
     public function edit($id)
     {
         $history = History::find($id);
-
+        $person = Person::getSelect();
 
         return view('history.form',
             [
                 'data' => $history,
+                'person' => $person,
             ]
         );
     }
@@ -47,26 +48,21 @@ class HistoryController extends Controller
     public function store(Request $request)
     {
         if(empty($request->get('id'))){
-            $pessoa = new Person();
+            $history = new History();
         }else {
-            $pessoa = Person::find($request->get('id'));
+            $history = History::find($request->get('id'));
         }
 
-        $pessoa->fill($request->toArray());
+        $history->fill($request->toArray());
 
         try {
             DB::beginTransaction();
 
-            if($request->get('active') == null){
-                $pessoa->active = 0;
-            }else{
-                $pessoa->active = 1;
-            }
-            $res = $pessoa->save();
+            $res = $history->save();
 
             if ($res === true) {
                 DB::commit();
-                return ['result' => 'true', 'msg' => '', 'pessoa' => $pessoa];
+                return ['result' => 'true', 'msg' => '', 'history' => $history];
             } else {
                 DB::rollBack();
                 return ['result' => 'false', 'msg' => ($res !== true) ? $res->getMessage() : ""];

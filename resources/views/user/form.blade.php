@@ -25,12 +25,12 @@
 
                                 <div class="form-group col-md-4">
                                     <label>Usuário</label>
-                                    <input type="text" class="form-control" v-model="form.data.name" maxlength="20" ref="name" required/>
+                                    <input type="text" class="form-control" v-model="form.data.name" maxlength="190" ref="name" required/>
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label>E-Mail</label>
-                                    <input type="email" class="form-control" v-model="form.data.email" required maxlength="255"/>
+                                    <input type="email" class="form-control" v-model="form.data.email" required maxlength="190"/>
                                 </div>
 
                                 <div class="form-group col-md-4">

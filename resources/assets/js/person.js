@@ -65,14 +65,14 @@ if ($('body[view-name="personform"]').length > 0) {
                         thisCopy.form.data.state = response.data[0].uf;
                         thisCopy.changeUf();
                     }
-
+                    console.log(thisCopy.form.data.district)
                     if(thisCopy.form.data.district == null || thisCopy.form.data.district == ''){
                         thisCopy.$refs.district.focus();
                     }
-                    // else
-                    // {
-                    //     thisCopy.$refs.street_number.focus();
-                    // }
+                    else
+                    {
+                        thisCopy.$refs.street_number.focus();
+                    }
                 });
             },
 
@@ -107,7 +107,7 @@ if ($('body[view-name="personform"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', 'Registro salvo!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', 'Pessoa cadastrada!', 'OK', '', function () {
                             util.goBack();
                         });
                         this.$refs.modal.show(1500);

@@ -64,7 +64,7 @@
                                             <tr role="row">
                                                 <th>Nome / Razão Social</th>
                                                 <th class="hidden-xs">CPF / CNPJ</th>
-                                                <th class="hidden-xs">Status</th>
+                                                <th class="hidden-xs">Ativo</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
