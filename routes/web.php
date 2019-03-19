@@ -46,5 +46,9 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #HISTORICO
     Route::resource('/history', 'HistoryController');
 
+    #SERVICE
+    Route::post('/service/activeDisabled', 'ServiceController@activeDisabled');
+    Route::resource('/service', 'ServiceController');
+
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

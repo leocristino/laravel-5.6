@@ -59,6 +59,12 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'service':
+                if(Permissao::userHasPermissao('SERVICE')) {
+                    return $next($request);
+                }
+                break;
+
 
 
         }
