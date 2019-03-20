@@ -43,6 +43,7 @@ require('./login');
 require('./person');
 require('./history');
 require('./service');
+require('./ticket');
 
 
 if(window.vue == undefined) {

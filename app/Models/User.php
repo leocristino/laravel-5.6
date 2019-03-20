@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Helpers\CawHelpers;
 use App\Models\Helpers\CawModelUser;
 use Doctrine\DBAL\Query\QueryException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -137,22 +138,29 @@ class User extends CawModelUser
             $userAuth = Auth::id();
 
             $user = User::where('id', '=', $userAuth)
-                            ->where('senha', '=', $senha_atual)
-                            ->where('ativo', '=', 'S')
+                            ->where('active', '=', 1)
                             ->first();
 
+
             if(isset($user)){
-                if($nova_senha == $confirma_senha){
 
-                    $user->senha = $nova_senha;
-                    $res = $user->save();
+                if (Hash::check($senha_atual, $user->password))
+                {
+                    if($nova_senha == $confirma_senha){
 
-                    return $res;
+                        $user->password = bcrypt($nova_senha);
+                        $res = $user->save();
+
+                        return ['result' => $res, 'msg' => ''];
+                    }else{
+                        return ['result' => false, 'msg' => 'Senhas incorretas.'];
+                    }
                 }else{
-                    return false;
+                    return ['result' => false, 'msg' => 'Sua senha atual esta errada.'];
                 }
+
             }else{
-                return false;
+                return ['result' => false, 'msg' => 'Usuário não existente.'];
             }
 
         }catch (QueryException $e){

@@ -50,5 +50,10 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/service/activeDisabled', 'ServiceController@activeDisabled');
     Route::resource('/service', 'ServiceController');
 
+    #TICKET
+    Route::resource('/ticket', 'TicketController');
+    Route::post('/ticket/activeDisabled', 'TicketController@activeDisabled');
+
+
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

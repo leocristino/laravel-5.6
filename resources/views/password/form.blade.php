@@ -4,7 +4,7 @@
         <link rel="shortcut icon" type="image/png" href="{{asset('images/favicon2.png')}}"/>
     </head>
     <section class="content-header">
-        <h1>Mudar Senha - {{auth()->user()->user}} </h1>
+        <h1>Mudar Senha - {{auth()->user()->name}} </h1>
     </section>
     <section class="content">
         <div class="row">

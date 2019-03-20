@@ -29,7 +29,6 @@
 
                                 <div class="form-group col-md-6">
                                     <label >Valor</label>
-                                    {{--<input type="text" v-money="money" class="form-control" v-model="form.data.value" required maxlength="200"/>--}}
                                     <money class="form-control" v-model="form.data.price" prefix="R$ " decimal="," thousands="." required />
                                 </div>
 

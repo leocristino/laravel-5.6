@@ -29,7 +29,7 @@
                                     <div class="form-group col-md-12">
                                         <label>Cliente</label>
                                         <select class="form-control" v-model="person" required>
-                                            <option value="">Selecione um valor</option>
+                                            <option value="">Selecione um cliente</option>
                                             @foreach($person as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach
@@ -38,7 +38,7 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data do Contato</label>
-                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="form.data.contact_time"/>
+                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required input-name="data_saida" v-model="form.data.contact_time"/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Horário</label>
@@ -49,7 +49,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Observação</label>
-                                        <textarea v-model="form.data.description" id="description"  class="form-control ckeditor" required maxlength="255"></textarea>
+                                        <textarea v-model="form.data.description" id="description" required  class="form-control ckeditor" required maxlength="255"></textarea>
                                     </div>
 
 

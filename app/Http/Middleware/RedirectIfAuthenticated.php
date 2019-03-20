@@ -65,6 +65,11 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'ticket':
+                if(Permissao::userHasPermissao('TICKET')) {
+                    return $next($request);
+                }
+                break;
 
 
         }

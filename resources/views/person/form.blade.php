@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Usuário [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name_social_name }} ]</h1>
+        <h1>Pessoa [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name_social_name }} ]</h1>
     </section>
     <section class="content">
         <div class="row">
