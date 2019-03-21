@@ -16,7 +16,7 @@ class CreateHistoryTable extends Migration
         Schema::create('history', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_person');
-            $table->foreign('id_person')->references('id')->on('person')->onDelete('cascade')->onUpdate('cascade');
+//            $table->foreign('id_person')->references('id')->on('person');
             $table->string('description', 255);
             $table->date('contact_time');
             $table->timestamps();

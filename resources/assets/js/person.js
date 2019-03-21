@@ -202,7 +202,6 @@ if ($('body[view-name="personindex"]').length > 0) {
                     if (response.data.result == true){
                         this.$refs.modal.configModal('Sucesso', response.data.msg, 'OK', '', function () {
                             $('#modal').modal('hide');
-
                             if(response.data.type == 1){
                                 $('#check'+response.data.id).removeClass('font-active-none');
                                 $('#times'+response.data.id).addClass('font-active-none');
@@ -210,12 +209,19 @@ if ($('body[view-name="personindex"]').length > 0) {
                                 $('#btnCheck'+response.data.id).removeClass('font-active-none');
                                 $('#btnTimes'+response.data.id).addClass('font-active-none');
 
+                                $('#imgStatus'+response.data.id).removeClass('fas fa-times');
+                                $('#imgStatus'+response.data.id).addClass('fas fa-check');
+
                                 $('#table'+response.data.id).removeClass('danger');
                             }else{
                                 $('#check'+response.data.id).addClass('font-active-none');
                                 $('#times'+response.data.id).removeClass('font-active-none');
 
                                 $('#btnTimes'+response.data.id).prop( "disabled", false );
+
+                                $('#imgStatus'+response.data.id).removeClass('fas fa-check');
+                                $('#imgStatus'+response.data.id).addClass('fas fa-times');
+
 
                                 $('#btnCheck'+response.data.id).addClass('font-active-none');
                                 $('#btnTimes'+response.data.id).removeClass('font-active-none');

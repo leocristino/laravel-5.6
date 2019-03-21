@@ -14,6 +14,7 @@ class CreateTableService extends Migration
     public function up()
     {
         Schema::create('service', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 200);
             $table->double('price', 8, 2);

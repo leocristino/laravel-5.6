@@ -54,6 +54,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::resource('/ticket', 'TicketController');
     Route::post('/ticket/activeDisabled', 'TicketController@activeDisabled');
 
+    #   BANK_ACCOUNT
+    Route::resource('/bank_account', 'BankAccountController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

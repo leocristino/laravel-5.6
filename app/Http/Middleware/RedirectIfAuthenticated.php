@@ -71,6 +71,12 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'bank_account':
+                if(Permissao::userHasPermissao('BANK_ACCOUNT')) {
+                    return $next($request);
+                }
+                break;
+
 
         }
 

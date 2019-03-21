@@ -15,6 +15,7 @@ class AlterTablePersonAlterFieldNumberToStreetNumber extends Migration
     {
         Schema::table('person', function($table)
         {
+            $table->engine = 'InnoDB';
             $table->renameColumn('number', 'street_number');
         });
     }

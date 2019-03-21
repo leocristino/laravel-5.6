@@ -165,6 +165,7 @@ if ($('body[view-name="userindex"]').length > 0) {
                                 $('#times'+response.data.id).removeClass('font-active-none');
 
                                 $('#btnTimes'+response.data.id).prop( "disabled", false );
+
                                 $('#imgStatus'+response.data.id).removeClass('fas fa-check');
                                 $('#imgStatus'+response.data.id).addClass('fas fa-times');
 

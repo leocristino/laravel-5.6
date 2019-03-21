@@ -124,7 +124,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label>Cidade</label>
-                                        <basic-select :options="cidades"
+                                        <basic-select :options="banks"
                                                       :selected-option="cidadeSelected"
                                                       placeholder="Selecione uma cidade"
                                                       @select="onSelectCidade"

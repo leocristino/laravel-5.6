@@ -20,7 +20,7 @@
                 <a href="{{URL::to('/')}}"><i class="fas fa-home"></i> <span>Dashboard</span></a>
             </li>
 
-            @if(\App\Models\Permissao::userHasPermissao(['USER', 'PERSON', 'HISTORY', 'SERVICE', 'TICKET']))
+            @if(\App\Models\Permissao::userHasPermissao(['USER', 'PERSON', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT']))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users-cog"></i> <span>Segurança</span>
@@ -45,6 +45,10 @@
 
                     @if(\App\Models\Permissao::userHasPermissao('TICKET'))
                         <li><a href="{{URL::to('/')}}/ticket">Cadastro de contas</a></li>
+                    @endif
+
+                    @if(\App\Models\Permissao::userHasPermissao('BANK_ACCOUNT'))
+                        <li><a href="{{URL::to('/')}}/bank_account">Conta Corrente</a></li>
                     @endif
                 </ul>
             </li>

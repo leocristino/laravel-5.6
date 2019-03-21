@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('user', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
@@ -26,6 +27,7 @@ class CreateUsersTable extends Migration
 
 
         Schema::create('permissao', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('nome', 100);
             $table->string('nickname', 100);
@@ -36,6 +38,7 @@ class CreateUsersTable extends Migration
 
 
         Schema::create('user_permissao', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('id_permissao');

@@ -14,6 +14,7 @@ class AlterTableHistoryColumnContactTimeHour extends Migration
     public function up()
     {
         Schema::table('history', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->time("contact_time_hour")->nullable(true)->change();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableAddColumnContactTimeHour extends Migration
+class AlterTableHistoryAddForeingKey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class AlterTableAddColumnContactTimeHour extends Migration
      */
     public function up()
     {
+        Schema::table('history', function($table) {
+            DB::statement('ALTER TABLE `history` DROP `id_person`;');
+        });
+
         Schema::table('history', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->time("contact_time_hour")->nullable(true)->after('contact_time');
+            $table->unsignedInteger('id_person');
+            $table->foreign('id_person')->references('id')->on('person')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -27,7 +32,8 @@ class AlterTableAddColumnContactTimeHour extends Migration
     public function down()
     {
         Schema::table('history', function (Blueprint $table) {
-            $table->dropColumn("contact_time_hour");
+            $table->dropForeign('telefones_tipo_telefone_id_foreign');
+            $table->dropColumn('id_person');
         });
     }
 }

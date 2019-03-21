@@ -44,6 +44,7 @@ require('./person');
 require('./history');
 require('./service');
 require('./ticket');
+require('./bank_account');
 
 
 if(window.vue == undefined) {

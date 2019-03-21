@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Contas</h1>
+            <h1>Cadastro de Contas Corrente</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Conta</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Conta Corrente</button>
             </a>
         </div>
     </section>
@@ -21,28 +21,6 @@
                             <div class="form-group col-md-3 col-sm-6">
                                 <label>Nome</label>
                                 <input type="text" class="form-control" name="name" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}" />
-                            </div>
-
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Tipo</label>
-                                <?php
-                                $select = 2;
-                                if(isset($_GET['type'])){
-                                    if($_GET['type'] == "R"){
-                                        $select = "R";
-                                    }
-                                }
-                                if(isset($_GET['type'])){
-                                    if($_GET['type'] == "D"){
-                                        $select = 'D';
-                                    }
-                                }
-                                ?>
-                                <select name="type" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value=""></option>
-                                    <option {{ $select == 'D' ? 'selected' : ''}} value="D">Despesa</option>
-                                    <option {{ $select == 'R' ? 'selected' : ''}} value="R">Receita</option>
-                                </select>
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">
@@ -80,18 +58,19 @@
                                     <table class="table table-bordered table-hover dataTable" >
                                         <thead>
                                             <tr role="row">
-                                                <th>Tipo</th>
-                                                <th class="hidden-xs">Nome</th>
+                                                <th>Nome</th>
+                                                <th class="hidden-xs">Banco</th>
+                                                <th class="hidden-xs">Emite Boleto</th>
                                                 <th class="hidden-xs">Ativo</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
-{{--                                        {{dd($data)}}--}}
                                             @foreach($data as $item)
                                             <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
-                                                <td>{{ $item->type == "D" ? 'Despesa' : 'Receita'}}</td>
-                                                <td class="hidden-xs">{{ $item->name }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td class="hidden-xs">{{ $item->bank_name }}</td>
+                                                <td class="hidden-xs">{{ $item->bill_option }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>

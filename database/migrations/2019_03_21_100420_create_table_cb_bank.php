@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTablePersonAddFieldIdCity extends Migration
+class CreateTableCbBank extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class AlterTablePersonAddFieldIdCity extends Migration
      */
     public function up()
     {
-        Schema::table('person', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer("id_city")->nullable(true)->after("obs");
+        Schema::create('cb_bank', function (Blueprint $table) {
+            $table->unsignedInteger('id')->primary();
+
+            $table->string('name',100);
         });
+
     }
 
     /**
@@ -26,8 +28,6 @@ class AlterTablePersonAddFieldIdCity extends Migration
      */
     public function down()
     {
-        Schema::table('person', function (Blueprint $table) {
-            $table->dropColumn("id_city");
-        });
+        Schema::dropIfExists('cb_bank');
     }
 }
