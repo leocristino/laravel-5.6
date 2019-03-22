@@ -39,22 +39,22 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Agência</label>
-                                    <input type="text" class="form-control" v-model="form.data.agency" required maxlength="50"/>
+                                    <input type="text" class="form-control" v-model="form.data.agency" maxlength="50"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label >Conta Corrente</label>
-                                    <input type="text" class="form-control" v-model="form.data.account_current" required maxlength="200"/>
+                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="200"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label >Saldo Inicial</label>
-                                    <money class="form-control" v-model="form.data.current_balance" prefix="R$ " decimal="," thousands="." required />
+                                    <money class="form-control" v-model="form.data.currentBalance" prefix="R$ " decimal="," thousands="." required />
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label >Data do Saldo</label>
-                                    <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required input-name="data_saida" v-model="form.data.balance_date"/>
+                                    <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="form.data.balance_date" required/>
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -72,37 +72,37 @@
 
                                         <div class="form-group col-md-2">
                                             <label >Carteira</label>
-                                            <input type="text" class="form-control" v-model="form.data.wallet" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.wallet" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-2">
                                             <label >Cód. Especial</label>
-                                            <input type="text" class="form-control" v-model="form.data.special_code" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.special_code" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label>Convênio (Perfil/Cód. Beneficiário)</label>
-                                            <input type="text" class="form-control" v-model="form.data.pact" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.pact" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label >Cód. Transmissão</label>
-                                            <input type="text" class="form-control" v-model="form.data.transmission_code" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.transmission_code" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-2">
                                             <label >Complemento</label>
-                                            <input type="text" class="form-control" v-model="form.data.complement" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.complement" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-2">
                                             <label >Local de Pagto</label>
-                                            <input type="text" class="form-control" v-model="form.data.local_pay" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.local_pay" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-2">
                                             <label >Instrução</label>
-                                            <input type="text" class="form-control" v-model="form.data.instruction" required maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.instruction" maxlength="50"/>
                                         </div>
 
                                         <div class="form-group col-md-3">
@@ -116,7 +116,7 @@
 
                                         <div class="form-group col-md-3">
                                             <label >Valor de Emissão</label>
-                                            <money class="form-control" v-model="form.data.price_of_send" prefix="R$ " decimal="," thousands="." required />
+                                            <money class="form-control" v-model="form.data.priceOfSend" prefix="R$ " decimal="," thousands="." />
                                         </div>
 
 

@@ -76,6 +76,24 @@ class RedirectIfAuthenticated
                     return $next($request);
                 }
                 break;
+            case 'payment_type':
+                if(Permissao::userHasPermissao('PAYMENT_TYPE')) {
+                    return $next($request);
+                }
+                break;
+
+            case 'imei':
+                if(Permissao::userHasPermissao('IMEI')) {
+                    return $next($request);
+                }
+                break;
+
+            case 'car':
+                if(Permissao::userHasPermissao('CAR')) {
+                    return $next($request);
+                }
+                break;
+
 
 
         }

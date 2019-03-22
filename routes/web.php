@@ -56,6 +56,19 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #   BANK_ACCOUNT
     Route::resource('/bank_account', 'BankAccountController');
+    Route::post('/bank_account/activeDisabled', 'BankAccountController@activeDisabled');
+
+    # PAYMENT_TYPE
+    Route::resource('/payment_type', 'PaymentTypeController');
+    Route::post('/payment_type/activeDisabled', 'PaymentTypeController@activeDisabled');
+
+    #IMEI
+    Route::resource('/imei', 'ImeiController');
+    Route::post('/imei/activeDisabled', 'ImeiController@activeDisabled');
+
+    #CAR
+    Route::resource('/car', 'CarController');
+    Route::post('/car/activeDisabled', 'CarController@activeDisabled');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

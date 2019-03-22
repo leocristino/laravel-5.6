@@ -2,45 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bank;
-use App\Models\BankAccount;
 use Illuminate\Http\Request;
-use App\Models\Person;
+use App\Models\Imei;
 use \DB;
 
-class BankAccountController extends Controller
+class ImeiController extends Controller
 {
     public function index(Request $request)
     {
-        return view('bank_account.index',
+        return view('imei.index',
             [
-                'data' => BankAccount::getList($request),
-                'params' => $request->all()
+                'data' => Imei::getList($request),
+                'params' => $request->all(),
             ]
         );
     }
 
     public function create()
     {
-        $bank_account = new BankAccount();
-        $bank_account->active = 1;
-        return view('bank_account.form',
+        $imei = new Imei();
+        $imei->active = 1;
+
+        return view('imei.form',
             [
-                'data' => $bank_account,
-                'banks' => Bank::getSelectBank(),
+                'data' => $imei,
             ]
         );
     }
 
     public function edit($id)
     {
-        $bank_account = BankAccount::find($id);
+        $imei = Imei::find($id);
 
-
-        return view('bank_account.form',
+        return view('imei.form',
             [
-                'data' => $bank_account,
-                'banks' => Bank::getSelectBank(),
+                'data' => $imei,
             ]
         );
     }
@@ -48,26 +44,21 @@ class BankAccountController extends Controller
     public function store(Request $request)
     {
         if(empty($request->get('id'))){
-            $bank_account = new BankAccount();
+            $imei = new Imei();
         }else {
-            $bank_account = BankAccount::find($request->get('id'));
+            $imei = Imei::find($request->get('id'));
         }
 
-        $bank_account->fill($request->toArray());
+        $imei->fill($request->toArray());
 
         try {
             DB::beginTransaction();
 
-            if($request->get('active') == null){
-                $bank_account->active = 0;
-            }else{
-                $bank_account->active = 1;
-            }
-            $res = $bank_account->save();
+            $res = $imei->save();
 
             if ($res === true) {
                 DB::commit();
-                return ['result' => 'true', 'msg' => '', 'bank' => $bank_account];
+                return ['result' => 'true', 'msg' => '', 'history' => $imei];
             } else {
                 DB::rollBack();
                 return ['result' => 'false', 'msg' => ($res !== true) ? $res->getMessage() : ""];
@@ -77,11 +68,10 @@ class BankAccountController extends Controller
             return ['result' => 'false', 'msg' => $e->getMessage()];
         }
     }
-
     public function activeDisabled(Request $request)
     {
         try {
-            $res = BankAccount::activeDisabled($request->id, $request->type);
+            $res = Imei::activeDisabled($request->id, $request->type);
 
             if($request->type == 1){
                 $msn = "Registro foi desativado com sucesso.";
@@ -103,4 +93,5 @@ class BankAccountController extends Controller
             return ['result' => false, 'msg' => $e->getMessage()];
         }
     }
+
 }

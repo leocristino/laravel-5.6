@@ -27,7 +27,7 @@ class InsertPermissaoTable extends Migration
         );
 
         DB::table('permissao')->insert(
-            ['nome' => 'Serviços contratados', 'nickname' => 'SERVICES']
+            ['nome' => 'Serviços contratados', 'nickname' => 'SERVICE']
         );
 
         DB::table('permissao')->insert(

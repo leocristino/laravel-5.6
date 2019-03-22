@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Contas Corrente</h1>
+            <h1>Cadastro de IMEI</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Conta Corrente</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo IMEI</button>
             </a>
         </div>
     </section>
@@ -19,8 +19,8 @@
                         <form action="{{ url()->current() }}">
 
                             <div class="form-group col-md-3 col-sm-6">
-                                <label>Nome</label>
-                                <input type="text" class="form-control" name="name" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}" />
+                                <label>Número</label>
+                                <input type="text" class="form-control" name="number" value="{{ empty($_GET['number']) ? '' : $_GET['number'] }}" />
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">
@@ -38,13 +38,13 @@
                                     }
                                 }
                                 ?>
-                                <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
+                                <select name="active" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
                                     <option value=""></option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
                             </div>
-                                <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-3 col-sm-6">
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Pesquisar</button>
                             </div>
@@ -57,20 +57,18 @@
                                 <div class="col-sm-12">
                                     <table class="table table-bordered table-hover dataTable" >
                                         <thead>
-                                            <tr role="row">
-                                                <th>Nome</th>
-                                                <th class="hidden-xs">Banco</th>
-                                                <th class="hidden-xs">Emite Boleto</th>
-                                                <th class="hidden-xs">Ativo</th>
-                                                <th width="50px"></th>
-                                                <th width="50px"></th>
+                                        <tr role="row">
+                                            <th>Número</th>
+                                            <th class="hidden-xs">Descrição</th>
+                                            <th class="hidden-xs">Ativo</th>
+                                            <th width="50px"></th>
+                                            <th width="50px"></th>
                                         </thead>
                                         <tbody>
-                                            @foreach($data as $item)
+                                        @foreach($data as $item)
                                             <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
-                                                <td>{{ $item->name }}</td>
-                                                <td class="hidden-xs">{{ $item->bank_name }}</td>
-                                                <td class="hidden-xs">{{ $item->bill_option == "S" ? "SIM": "NÃO"}}</td>
+                                                <td>{{ $item->number }}</td>
+                                                <td class="hidden-xs">{{ $item->description }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
@@ -83,7 +81,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            @endforeach
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

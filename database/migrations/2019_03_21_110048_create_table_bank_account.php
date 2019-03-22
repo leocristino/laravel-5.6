@@ -21,7 +21,7 @@ class CreateTableBankAccount extends Migration
             $table->foreign('id_bank')->references('id')->on('cb_bank')->onDelete('cascade')->onUpdate('cascade');
             $table->string('agency', 50);
             $table->string('account_current', 20);
-            $table->double('current_balance',8,2);
+            $table->double('currentBalance',8,2);
             $table->date('balance_date');
             $table->string('bill_option',1);
             $table->string('wallet',50);
@@ -32,7 +32,7 @@ class CreateTableBankAccount extends Migration
             $table->string('local_pay', 100);
             $table->string('instruction', 100);
             $table->string('who_send_ticket', 100);
-            $table->double('price_of_send', 8,2);
+            $table->double('priceOfSend', 8,2);
             $table->tinyInteger('active')->default(0);
             $table->timestamps();
         });

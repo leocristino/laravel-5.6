@@ -6,7 +6,7 @@ import Datepicker from 'vue2-datepicker';
 
 
 
-if ($('body[view-name="bank_accountform"]').length > 0) {
+if ($('body[view-name="payment_typeform"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
@@ -15,21 +15,9 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
         data: {
             form: new Form(),
             modal: Modal,
-            bankSelected: "",
-            bank: [],
-            tipos_pessoa: [],
         },
         mounted() {
-            if(this.form.data.contact_time == null)
-            {
-                this.form.data.contact_time = new Date()
-            }
-            else
-                this.form.data.contact_time = new Date(this.form.data.contact_time), 'yyyy-MM-dd'
 
-            if (this.form.data.id_person != null){
-                this.person = this.form.data.id_person
-            }
         },
         updated(){
 
@@ -38,37 +26,9 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
 
         },
         methods: {
-           selectBank(banks)
-            {
-                // if( this.form.data.id_bank != null) {
-                //     return;
-                // }
-
-                if(banks == ""){
-                    return;
-                }
-
-                if(this.bankSelected != ""){
-                    return;
-                }
-
-                this.bankSelected = [];
-
-                for(var i = 0; i < banks.length; i++){
-                    this.bank.push({text: banks[i].id + " " + banks[i].name, value: banks[i].id})
-                }
-                this.bankSelected = util.findInArrayObject('value', this.form.data.id_bank, this.bank);
-            },
-
-            onSelectBank(item){
-
-                this.bankSelected = item;
-                this.form.data.id_bank = item.value;
-            },
-
             submit_form() {
-                // this.form.data.id_person = this.person
-                let url = '/bank_account';
+                this.form.data.id_person = this.person
+                let url = '/payment_type';
 
 
                 this.form.submit(url, this.onSuccess);
@@ -79,7 +39,7 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', 'Conta corrente salva!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', 'Forma de pagamento salvo!', 'OK', '', function () {
                             util.goBack();
                         });
                         this.$refs.modal.show(1500);
@@ -96,7 +56,7 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
     });
 }
 
-if ($('body[view-name="bank_accountindex"]').length > 0) {
+if ($('body[view-name="payment_typeindex"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
@@ -142,7 +102,7 @@ if ($('body[view-name="bank_accountindex"]').length > 0) {
 
 
                 this.$refs.modal.configModal('Aviso', msn, btn, 'Cancelar', function () {
-                    let url = window.baseUrl+'/bank_account/activeDisabled';
+                    let url = window.baseUrl+'/payment_type/activeDisabled';
                     originalData.form.post(url, {id: id, type: type}, originalData.onSuccessActiveDisabled);
                 });
                 this.$refs.modal.show();

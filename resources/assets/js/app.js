@@ -15,6 +15,7 @@ Vue.use(VueMask);
 import money from 'v-money'
 Vue.use(money, {precision: 2});
 
+
 //https://www.npmjs.com/package/vue2-datepicker
 // <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="data_saida"/>
 import Datepicker from 'vue2-datepicker';
@@ -45,6 +46,8 @@ require('./history');
 require('./service');
 require('./ticket');
 require('./bank_account');
+require('./payment_type');
+require('./imei');
 
 
 if(window.vue == undefined) {
