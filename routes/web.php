@@ -14,6 +14,9 @@
 /*Route::get('/', function () {
     return view('login');
 }*/
+
+use Illuminate\Support\Facades\Artisan;
+
 Route::get('/', ['as' => 'login', 'uses' => 'SessionController@index']);
 //Route::get('/login', 'SessionController@index');
 Route::post('/login', 'SessionController@create');
@@ -75,4 +78,10 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
+});
+
+
+//rota para executar as migrations - o servidor não suporta comandos ssh
+Route::get('/run-migrations', function () {
+    return Artisan::call('migrate');
 });
