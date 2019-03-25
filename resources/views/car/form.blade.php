@@ -16,7 +16,7 @@
 
                     <div class="box-body">
 
-                        <form method="POST" id="paymant_type" @submit.prevent="submit_form">
+                        <form method="POST" id="car" @submit.prevent="submit_form">
                             {{csrf_field()}}
 
                             <input type="hidden" name="id" value="" v-model="form.data.id">
@@ -25,14 +25,30 @@
 
                                 <div id="formFields">
 
-                                    <div class="form-group col-md-6">
-                                        <label >Número do IMEI</label>
-                                        <input type="number" class="form-control" v-model="form.data.number" required maxlength="50"/>
+                                    <div class="form-group col-md-4">
+                                        <label >Modelo</label>
+                                        <input type="text" class="form-control" v-model="form.data.model" required maxlength="50"/>
                                     </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label>Descrição</label>
-                                        <textarea v-model="form.data.description" id="description" required  class="form-control ckeditor" required maxlength="255"></textarea>
+                                    <div class="form-group col-md-4">
+                                        <label>Placa</label>
+                                        <input type="text" class="form-control" v-model="form.data.license_plate" required maxlength="8"/>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>Cor</label>
+                                        <input type="text" class="form-control" v-model="form.data.color" required maxlength="25"/>
+                                    </div>
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>Chassi</label>
+                                        <input type="text" class="form-control" v-model="form.data.chassis" required maxlength="25"/>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>CNH Motorista</label>
+                                        <input type="text" class="form-control" v-model="form.data.driver_license" required maxlength="25"/>
                                     </div>
                                     <br><br>
 

@@ -16,8 +16,9 @@ class CreateTableCar extends Migration
         Schema::create('car', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->index();
-            $table->string('license_plate', 8);
+            $table->unsignedInteger('id_contract');
             $table->string('model',25);
+            $table->string('license_plate', 8);
             $table->string('color',25);
             $table->string('chassis',25);
             $table->string('driver_license',25);

@@ -168,7 +168,7 @@ class Person extends CawModel
     }
 
     public static function getSelect(){
-        return Person::get();
+        return Person::where('active','=',1)->get();
     }
 
 }

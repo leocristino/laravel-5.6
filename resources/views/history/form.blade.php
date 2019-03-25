@@ -38,7 +38,7 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data do Contato</label>
-                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required input-name="data_saida" v-model="form.data.contact_time"/>
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" required :editable="true" width="100%"  input-class="form-control" v-model="form.data.contact_time" />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Horário</label>

@@ -45,7 +45,7 @@
 
                                         <div class="form-group col-md-6" v-if="picked == 'J'">
                                             <label >Nome Fantasia</label>
-                                            <input type="text" class="form-control" v-model="form.data.fantasyname" required maxlength="100"/>
+                                            <input type="text" class="form-control" v-model="form.data.fantasy_name" required maxlength="100"/>
                                         </div>
 
                                     </div>
@@ -124,7 +124,7 @@
 
                                     <div class="form-group col-md-4">
                                         <label>Cidade</label>
-                                        <basic-select :options="banks"
+                                        <basic-select :options="cidades"
                                                       :selected-option="cidadeSelected"
                                                       placeholder="Selecione uma cidade"
                                                       @select="onSelectCidade"

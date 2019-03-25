@@ -110,4 +110,8 @@ class PaymentType extends CawModel
             return false;
         }
     }
+
+    public static function getSelect(){
+        return PaymentType::where('active','=',1)->get();
+    }
 }

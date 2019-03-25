@@ -16,6 +16,8 @@ class CreateTableImei extends Migration
         Schema::create('imei', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->index();
+            $table->unsignedInteger('id_contract');
+//            $table->foreign('id_contract')->references('id')->on('contract')->onDelete('cascade')->onUpdate('cascade');
             $table->string('number',50);
             $table->string('description',200);
             $table->tinyInteger('active')->default(0);

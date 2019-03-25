@@ -95,6 +95,13 @@ class RedirectIfAuthenticated
                 break;
 
 
+            case 'contract':
+                if(Permissao::userHasPermissao('CONTRACT')) {
+                    return $next($request);
+                }
+                break;
+
+
 
         }
 

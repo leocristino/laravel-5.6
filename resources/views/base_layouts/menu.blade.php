@@ -20,7 +20,7 @@
                 <a href="{{URL::to('/')}}"><i class="fas fa-home"></i> <span>Dashboard</span></a>
             </li>
 
-            @if(\App\Models\Permissao::userHasPermissao(['USER', 'PERSON', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT', 'PAYMENT_TYPE', 'IMEI', 'CAR']))
+            @if(\App\Models\Permissao::userHasPermissao(['USER', 'PERSON', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT', 'PAYMENT_TYPE', 'IMEI', 'CAR', 'CONTRACT']))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users-cog"></i> <span>Segurança</span>
@@ -55,12 +55,8 @@
                         <li><a href="{{URL::to('/')}}/payment_type">Forma de Pagamento</a></li>
                     @endif
 
-                    @if(\App\Models\Permissao::userHasPermissao('IMEI'))
-                        <li><a href="{{URL::to('/')}}/imei">Cadastro de Imei</a></li>
-                    @endif
-
-                    @if(\App\Models\Permissao::userHasPermissao('CAR'))
-                        <li><a href="{{URL::to('/')}}/car">Cadastro de Carros</a></li>
+                    @if(\App\Models\Permissao::userHasPermissao('CONTRACT'))
+                        <li><a href="{{URL::to('/')}}/contract">Contrato</a></li>
                     @endif
                 </ul>
             </li>

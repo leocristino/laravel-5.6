@@ -91,4 +91,7 @@ class History extends CawModel
 
         return $value;
     }
+    public static function getSelect(){
+        return History::where('active','=',1)->get();
+    }
 }

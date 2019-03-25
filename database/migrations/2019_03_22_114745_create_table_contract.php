@@ -20,24 +20,15 @@ class CreateTableContract extends Migration
             $table->unsignedInteger('id_person');
             $table->foreign('id_person')->references('id')->on('person')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->unsignedInteger('id_imei');
-            $table->foreign('id_imei')->references('id')->on('imei')->onDelete('cascade')->onUpdate('cascade');
-
             $table->unsignedInteger('id_payment_type');
             $table->foreign('id_payment_type')->references('id')->on('payment_type')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->unsignedInteger('id_car');
-            $table->foreign('id_car')->references('id')->on('car')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->integer('dua_day');
+            $table->integer('due_day');
             $table->string('emergency_password',100);
-            $table->string('contr_emergency_password',100);
+            $table->string('contra_emergency_password',100);
             $table->date('start_date');
-            $table->date('end_date');
-
-
-
-
+            $table->date('end_date')->nullable(true);
+            $table->tinyInteger('active')->default(0);
             $table->timestamps();
         });
     }

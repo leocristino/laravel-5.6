@@ -48,6 +48,8 @@ require('./ticket');
 require('./bank_account');
 require('./payment_type');
 require('./imei');
+require('./car');
+require('./contract');
 
 
 if(window.vue == undefined) {
