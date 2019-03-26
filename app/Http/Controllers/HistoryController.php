@@ -36,6 +36,8 @@ class HistoryController extends Controller
     {
         $history = History::find($id);
         $person = Person::getSelect();
+        $history->contact_time = date("Y-m-d", strtotime($history->contact_time));
+
 
         return view('history.form',
             [

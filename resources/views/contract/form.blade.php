@@ -12,14 +12,13 @@
                     <div class="hidden">
                         @{{ form.setData(<?= $data ?>) }}
                     </div>
-                    {{$data}}
 
                     <div class="box-body">
 
                         <form method="POST" id="person" @submit.prevent="submit_form">
                             {{csrf_field()}}
 
-                            <input type="text" name="id" value="" v-model="form.data.id">
+                            <input type="hidden" name="id" value="" v-model="form.data.id">
 
                             <div class="col-md-12">
 
@@ -62,12 +61,12 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Inicial</label>
-                                        <datepicker lang="pt-br" format="dd/MM/yyyy" required :editable="true" width="100%"  input-class="form-control" v-model="form.data.start_date" />
+                                        <input type="date" class="form-control" v-model="form.data.start_date" />
                                     </div>
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Final</label>
-                                        <datepicker lang="pt-br" format="dd/MM/yyyy" required :editable="true" width="100%"  input-class="form-control" v-model="form.data.end_date" />
+                                        <input type="date" class="form-control" v-model="form.data.end_date" />
                                     </div>
 
                                     <br><br>
