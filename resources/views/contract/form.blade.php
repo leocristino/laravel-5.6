@@ -61,7 +61,7 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Inicial</label>
-                                        <input type="date" class="form-control" v-model="form.data.start_date" />
+                                        <input type="date" class="form-control" required v-model="form.data.start_date" />
                                     </div>
 
                                     <div class="form-group col-md-6 type-date">

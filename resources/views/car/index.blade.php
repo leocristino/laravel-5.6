@@ -2,114 +2,85 @@
 
 @section('content')
     <section class="content-header">
-        <div class="col-md-9">
-            <h1>Cadastro de Veículos</h1>
-        </div>
-        <div class="col-md-3">
-            <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo Veículo</button>
-            </a>
-        </div>
+        <h1>Valores para [ {{ $name }} ]</h1>
     </section>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <form action="{{ url()->current() }}">
 
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Modelo</label>
-                                <input type="text" class="form-control" name="model" value="{{ empty($_GET['model']) ? '' : $_GET['model'] }}" />
-                            </div>
-
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Placa</label>
-                                <input type="text" class="form-control" name="license_plate" value="{{ empty($_GET['license_plate']) ? '' : $_GET['license_plate'] }}" />
-                            </div>
-
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Ativo</label>
-                                <?php
-                                $select = 2;
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "1"){
-                                        $select = 1;
-                                    }
-                                }
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "0"){
-                                        $select = 0;
-                                    }
-                                }
-                                ?>
-                                <select name="active" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value=""></option>
-                                    <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
-                                    <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-6">
-                                <br>
-                                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Pesquisar</button>
-                            </div>
-                        </form>
+                    <div class="hidden">
+                        @{{ form.setData(<?= $values ?>) }}
+                        @{{ id_contract = <?= $id?> }}
                     </div>
 
                     <div class="box-body">
-                        <div class="dataTables_wrapper form-inline dt-bootstrap">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered table-hover dataTable" >
-                                        <thead>
-                                        <tr role="row">
-                                            <th>Modelo</th>
-                                            <th class="hidden-xs">Placa</th>
-                                            <th class="hidden-xs">Ativo</th>
-                                            <th width="50px"></th>
-                                            <th width="50px"></th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
-                                                <td>{{ $item->model }}</td>
-                                                <td class="hidden-xs">{{ $item->license_plate }}</td>
-                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
-                                                <td>
-                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
-                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
-                                                </td>
 
-                                                <td>
-                                                    <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
-                                                        <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+                        <fieldset><legend>Adicionar Saídas</legend>
+                            <div class="col-md-10 col-md-offset-1">
+                                <form method="POST" @submit.prevent="addValor">
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>Valor por pessoa</label>
+                                        {{--<money class="form-control" v-model="formAdd.valor" prefix="R$ " decimal="," thousands="." required />--}}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                    <label>Qtde min. por ônibus</label>
+                                    {{--<input class="form-control" v-model="formAdd.qtde_min" type="number" required />--}}
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <br>
+                                        <button type="submit" class="btn btn-success btn-block"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </fieldset>
+
+                        <fieldset><legend>Saídas Cadastradas</legend>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <form method="POST" @submit.prevent="submit_form()">
+                                    {{csrf_field()}}
+
+                                    <table class="table">
+                                        <tr class="hidden-xs">
+                                            <th width="100px">Estado</th>
+                                            <th width="30%">Cidade</th>
+                                            <th width="25%">Valor por pessoa</th>
+                                            <th width="25%">Qtde. min. por ônibus</th>
+                                            <th width="50px"></th>
+                                        </tr>
+                                        {{--<tr v-for="data in form.data" v-show="data.active !== false">--}}
+                                            {{--<td class="hidden-xs">@{{ data.uf }}</td>--}}
+                                            {{--<td class="hidden-xs">@{{ data.cidade }}</td>--}}
+                                            {{--<td class="hidden-xs">--}}
+                                                {{--<money class="form-control" v-model="data.valor" prefix="R$ " decimal="," thousands="." required />--}}
+                                            {{--</td>--}}
+                                            {{--<td class="hidden-xs">--}}
+                                            {{--<input class="form-control" v-model="data.qtde_min" type="number" required />--}}
+                                            {{--</td>--}}
+                                            {{--<td width="90%" class="visible-xs">--}}
+                                                {{--@{{ data.cidade }}/@{{ data.uf }} <br>--}}
+                                                {{--<money class="form-control" v-model="data.valor" prefix="R$ " decimal="," thousands="." required ></money>--}}
+                                                {{--<br>--}}
+                                                {{--<input class="form-control" v-model="data.qtde_min" type="number" required />--}}
+                                            {{--</td>--}}
+                                            {{--<td><button type="button" @click="delValor(data)" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button></td>--}}
+                                        {{--</tr>--}}
                                     </table>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-sm-12 text-center">
-                                    <div class="dataTables_info" role="status" aria-live="polite">{{$data->total()}} registros</div>
-                                </div>
-                                <div class="col-sm-12 text-center">
-                                    {{$data->links()}}
-                                </div>
-                                <br><br>
-                                <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
-                                    </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
-                                    </a>
-                                </div>
+                                    <div class="clearfix">
+                                        <div class="form-group col-md-6">
+                                            <button type="button" class="btn btn-default btn-block" onclick="history.back(-1)">Cancelar</button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
+                        </fieldset>
                     </div>
 
                 </div>

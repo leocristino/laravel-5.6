@@ -25,7 +25,25 @@
 
                             <div class="form-group col-md-3 col-sm-6">
                                 <label>Tipo de Pagamento</label>
-                                <input type="text" class="form-control" name="name" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}" />
+                                <?php
+                                $select = 2;
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "1"){
+                                        $select = 1;
+                                    }
+                                }
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "0"){
+                                        $select = 0;
+                                    }
+                                }
+                                ?>
+                                <select name="active" id="" class="form-control" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}">
+                                    <option value=""></option>
+                                    @foreach ($data as $item)
+                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">
@@ -63,18 +81,41 @@
                                     <table class="table table-bordered table-hover dataTable" >
                                         <thead>
                                         <tr role="row">
+                                            <th>Nº Contrato</th>
                                             <th>Pessoa</th>
                                             <th class="hidden-xs">Tipo de pagamento</th>
                                             <th class="hidden-xs">Ativo</th>
+                                            <th width="50px"></th>
+                                            <th width="50px"></th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $item)
                                             <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
+                                                <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->name }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td>
+
+
+                                                    <a href="{{ url()->current() }}/car/{{ $item['id'] }}/edit">
+                                                        <button class="btn btn-small btn-default" title="Carros">
+                                                            <i class="fas fa-car"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores }}</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url()->current() }}/valores/{{ $item['id'] }}/edit">
+                                                        <button class="btn btn-small btn-default" title="IMEI">
+                                                            <i class="fas fa-mobile-alt"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores }}</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
+
                                                 <td>
                                                     <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
                                                     <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>

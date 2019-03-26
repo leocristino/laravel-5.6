@@ -74,8 +74,9 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/car/activeDisabled', 'CarController@activeDisabled');
 
     #CONTRACT
-    Route::resource('/contract', 'ContractController');
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
+    Route::resource('/contract', 'ContractController');
+    Route::resource('/contract/car/{id}/edit', 'CarController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });
