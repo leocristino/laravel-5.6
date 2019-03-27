@@ -18,35 +18,35 @@
                     <div class="box-header">
                         <form action="{{ url()->current() }}">
 
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-2 col-sm-6">
+                                <label>Nº do Contrato</label>
+                                <input type="text" class="form-control" name="id_contract" value="{{ empty($_GET['id_contract']) ? '' : $_GET['id_contract'] }}" />
+                            </div>
+                            <div class="form-group col-md-2 col-sm-6">
                                 <label>Pessoa</label>
                                 <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
                             </div>
 
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-2 col-sm-6">
                                 <label>Tipo de Pagamento</label>
                                 <?php
-                                $select = 2;
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "1"){
-                                        $select = 1;
-                                    }
-                                }
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "0"){
-                                        $select = 0;
+                                $selectPayment_type = '';
+                                if(isset($_GET['id_payment_type'])){
+                                    if($_GET['id_payment_type']){
+                                        $selectPayment_type = $_GET['id_payment_type'];
                                     }
                                 }
                                 ?>
-                                <select name="active" id="" class="form-control" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}">
+                                {{isset($_GET['id_payment_type'])}}
+                                <select name="id_payment_type" id="" class="form-control" value="{{ empty($_GET['id_payment_type']) ? '' : $_GET['id_payment_type'] }}">
                                     <option value=""></option>
-                                    @foreach ($data as $item)
-                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                    @foreach ($payment_type as $item)
+                                        <option {{ $selectPayment_type == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-2 col-sm-6">
                                 <label>Ativo</label>
                                 <?php
                                 $select = 2;

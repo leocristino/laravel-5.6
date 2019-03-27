@@ -45,12 +45,12 @@ class Contract extends CawModel
             ->join('payment_type','payment_type.id','=','contract.id_payment_type');
 
         CawHelpers::addWhereLike($builder, 'person.name_social_name', $request['name_social_name']);
-        CawHelpers::addWhereLike($builder, 'payment_type.name', $request['name']);
+        CawHelpers::addWhereLike($builder, 'contract.id_payment_type', $request['id_payment_type']);
+        CawHelpers::addWhereLike($builder, 'contract.id', $request['id_contract']);
 
         if ($request['active'] != ""){
             $builder->where('contract.active','=',$request['active']);
         }
-        $builder->groupBy('payment_type.name','payment_type.type');
         $builder->orderBy('contract.id');
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }

@@ -114,4 +114,8 @@ class PaymentType extends CawModel
     public static function getSelect(){
         return PaymentType::where('active','=',1)->get();
     }
+
+    public static function selectAll(){
+        return PaymentType::groupBy('name','type')->orderBy('name')->get();
+    }
 }

@@ -12,11 +12,13 @@ class ContractController extends Controller
 {
     public function index(Request $request)
     {
-//        dd(Contract::getList($request));
+        $payment_type = PaymentType::selectAll();
+
         return view('contract.index',
             [
                 'data' => Contract::getList($request),
                 'params' => $request->all(),
+                'payment_type' => $payment_type,
             ]
         );
     }
