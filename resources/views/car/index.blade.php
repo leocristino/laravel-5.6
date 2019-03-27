@@ -2,8 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Valores para [ {{ $name }} ]</h1>
+
     </section>
+    <div class="col-md-9">
+        <h1>Contrato nº {{ str_pad($data->id, 5, '0', STR_PAD_LEFT)}} - {{$name->name_social_name}}</h1>
+    </div>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -11,23 +14,34 @@
 
                     <div class="hidden">
                         @{{ form.setData(<?= $values ?>) }}
-                        @{{ id_contract = <?= $id?> }}
+                        @{{ id_contract = <?= $data->id ?> }}
                     </div>
 
                     <div class="box-body">
 
-                        <fieldset><legend>Adicionar Saídas</legend>
+                        <fieldset><legend>Adicionar Veículo</legend>
                             <div class="col-md-10 col-md-offset-1">
                                 <form method="POST" @submit.prevent="addValor">
 
-
                                     <div class="form-group col-md-4">
-                                        <label>Valor por pessoa</label>
-                                        {{--<money class="form-control" v-model="formAdd.valor" prefix="R$ " decimal="," thousands="." required />--}}
+                                        <label>Modelo</label>
+                                        <input class="form-control" v-model="formAdd.model" type="text" required />
                                     </div>
-                                    <div class="form-group col-md-3">
-                                    <label>Qtde min. por ônibus</label>
-                                    {{--<input class="form-control" v-model="formAdd.qtde_min" type="number" required />--}}
+                                    <div class="form-group col-md-4">
+                                        <label>Placa</label>
+                                        <input class="form-control" v-model="formAdd.license_plate" type="text" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Cor</label>
+                                        <input class="form-control" v-model="formAdd.color" type="text" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Chassi</label>
+                                        <input class="form-control" v-model="formAdd.chassis" type="text" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>CNH motorista</label>
+                                        <input class="form-control" v-model="formAdd.driver_license" type="text" required />
                                     </div>
                                     <div class="form-group col-md-1">
                                         <br>
@@ -44,30 +58,22 @@
                                     {{csrf_field()}}
 
                                     <table class="table">
-                                        <tr class="hidden-xs">
-                                            <th width="100px">Estado</th>
-                                            <th width="30%">Cidade</th>
-                                            <th width="25%">Valor por pessoa</th>
-                                            <th width="25%">Qtde. min. por ônibus</th>
-                                            <th width="50px"></th>
+                                        <tr >
+                                            <th width="20%">Modelo</th>
+                                            <th width="20%">Placa</th>
+                                            <th width="20%">Cor</th>
+                                            <th width="20%">Chassi</th>
+                                            <th width="20%">CNH Motorista</th>
                                         </tr>
-                                        {{--<tr v-for="data in form.data" v-show="data.active !== false">--}}
-                                            {{--<td class="hidden-xs">@{{ data.uf }}</td>--}}
-                                            {{--<td class="hidden-xs">@{{ data.cidade }}</td>--}}
-                                            {{--<td class="hidden-xs">--}}
-                                                {{--<money class="form-control" v-model="data.valor" prefix="R$ " decimal="," thousands="." required />--}}
-                                            {{--</td>--}}
-                                            {{--<td class="hidden-xs">--}}
-                                            {{--<input class="form-control" v-model="data.qtde_min" type="number" required />--}}
-                                            {{--</td>--}}
-                                            {{--<td width="90%" class="visible-xs">--}}
-                                                {{--@{{ data.cidade }}/@{{ data.uf }} <br>--}}
-                                                {{--<money class="form-control" v-model="data.valor" prefix="R$ " decimal="," thousands="." required ></money>--}}
-                                                {{--<br>--}}
-                                                {{--<input class="form-control" v-model="data.qtde_min" type="number" required />--}}
-                                            {{--</td>--}}
-                                            {{--<td><button type="button" @click="delValor(data)" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button></td>--}}
-                                        {{--</tr>--}}
+                                        <tr v-for="data in form.data" v-show="data.active !== false">
+                                            <td>@{{ data.model }}</td>
+                                            <td>@{{ data.license_plate }}</td>
+                                            <td>@{{ data.color }}</td>
+                                            <td>@{{ data.chassis }}</td>
+                                            <td>@{{ data.driver_license }}</td>
+
+                                            <td><button type="button" @click="delValor(data)" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button></td>
+                                        </tr>
                                     </table>
 
                                     <div class="clearfix">

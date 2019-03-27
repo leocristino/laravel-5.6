@@ -20,7 +20,7 @@
                 <a href="{{URL::to('/')}}"><i class="fas fa-home"></i> <span>Dashboard</span></a>
             </li>
 
-            @if(\App\Models\Permissao::userHasPermissao(['USER', 'PERSON', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT', 'PAYMENT_TYPE', 'IMEI', 'CAR', 'CONTRACT']))
+            @if(\App\Models\Permissao::userHasPermissao(['USER', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT']))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users-cog"></i> <span>Segurança</span>
@@ -29,10 +29,6 @@
                 <ul class="treeview-menu">
                     @if(\App\Models\Permissao::userHasPermissao('USER'))
                     <li><a href="{{URL::to('/')}}/user">Usuários</a></li>
-                    @endif
-
-                    @if(\App\Models\Permissao::userHasPermissao('PERSON'))
-                        <li><a href="{{URL::to('/')}}/person">Pessoas</a></li>
                     @endif
 
                     @if(\App\Models\Permissao::userHasPermissao('HISTORY'))
@@ -51,15 +47,62 @@
                         <li><a href="{{URL::to('/')}}/bank_account">Conta Corrente</a></li>
                     @endif
 
-                    @if(\App\Models\Permissao::userHasPermissao('PAYMENT_TYPE'))
-                        <li><a href="{{URL::to('/')}}/payment_type">Forma de Pagamento</a></li>
-                    @endif
 
-                    @if(\App\Models\Permissao::userHasPermissao('CONTRACT'))
-                        <li><a href="{{URL::to('/')}}/contract">Contrato</a></li>
-                    @endif
+
+
                 </ul>
             </li>
+            @endif
+
+            @if(\App\Models\Permissao::userHasPermissao(['PERSON']))
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-cogs"></i> <span>Cadastros</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if(\App\Models\Permissao::userHasPermissao('PERSON'))
+                            <li><a href="{{URL::to('/')}}/person">Pessoas</a></li>
+                        @endif
+
+
+                    </ul>
+                </li>
+            @endif
+
+            @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE']))
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fas fa-coins"></i> <span>Financeiro</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if(\App\Models\Permissao::userHasPermissao('CONTRACT'))
+                            <li><a href="{{URL::to('/')}}/contract">Contrato</a></li>
+                        @endif
+
+                        @if(\App\Models\Permissao::userHasPermissao('PAYMENT_TYPE'))
+                            <li><a href="{{URL::to('/')}}/payment_type">Forma de Pagamento</a></li>
+                        @endif
+
+                    </ul>
+                </li>
+            @endif
+
+            @if(\App\Models\Permissao::userHasPermissao(['REPORT']))
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fas fa-chart-pie"></i> <span>Relatórios</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @if(\App\Models\Permissao::userHasPermissao('REPORT'))
+                            <li><a href="{{URL::to('/')}}/report">Relatório</a></li>
+                        @endif
+
+
+                    </ul>
+                </li>
             @endif
 
         </ul>

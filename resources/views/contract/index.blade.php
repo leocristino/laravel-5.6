@@ -39,7 +39,7 @@
                                 ?>
                                 {{isset($_GET['id_payment_type'])}}
                                 <select name="id_payment_type" id="" class="form-control" value="{{ empty($_GET['id_payment_type']) ? '' : $_GET['id_payment_type'] }}">
-                                    <option value=""></option>
+                                    <option value="">Selecione um valor</option>
                                     @foreach ($payment_type as $item)
                                         <option {{ $selectPayment_type == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
@@ -62,7 +62,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value=""></option>
+                                    <option value="">Selecione um valor</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
@@ -100,15 +100,15 @@
                                                 <td>
 
 
-                                                    <a href="{{ url()->current() }}/car/{{ $item['id'] }}/edit">
+                                                    <a href="{{ url()->current() }}/car/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="Carros">
                                                             <i class="fas fa-car"></i>
-                                                            <span class="badge badge-light">{{ $item->qtde_valores }}</span>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_car }}</span>
                                                         </button>
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url()->current() }}/valores/{{ $item['id'] }}/edit">
+                                                    <a href="{{ url()->current() }}/imei/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="IMEI">
                                                             <i class="fas fa-mobile-alt"></i>
                                                             <span class="badge badge-light">{{ $item->qtde_valores }}</span>
