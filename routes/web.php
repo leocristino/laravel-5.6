@@ -66,7 +66,6 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/payment_type/activeDisabled', 'PaymentTypeController@activeDisabled');
 
     #IMEI
-    Route::resource('/imei', 'ImeiController');
     Route::post('/imei/activeDisabled', 'ImeiController@activeDisabled');
 
     #CAR
@@ -76,7 +75,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #CONTRACT
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
     Route::resource('/contract', 'ContractController');
-    Route::resource('/contract/car/{id}/edit', 'CarController');
+    Route::resource('/contract/car/{id}/save', 'CarController');
+    Route::resource('/contract/imei/{id}/save', 'ImeiController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });
