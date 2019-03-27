@@ -14,15 +14,15 @@ class ImeiController extends Controller
 
     public function index($id)
     {
-        $data = Imei::find($id);
+        $data = Contract::find($id);
 
-        $car = $data->getCar();
+        $imei = $data->getImei();
 
-        return view('car.index',
+        return view('imei.index',
             [
                 'name' => Person::select('name_social_name')->where('id', '=', $data->id_person)->first(),
                 'data' => $data,
-                'values' => $car,
+                'values' => $imei,
             ]
         );
     }

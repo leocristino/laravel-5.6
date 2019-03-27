@@ -118,4 +118,7 @@ class Contract extends CawModel
     public function getCar(){
         return $this->hasMany(Car::class, 'id_contract')->get();
     }
+    public function getImei(){
+        return $this->hasMany(Imei::class, 'id_contract')->get();
+    }
 }

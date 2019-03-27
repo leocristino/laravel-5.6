@@ -82,7 +82,7 @@ class Car extends CawModel
         try {
             DB::beginTransaction();
             foreach ($itens as $item) {
-                $verificador = isset($item['active']) ? false : true;
+                $verificador = isset($item['active']) ? false : '';
 
                 //adicionando valores
                 if (empty($item['id_contract']) && $verificador === true)

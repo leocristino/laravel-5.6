@@ -43,4 +43,8 @@ class CarController extends Controller
         }
     }
 
+    public function getCar(){
+        return $this->hasMany(Contract::class, 'id_contract')->get();
+    }
+
 }

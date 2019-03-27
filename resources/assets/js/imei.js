@@ -6,15 +6,26 @@ import Datepicker from 'vue2-datepicker';
 
 
 
-if ($('body[view-name="imeiform"]').length > 0) {
+if ($('body[view-name="imeiindex"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
-           Modal, BasicSelect, Datepicker
+           Modal,
         },
         data: {
+            id_contract: 0,
             form: new Form(),
             modal: Modal,
+            id_contract: '',
+            valores: '',
+            formAdd: {
+                model: '',
+                license_plate: '',
+                color: '',
+                chassis: '',
+                driver_license: '',
+
+            },
         },
         mounted() {
 
@@ -27,10 +38,8 @@ if ($('body[view-name="imeiform"]').length > 0) {
         },
         methods: {
             submit_form() {
-
-                let url = '/imei';
-
-                this.form.submit(url, this.onSuccess);
+                let url = '/car';
+                this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 
             onSuccess(response) {
@@ -38,12 +47,11 @@ if ($('body[view-name="imeiform"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', 'IMEI salvo!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', 'Veículo salvo!', 'OK', '', function () {
                             util.goBack();
                         });
                         this.$refs.modal.show(1500);
                     } else {
-                        // this.form.reset();
                         this.$refs.modal.configModal('Erro', response.data.msg, '', 'OK');
                         this.$refs.modal.show();
                     }
@@ -51,97 +59,33 @@ if ($('body[view-name="imeiform"]').length > 0) {
                     console.log(e);
                 }
             },
-        },
-    });
-}
+            addValor(){
 
-if ($('body[view-name="imeiindex"]').length > 0) {
-    window.vue = new Vue({
-        el: '#app',
-        components: {
-            Modal, BasicSelect, Datepicker
-        },
-        data: {
-            form: new Form(),
-            modal: Modal,
-            person: '',
-            moment: '',
-            namePerson: '',
-        },
-        mounted() {
-
-        },
-        updated(){
-
-        },
-        watch: {
-
-        },
-        methods: {
-            activeDisabled(id,type)
-            {
-                if(type == 1){
-                    var msn = "Deseja desativar este registro?";
-                    var btn = "Desativar";
-                }else{
-                    var msn = "Deseja ativar este registro?";
-                    var btn = "Ativar";
+                if(this.formAdd.model.value == '' ||
+                    this.formAdd.license_plate.value == '' ||
+                    this.formAdd.color.value == '' ||
+                    this.formAdd.chassis.value == '' ||
+                    this.formAdd.driver_license.value == '') {
+                    this.$refs.modal.configModal('Aviso', 'Complete todos os campos', '', 'OK');
+                    this.$refs.modal.show();
+                    return;
                 }
 
-                let originalData = Object.assign({} , this);
+                this.form.data.push({
+                    model: this.formAdd.model,
+                    license_plate: this.formAdd.license_plate,
+                    color: this.formAdd.color,
+                    chassis: this.formAdd.chassis,
+                    driver_license: this.formAdd.driver_license,
 
-
-                this.$refs.modal.configModal('Aviso', msn, btn, 'Cancelar', function () {
-                    let url = window.baseUrl+'/imei/activeDisabled';
-                    originalData.form.post(url, {id: id, type: type}, originalData.onSuccessActiveDisabled);
                 });
-                this.$refs.modal.show();
             },
 
-            onSuccessActiveDisabled(response)
-            {
-                try {
-                    if (response.data.result == true){
-                        this.$refs.modal.configModal('Sucesso', response.data.msg, 'OK', '', function () {
-                            $('#modal').modal('hide');
-                            if(response.data.type == 1){
-                                $('#check'+response.data.id).removeClass('font-active-none');
-                                $('#times'+response.data.id).addClass('font-active-none');
-
-                                $('#btnCheck'+response.data.id).removeClass('font-active-none');
-                                $('#btnTimes'+response.data.id).addClass('font-active-none');
-
-                                $('#imgStatus'+response.data.id).removeClass('fas fa-times');
-                                $('#imgStatus'+response.data.id).addClass('fas fa-check');
-
-                                $('#table'+response.data.id).removeClass('danger');
-                            }else{
-                                $('#check'+response.data.id).addClass('font-active-none');
-                                $('#times'+response.data.id).removeClass('font-active-none');
-
-                                $('#btnTimes'+response.data.id).prop( "disabled", false );
-
-                                $('#imgStatus'+response.data.id).removeClass('fas fa-check');
-                                $('#imgStatus'+response.data.id).addClass('fas fa-times');
-
-
-                                $('#btnCheck'+response.data.id).addClass('font-active-none');
-                                $('#btnTimes'+response.data.id).removeClass('font-active-none');
-
-                                $('#table'+response.data.id).addClass('danger');
-                            }
-
-                        });
-                        this.$refs.modal.show();
-                    } else {
-                        this.$refs.modal.configModal('Aviso', response.data.msg, '', 'OK');
-                        this.$refs.modal.show();
-                    }
-                } catch (e) {
-                    console.log(e);
-                }
-            },
-
+            delValor(data){
+                console.log(data);
+                data.active = false;
+                this.$forceUpdate();
+            }
         },
     });
 }

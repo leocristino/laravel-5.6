@@ -19,7 +19,7 @@
 
                     <div class="box-body">
 
-                        <fieldset><legend>Adicionar Veículo</legend>
+                        <fieldset><legend>Adicionar IMEI</legend>
                             <div class="col-md-10 col-md-offset-1">
                                 <form method="POST" @submit.prevent="addValor">
 
