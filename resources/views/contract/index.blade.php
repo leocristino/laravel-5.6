@@ -111,7 +111,7 @@
                                                     <a href="{{ url()->current() }}/imei/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="IMEI">
                                                             <i class="fas fa-mobile-alt"></i>
-                                                            <span class="badge badge-light">{{ $item->qtde_valores }}</span>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_imei }}</span>
                                                         </button>
                                                     </a>
                                                 </td>

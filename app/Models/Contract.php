@@ -43,6 +43,8 @@ class Contract extends CawModel
                                             'payment_type.name')
             ->addSelect(DB::raw("(select COUNT(car.id) from car
             where car.id_contract = contract.id) as qtde_valores_car"))
+            ->addSelect(DB::raw("(select COUNT(imei.id) from imei
+            where imei.id_contract = contract.id) as qtde_valores_imei"))
             ->join('person', 'person.id', '=', 'contract.id_person')
             ->join('payment_type','payment_type.id','=','contract.id_payment_type');
 

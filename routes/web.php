@@ -66,11 +66,10 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/payment_type/activeDisabled', 'PaymentTypeController@activeDisabled');
 
     #IMEI
-    Route::post('/imei/activeDisabled', 'ImeiController@activeDisabled');
+    Route::resource('/imei', 'ImeiController');
 
     #CAR
     Route::resource('/car', 'CarController');
-    Route::post('/car/activeDisabled', 'CarController@activeDisabled');
 
     #CONTRACT
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');

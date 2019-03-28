@@ -34,7 +34,7 @@ class ImeiController extends Controller
         }
 
         $res = Imei::updateArray($request->get('id'), $request->get('valores'));
-//        dd($res);
+
         if($res === true) {
             return ['result' => 'true', 'msg' => ''];
         }else {

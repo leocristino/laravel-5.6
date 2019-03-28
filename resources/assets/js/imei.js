@@ -16,15 +16,10 @@ if ($('body[view-name="imeiindex"]').length > 0) {
             id_contract: 0,
             form: new Form(),
             modal: Modal,
-            id_contract: '',
             valores: '',
             formAdd: {
-                model: '',
-                license_plate: '',
-                color: '',
-                chassis: '',
-                driver_license: '',
-
+                number: '',
+                description: '',
             },
         },
         mounted() {
@@ -38,7 +33,8 @@ if ($('body[view-name="imeiindex"]').length > 0) {
         },
         methods: {
             submit_form() {
-                let url = '/car';
+                // alert(this.id_contract);
+                let url = '/imei';
                 this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 
@@ -47,7 +43,7 @@ if ($('body[view-name="imeiindex"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', 'Veículo salvo!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', 'IMEI salvo!', 'OK', '', function () {
                             util.goBack();
                         });
                         this.$refs.modal.show(1500);
@@ -60,25 +56,20 @@ if ($('body[view-name="imeiindex"]').length > 0) {
                 }
             },
             addValor(){
-
-                if(this.formAdd.model.value == '' ||
-                    this.formAdd.license_plate.value == '' ||
-                    this.formAdd.color.value == '' ||
-                    this.formAdd.chassis.value == '' ||
-                    this.formAdd.driver_license.value == '') {
+                if(this.formAdd.number.value == '' ||
+                    this.formAdd.description.value == '') {
                     this.$refs.modal.configModal('Aviso', 'Complete todos os campos', '', 'OK');
                     this.$refs.modal.show();
                     return;
                 }
 
                 this.form.data.push({
-                    model: this.formAdd.model,
-                    license_plate: this.formAdd.license_plate,
-                    color: this.formAdd.color,
-                    chassis: this.formAdd.chassis,
-                    driver_license: this.formAdd.driver_license,
+                    number: this.formAdd.number,
+                    description: this.formAdd.description,
 
                 });
+                this.formAdd.number = '';
+                this.formAdd.description = '';
             },
 
             delValor(data){

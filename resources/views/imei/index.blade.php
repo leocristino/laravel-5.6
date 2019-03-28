@@ -24,25 +24,14 @@
                                 <form method="POST" @submit.prevent="addValor">
 
                                     <div class="form-group col-md-4">
-                                        <label>Modelo</label>
-                                        <input class="form-control" v-model="formAdd.model" type="text" required />
+                                        <label>Número</label>
+                                        <input class="form-control" v-model="formAdd.number" type="text" required />
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Placa</label>
-                                        <input class="form-control" v-model="formAdd.license_plate" type="text" required />
+                                        <label>Descrição</label>
+                                        <input class="form-control" v-model="formAdd.description" type="text" required />
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label>Cor</label>
-                                        <input class="form-control" v-model="formAdd.color" type="text" required />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label>Chassi</label>
-                                        <input class="form-control" v-model="formAdd.chassis" type="text" required />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label>CNH motorista</label>
-                                        <input class="form-control" v-model="formAdd.driver_license" type="text" required />
-                                    </div>
+
                                     <div class="form-group col-md-1">
                                         <br>
                                         <button type="submit" class="btn btn-success btn-block"><i class="fa fa-plus"></i></button>
@@ -51,7 +40,7 @@
                             </div>
                         </fieldset>
 
-                        <fieldset><legend>Saídas Cadastradas</legend>
+                        <fieldset><legend>IMEIs Cadastrados</legend>
 
                             <div class="col-md-8 col-md-offset-2">
                                 <form method="POST" @submit.prevent="submit_form()">
@@ -59,18 +48,13 @@
 
                                     <table class="table">
                                         <tr >
-                                            <th width="20%">Modelo</th>
-                                            <th width="20%">Placa</th>
-                                            <th width="20%">Cor</th>
-                                            <th width="20%">Chassi</th>
-                                            <th width="20%">CNH Motorista</th>
+                                            <th width="40%">Número</th>
+                                            <th width="60%">Descrição</th>
                                         </tr>
                                         <tr v-for="data in form.data" v-show="data.active !== false">
-                                            <td>@{{ data.model }}</td>
-                                            <td>@{{ data.license_plate }}</td>
-                                            <td>@{{ data.color }}</td>
-                                            <td>@{{ data.chassis }}</td>
-                                            <td>@{{ data.driver_license }}</td>
+                                            <td>@{{ data.number }}</td>
+                                            <td>@{{ data.description }}</td>
+
 
                                             <td><button type="button" @click="delValor(data)" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button></td>
                                         </tr>
