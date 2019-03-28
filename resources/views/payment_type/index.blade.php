@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Formas de Pagamento</h1>
+            <h1>Cadastro de Forma de Pagamento</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
