@@ -24,12 +24,12 @@
                             </div>
 
                             <div class="form-group col-md-3 type-date">
-                                <label>Maior que esta data</label>
+                                <label>Data Inicial</label>
                                 <input type="date" class="form-control" name="bigger_than" v-model="form.data.bigger_than" value="{{ empty($_GET['bigger_than']) ? '' : $_GET['bigger_than'] }}" />
                             </div>
 
                             <div class="form-group col-md-3 type-date">
-                                <label>Menor que esta data</label>
+                                <label>Data Final</label>
                                 <input type="date" class="form-control" name="less_than" v-model="form.data.less_than" value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}" />
                             </div>
 
