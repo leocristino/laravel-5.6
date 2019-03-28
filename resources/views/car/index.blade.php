@@ -51,7 +51,7 @@
                             </div>
                         </fieldset>
 
-                        <fieldset><legend>Saídas Cadastradas</legend>
+                        <fieldset><legend>Veículos Cadastrados</legend>
 
                             <div class="col-md-8 col-md-offset-2">
                                 <form method="POST" @submit.prevent="submit_form()">

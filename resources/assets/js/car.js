@@ -11,7 +11,7 @@ if ($('body[view-name="carindex"]').length > 0) {
             id_contract: 0,
             form: new Form(),
             modal: Modal,
-            id_contract: '',
+            // id_contract: '',
             valores: '',
             formAdd: {
                 model: '',
@@ -74,10 +74,15 @@ if ($('body[view-name="carindex"]').length > 0) {
                     driver_license: this.formAdd.driver_license,
 
                 });
+                this.formAdd.model = '';
+                this.formAdd.license_plate = '';
+                this.formAdd.color = '';
+                this.formAdd.chassis = '';
+                this.formAdd.driver_license = '';
             },
 
             delValor(data){
-                console.log(data);
+                // console.log(data);
                 data.active = false;
                 this.$forceUpdate();
             }

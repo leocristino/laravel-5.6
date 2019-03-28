@@ -32,7 +32,6 @@ class CarController extends Controller
         if(empty($request->get('id'))){
             return ['result' => 'false', 'msg' => 'Dados Inválidos'];
         }
-
         $res = Car::updateArray($request->get('id'), $request->get('valores'));
 //        dd($res);
         if($res === true) {

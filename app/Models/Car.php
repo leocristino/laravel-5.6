@@ -82,11 +82,14 @@ class Car extends CawModel
         try {
             DB::beginTransaction();
             foreach ($itens as $item) {
-                $verificador = isset($item['active']) ? false : '';
+                $verificador = isset($item['active']) ? false : true;
 
                 //adicionando valores
                 if (empty($item['id_contract']) && $verificador === true)
                 {
+                    if (empty($item['id_contract']))
+                        $item['id_contract'] = $id_contract;
+
                     $item = new Car($item);
                     $item['id_contract'] = $id_contract;
                     $item->save();
@@ -94,7 +97,6 @@ class Car extends CawModel
                 //excluindo valores
                 else if (!empty($item['id_contract'])&& $verificador === false)
                 {
-//                    dd($item['id']);
                     Car::query()
                         ->where('id_contract', '=', $id_contract)
                         ->where('id', '=', $item['id'])->delete();
