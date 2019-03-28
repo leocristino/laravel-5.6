@@ -20,7 +20,7 @@
                 <a href="{{URL::to('/')}}"><i class="fas fa-home"></i> <span>Dashboard</span></a>
             </li>
 
-            @if(\App\Models\Permissao::userHasPermissao(['USER', 'HISTORY', 'SERVICE', 'TICKET', 'BANK_ACCOUNT']))
+            @if(\App\Models\Permissao::userHasPermissao(['USER', 'HISTORY', 'SERVICE', 'TICKET']))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users-cog"></i> <span>Segurança</span>
@@ -43,13 +43,6 @@
                         <li><a href="{{URL::to('/')}}/ticket">Cadastro de contas</a></li>
                     @endif
 
-                    @if(\App\Models\Permissao::userHasPermissao('BANK_ACCOUNT'))
-                        <li><a href="{{URL::to('/')}}/bank_account">Conta Corrente</a></li>
-                    @endif
-
-
-
-
                 </ul>
             </li>
             @endif
@@ -65,18 +58,21 @@
                             <li><a href="{{URL::to('/')}}/person">Pessoas</a></li>
                         @endif
 
-
                     </ul>
                 </li>
             @endif
 
-            @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE']))
+            @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE', 'BANK_ACCOUNT']))
                 <li class="treeview">
                     <a href="#">
                         <i class="fas fa-coins"></i> <span>Financeiro</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
+                        @if(\App\Models\Permissao::userHasPermissao('BANK_ACCOUNT'))
+                            <li><a href="{{URL::to('/')}}/bank_account">Conta Corrente</a></li>
+                        @endif
+
                         @if(\App\Models\Permissao::userHasPermissao('CONTRACT'))
                             <li><a href="{{URL::to('/')}}/contract">Contrato</a></li>
                         @endif
