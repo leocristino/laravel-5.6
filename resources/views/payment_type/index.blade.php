@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Forma de Pagamento</h1>
+            <h1>Formas de Pagamento</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Forma de Pagamento</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo</button>
             </a>
         </div>
     </section>

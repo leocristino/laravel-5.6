@@ -28,7 +28,6 @@ class CreateTableContract extends Migration
             $table->string('contra_emergency_password',100);
             $table->date('start_date');
             $table->date('end_date')->nullable(true);
-            $table->tinyInteger('active')->default(0);
             $table->timestamps();
         });
     }

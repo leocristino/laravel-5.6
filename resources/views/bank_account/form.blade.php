@@ -116,7 +116,7 @@
 
                                         <div class="form-group col-md-3">
                                             <label >Valor de Emissão</label>
-                                            <money class="form-control" v-model="form.data.priceOfSend" prefix="R$ " decimal="," thousands="." />
+                                            <money class="form-control" v-model="form.data.priceOfSend" prefix="R$ " decimal="," thousands="." required />
                                         </div>
 
 

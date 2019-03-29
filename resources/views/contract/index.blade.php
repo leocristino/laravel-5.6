@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Contratos</h1>
+            <h1>Contratos</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo Contrato</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo</button>
             </a>
         </div>
     </section>
@@ -88,15 +88,14 @@
                                             <th width="50px"></th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
-                                            <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
+                                            <tr class="{{ $item->end_date == null ? '' : 'danger'  }}" id="table{{ $item->id }}" >
                                                 <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->name }}</td>
-                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->end_date == null ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
 
 
@@ -114,11 +113,6 @@
                                                             <span class="badge badge-light">{{ $item->qtde_valores_imei }}</span>
                                                         </button>
                                                     </a>
-                                                </td>
-
-                                                <td>
-                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
-                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
                                                 </td>
 
                                                 <td>

@@ -12,6 +12,7 @@
                     <div class="hidden">
                         @{{ form.setData(<?= $data ?>) }}
                         @{{ nomePessoa(<?= $person ?>) }}
+                        @{{ dataUser(<?= $responsible ?>, <?= $currentUser ?>) }}
 
                     </div>
 
@@ -25,6 +26,10 @@
                             <div class="col-md-12">
 
                                 <div id="formFields">
+
+                                    <div class="form-group col-md-6">
+                                        <label>Criado por: {{ $responsible->name != '' ? $responsible->name : auth()->user()->name  }}</label>
+                                    </div>
 
                                     <div class="form-group col-md-12">
                                         <label>Cliente</label>
@@ -47,6 +52,8 @@
 
 
 
+
+
                                     <div class="form-group col-md-12">
                                         <label>Observação</label>
                                         <textarea v-model="form.data.description" id="description" required  class="form-control ckeditor" required maxlength="255"></textarea>
@@ -62,7 +69,7 @@
                                         <button type="button" class="btn btn-default btn-block" onclick="history.back(-1)">Cancelar</button>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                                        <button id="submit" type="submit" class="btn btn-primary btn-block">Salvar</button>
                                     </div>
                                 </div>
                             </div>

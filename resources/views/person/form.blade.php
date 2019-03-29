@@ -4,15 +4,10 @@
     <section class="content-header">
         <h1>Pessoa [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name_social_name }} ]</h1>
     </section>
-    <section class="content">
+    <section class="content" :json="form.setData({{ $data }})">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-
-                    <div class="hidden">
-                        @{{ form.setData(<?= $data ?>) }}
-
-                    </div>
 
                     <div class="box-body">
 
@@ -70,7 +65,9 @@
 
                                     <div  v-if="picked == 'F'" class="form-group col-md-4 type-date">
                                         <label>Data Nascimento</label>
-                                        <input type="date" class="form-control" v-model="form.data.date_birth" />
+                                        {{--<input type="date" class="form-control" v-model="form.data.date_birth" />--}}
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
+                                                    input-name="data_saida" v-model="form.data.date_birth" />
                                     </div>
 
                                     <div class="form-group col-md-6">

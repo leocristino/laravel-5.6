@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Contas Corrente</h1>
+            <h1>Contas Corrente</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Conta Corrente</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo</button>
             </a>
         </div>
     </section>
@@ -39,7 +39,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
-                                    <option value=""></option>
+                                    <option value="">Selecione um valor</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>

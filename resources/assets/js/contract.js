@@ -18,12 +18,17 @@ if ($('body[view-name="contractform"]').length > 0) {
             person: '',
             payment_type: '',
             namePerson: '',
-            date: ''
+            date: '',
+            payment_type: '',
+            objPaymentType: {},
         },
         created(){
 
         },
         mounted() {
+            console.log(payment_type)
+            this.form.data.start_date = moment(this.form.data.start_date, 'YYYY-MM-DD', true);
+            this.form.data.end_date = moment(this.form.data.end_date, 'YYYY-MM-DD', true);
 
             if (this.form.data.id_person != null){
                 this.person = this.form.data.id_person
@@ -32,6 +37,7 @@ if ($('body[view-name="contractform"]').length > 0) {
             if (this.form.data.id_payment_type != null){
                 this.payment_type = this.form.data.id_payment_type
             }
+
         },
         updated(){
 
@@ -39,6 +45,7 @@ if ($('body[view-name="contractform"]').length > 0) {
         watch: {
         },
         methods: {
+
             submit_form() {
                 this.form.data.id_person = this.person
                 this.form.data.id_payment_type = this.payment_type

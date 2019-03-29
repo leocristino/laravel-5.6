@@ -37,10 +37,10 @@ class Contract extends CawModel
     public static function getList(Request $request){
 
         $builder = Contract::select('contract.*',
-                                            'person.id as id_person',
-                                            'person.name_social_name',
-                                            'payment_type.id as id_payment_type',
-                                            'payment_type.name')
+            'person.id as id_person',
+            'person.name_social_name',
+            'payment_type.id as id_payment_type',
+            'payment_type.name')
             ->addSelect(DB::raw("(select COUNT(car.id) from car
             where car.id_contract = contract.id) as qtde_valores_car"))
             ->addSelect(DB::raw("(select COUNT(imei.id) from imei

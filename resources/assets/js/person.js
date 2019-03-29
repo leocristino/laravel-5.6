@@ -2,12 +2,14 @@ import Form from './core/Form';
 import Modal from './components/Modal.vue';
 import { BasicSelect } from 'vue-search-select'
 import {mask} from 'vue-the-mask'
+import Datepicker from 'vue2-datepicker';
+import moment from "moment";
 
 if ($('body[view-name="personform"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
-           Modal,BasicSelect
+           Modal,BasicSelect,Datepicker
         },
         data: {
             form: new Form(),
@@ -27,6 +29,7 @@ if ($('body[view-name="personform"]').length > 0) {
 
         },
         mounted() {
+            this.form.data.date_birth = moment(this.form.data.date_birth, 'YYYY-MM-DD', true);
             this.changeUf();
             if(this.form.data.type != null){
                 this.picked = this.form.data.type;
@@ -166,6 +169,7 @@ if ($('body[view-name="personindex"]').length > 0) {
 
         },
         mounted() {
+
 
         },
         updated(){

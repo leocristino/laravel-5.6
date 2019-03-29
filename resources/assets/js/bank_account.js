@@ -3,6 +3,8 @@ import Modal from './components/Modal.vue';
 import { BasicSelect } from 'vue-search-select'
 import {mask} from 'vue-the-mask'
 import Datepicker from 'vue2-datepicker';
+import {Money} from 'v-money';
+import moment from "moment";
 
 
 
@@ -18,18 +20,11 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
             bankSelected: "",
             bank: [],
             tipos_pessoa: [],
+
         },
         mounted() {
-            if(this.form.data.contact_time == null)
-            {
-                this.form.data.contact_time = new Date()
-            }
-            else
-                this.form.data.contact_time = new Date(this.form.data.contact_time), 'yyyy-MM-dd'
+            this.form.data.balance_date = moment(this.form.data.balance_date, 'YYYY-MM-DD', true);
 
-            if (this.form.data.id_person != null){
-                this.person = this.form.data.id_person
-            }
         },
         updated(){
 

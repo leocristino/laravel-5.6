@@ -18,7 +18,6 @@ if ($('body[view-name="historyform"]').length > 0) {
             modal: Modal,
             person: '',
             moment: '',
-            namePerson: '',
         },
         mounted() {
             // console.log(this.form.data.contact_time.toLocaleDateString('en'));
@@ -46,6 +45,13 @@ if ($('body[view-name="historyform"]').length > 0) {
 
         },
         methods: {
+            dataUser(responsible, currentUser){
+                if(responsible.id != currentUser)
+                {
+                    $("#submit").prop( "disabled", true );
+                }
+
+            },
             nomePessoa(pessoa)
             {
                 for(var i =0; i < pessoa.length; i ++){
@@ -96,7 +102,6 @@ if ($('body[view-name="historyindex"]').length > 0) {
             modal: Modal,
             person: '',
             moment: '',
-            namePerson: '',
         },
         mounted() {
             if(this.form.data.contact_time == null)

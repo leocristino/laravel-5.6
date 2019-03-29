@@ -23,7 +23,10 @@ class BankAccountController extends Controller
     public function create()
     {
         $bank_account = new BankAccount();
+        $bank_account->priceOfSend = 0.00;
+        $bank_account->currentBalance = 0.00;
         $bank_account->active = 1;
+
         return view('bank_account.form',
             [
                 'data' => $bank_account,

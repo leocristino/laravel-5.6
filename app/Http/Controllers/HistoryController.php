@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\History;
@@ -27,7 +28,7 @@ class HistoryController extends Controller
         return view('history.form',
             [
                 'data' => $history,
-                'person' => $person
+                'person' => $person,
             ]
         );
     }
@@ -35,14 +36,17 @@ class HistoryController extends Controller
     public function edit($id)
     {
         $history = History::find($id);
+        $user = User::find($history->responsible);
         $person = Person::getSelect();
         $history->contact_time = date("Y-m-d", strtotime($history->contact_time));
-
+        $currentUser = auth()->user()->id;
 
         return view('history.form',
             [
                 'data' => $history,
                 'person' => $person,
+                'responsible' => $user,
+                'currentUser' => $currentUser,
             ]
         );
     }
@@ -51,6 +55,7 @@ class HistoryController extends Controller
     {
         if(empty($request->get('id'))){
             $history = new History();
+            $history->responsible = auth()->user()->id;
         }else {
             $history = History::find($request->get('id'));
         }

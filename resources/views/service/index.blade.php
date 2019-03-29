@@ -3,11 +3,11 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Cadastro de Serviços</h1>
+            <h1>Serviços</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo Serviço</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo</button>
             </a>
         </div>
     </section>

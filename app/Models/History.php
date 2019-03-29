@@ -35,6 +35,7 @@ class History extends CawModel
         $builder = History::select('history.*', 'person.name_social_name')
                             ->join('person', 'person.id', '=', 'history.id_person');
 
+
         CawHelpers::addWhereLike($builder, 'name_social_name', $request['name_social_name']);
         if ($request['bigger_than'])
         {
@@ -53,6 +54,9 @@ class History extends CawModel
 
     public function save(array $options = [])
     {
+        if ($this->responsible != auth()->user()->id && $this->id != ""){
+            return new Exception("Você não foi o criador deste histórico e por isso não pode editá-lo!");
+        }
         if($this->id_person == "")
         {
             return new Exception("O campo nome é obrigatório.");

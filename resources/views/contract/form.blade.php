@@ -2,16 +2,13 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Cadastro de Contrato [ @{{ form.data.id == undefined ? 'Novo' : namePerson }} ]</h1>
+
+        <h1>Contrato {{ isset($name->name_social_name) ? ' nº ' . str_pad($data->id, 5, '0', STR_PAD_LEFT) . ' - ' . $name->name_social_name : '[ Novo ]' }} </h1>
     </section>
-    <section class="content">
+    <section class="content" :json="[form.setData({{ $data }})]">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-
-                    <div class="hidden">
-                        @{{ form.setData(<?= $data ?>) }}
-                    </div>
 
                     <div class="box-body">
 
@@ -61,19 +58,17 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Inicial</label>
-                                        <input type="date" class="form-control" required v-model="form.data.start_date" />
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
+                                                    input-name="data_saida" v-model="form.data.start_date" />
                                     </div>
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Final</label>
-                                        <input type="date" class="form-control" v-model="form.data.end_date" />
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
+                                                    input-name="data_saida" v-model="form.data.end_date" />
                                     </div>
 
                                     <br><br>
-                                    <div class="form-group col-md-12">
-                                        <hr>
-                                        <label><input type="checkbox" class="form-check-input" v-model="form.data.active" value="S"> Ativo</label>
-                                    </div>
 
                                 </div>
 

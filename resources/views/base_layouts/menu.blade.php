@@ -65,7 +65,7 @@
             @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE', 'BANK_ACCOUNT']))
                 <li class="treeview">
                     <a href="#">
-                        <i class="fas fa-coins"></i> <span>Financeiro</span>
+                        <i class="fas fa-dollar-sign"></i> <span>Financeiro</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">

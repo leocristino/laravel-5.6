@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Nova Conta</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo</button>
             </a>
         </div>
     </section>

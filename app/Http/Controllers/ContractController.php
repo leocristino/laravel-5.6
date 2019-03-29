@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentType;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Contract;
@@ -26,6 +27,9 @@ class ContractController extends Controller
     public function create()
     {
         $contract = new Contract();
+        $date = date("Y-m-d");
+        $contract->start_date = $date;
+
         $person = Person::getSelect();
         $payment_type = PaymentType::getSelect();
 
@@ -51,8 +55,10 @@ class ContractController extends Controller
                 'data' => $contract,
                 'person' => $person,
                 'payment_type' => $payment_type,
+                'name' => Person::select('name_social_name')->where('id', '=', $contract->id_person)->first(),
             ]
         );
+
     }
 
     public function store(Request $request)
