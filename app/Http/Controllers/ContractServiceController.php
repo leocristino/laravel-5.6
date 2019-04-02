@@ -3,25 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use App\Models\ContractService;
 use App\Models\Person;
 use Illuminate\Http\Request;
-use App\Models\Car;
+use App\Models\Service;
 use \DB;
 
-class CarController extends Controller
+class ContractServiceController extends Controller
 {
 
 
     public function index($id)
     {
         $data = Contract::find($id);
-        $car = $data->getCar();
+        $contract_service = $data->getContractService();
+        $service = Service::all();
 
-        return view('car.index',
+
+        return view('contract_service.index',
             [
                 'name' => Person::select('name_social_name')->where('id', '=', $data->id_person)->first(),
                 'data' => $data,
-                'values' => $car,
+                'values' => $contract_service,
+                'service' => $service,
             ]
         );
     }
@@ -29,11 +33,10 @@ class CarController extends Controller
     public function store(Request $request)
     {
 
-//        dd($request);
         if(empty($request->get('id'))){
             return ['result' => 'false', 'msg' => 'Dados Inválidos'];
         }
-        $res = Car::updateArray($request->get('id'), $request->get('valores'));
+        $res = ContractService::updateArray($request->get('id'), $request->get('valores'));
         if($res === true) {
             return ['result' => 'true', 'msg' => ''];
         }else {

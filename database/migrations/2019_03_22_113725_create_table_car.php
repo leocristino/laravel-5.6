@@ -13,7 +13,7 @@ class CreateTableCar extends Migration
      */
     public function up()
     {
-        Schema::create('car', function (Blueprint $table) {
+        Schema::create('contract_car', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->index();
             $table->unsignedInteger('id_contract');
@@ -35,6 +35,6 @@ class CreateTableCar extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car');
+        Schema::dropIfExists('contract_car');
     }
 }

@@ -26,14 +26,16 @@ if ($('body[view-name="carindex"]').length > 0) {
 
         },
         updated(){
+            this.formAdd.license_plate = this.formAdd.license_plate.toUpperCase();
 
         },
         watch: {
 
         },
         methods: {
+
             submit_form() {
-                let url = '/car';
+                let url = '/contract/contract_car';
                 this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 

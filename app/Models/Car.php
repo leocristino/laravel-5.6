@@ -11,7 +11,7 @@ use Mockery\Exception;
 class Car extends CawModel
 {
 
-    protected $table    =  'car';
+    protected $table    =  'contract_car';
     protected $fillable = [
         'id_contract',
         'license_plate',
@@ -19,7 +19,6 @@ class Car extends CawModel
         'color',
         'chassis',
         'driver_license',
-        'active',
     ];
 
 
@@ -35,15 +34,15 @@ class Car extends CawModel
 
     public static function getList(Request $request){
 
-        $builder = Car::select('car.*');
+        $builder = Car::select('contract_car.*');
 
         CawHelpers::addWhereLike($builder, 'model', $request['model']);
 
-        if ($request['active'] != ""){
-            $builder->where('active','=',$request['active']);
-        }
+//        if ($request['active'] != ""){
+//            $builder->where('active','=',$request['active']);
+//        }
 
-        $builder->orderBy('car.model');
+        $builder->orderBy('contract_car.model');
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 

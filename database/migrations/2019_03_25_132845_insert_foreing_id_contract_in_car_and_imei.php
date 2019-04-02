@@ -13,13 +13,13 @@ class InsertForeingIdContractInCarAndImei extends Migration
      */
     public function up()
     {
-        Schema::table('imei', function (Blueprint $table) {
+        Schema::table('contract_imei', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->foreign('id_contract')->references('id')->on('contract')->onDelete('cascade')->onUpdate('cascade');
 
         });
 
-        Schema::table('car', function (Blueprint $table) {
+        Schema::table('contract_car', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->foreign('id_contract')->references('id')->on('contract')->onDelete('cascade')->onUpdate('cascade');
 
@@ -33,12 +33,12 @@ class InsertForeingIdContractInCarAndImei extends Migration
      */
     public function down()
     {
-        Schema::table('car', function (Blueprint $table) {
+        Schema::table('contract_car', function (Blueprint $table) {
             $table->dropForeign(['id_contract']);
 
         });
 
-        Schema::table('imei', function (Blueprint $table) {
+        Schema::table('contract_imei', function (Blueprint $table) {
             $table->dropForeign(['id_contract']);
 
         });

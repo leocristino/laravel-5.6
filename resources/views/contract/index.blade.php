@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="form-group col-md-2 col-sm-6">
-                                <label>Tipo de Pagamento</label>
+                                <label>Tipo Pagamento</label>
                                 <?php
                                 $selectPayment_type = '';
                                 if(isset($_GET['id_payment_type'])){
@@ -88,6 +88,7 @@
                                             <th width="50px"></th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
+                                            <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $item)
@@ -97,9 +98,15 @@
                                                 <td class="hidden-xs">{{ $item->name }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->end_date == null ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
-
-
-                                                    <a href="{{ url()->current() }}/car/{{ $item['id'] }}/save">
+                                                    <a href="{{ url()->current() }}/contract_service/{{ $item['id'] }}/save">
+                                                        <button class="btn btn-small btn-default" title="Serviços">
+                                                            <i class="fas fa-tasks"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_service }}</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url()->current() }}/contract_car/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="Carros">
                                                             <i class="fas fa-car"></i>
                                                             <span class="badge badge-light">{{ $item->qtde_valores_car }}</span>
@@ -107,7 +114,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url()->current() }}/imei/{{ $item['id'] }}/save">
+                                                    <a href="{{ url()->current() }}/contract_imei/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="IMEI">
                                                             <i class="fas fa-mobile-alt"></i>
                                                             <span class="badge badge-light">{{ $item->qtde_valores_imei }}</span>

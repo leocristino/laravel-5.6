@@ -13,9 +13,9 @@ class CreateTableImei extends Migration
      */
     public function up()
     {
-        Schema::create('imei', function (Blueprint $table) {
+        Schema::create('contract_imei', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id')->index();
+            $table->increments('id');
             $table->unsignedInteger('id_contract');
 //            $table->foreign('id_contract')->references('id')->on('contract')->onDelete('cascade')->onUpdate('cascade');
             $table->string('number',50);
@@ -32,6 +32,6 @@ class CreateTableImei extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imei');
+        Schema::dropIfExists('contract_imei');
     }
 }

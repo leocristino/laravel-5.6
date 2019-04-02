@@ -34,7 +34,7 @@ if ($('body[view-name="imeiindex"]').length > 0) {
         methods: {
             submit_form() {
                 // alert(this.id_contract);
-                let url = '/imei';
+                let url = '/contract/contract_imei';
                 this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 

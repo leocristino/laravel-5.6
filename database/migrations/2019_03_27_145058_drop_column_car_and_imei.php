@@ -13,11 +13,11 @@ class DropColumnCarAndImei extends Migration
      */
     public function up()
     {
-        Schema::table('car', function($table) {
+        Schema::table('contract_car', function($table) {
             $table->dropColumn('active');
         });
 
-        Schema::table('imei', function($table) {
+        Schema::table('contract_imei', function($table) {
             $table->dropColumn('active');
         });
     }

@@ -24,25 +24,22 @@
                                 <form method="POST" @submit.prevent="addValor">
 
                                     <div class="form-group col-md-4">
-                                        <label>Modelo</label>
-                                        <input class="form-control" v-model="formAdd.model" type="text" required />
+                                        <label>Serviço</label>
+                                        <select name="" id="" required class="form-control" v-model="service" v-on:blur="findValue()">
+                                            @foreach( $service as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Placa</label>
-                                        <input class="form-control" v-mask="'SSS-####'" placeholder="ABC-1234" v-model="formAdd.license_plate" type="text" required />
+                                        <label>Valor</label>
+                                        <money class="form-control" v-model="formAdd.value" prefix="R$ " decimal="," thousands="." required />
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Cor</label>
-                                        <input class="form-control" v-model="formAdd.color" type="text" required />
+                                        <label>Acréscimo / Desconto</label>
+                                        <money class="form-control" v-model="formAdd.addition_discount" prefix="R$ " decimal="," thousands="." required />
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label>Chassi</label>
-                                        <input class="form-control" v-model="formAdd.chassis" type="text" required />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label>CNH motorista</label>
-                                        <input class="form-control" v-model="formAdd.driver_license" type="text" required />
-                                    </div>
+
                                     <div class="form-group col-md-1">
                                         <br>
                                         <button type="submit" class="btn btn-success btn-block"><i class="fa fa-plus"></i></button>
@@ -59,18 +56,14 @@
 
                                     <table class="table">
                                         <tr >
-                                            <th width="20%">Modelo</th>
-                                            <th width="20%">Placa</th>
-                                            <th width="20%">Cor</th>
-                                            <th width="20%">Chassi</th>
-                                            <th width="20%">CNH Motorista</th>
+                                            <th width="33%">Serviço</th>
+                                            <th width="33%">Valor</th>
+                                            <th width="33%">Acréscimo / Desconto</th>
                                         </tr>
                                         <tr v-for="data in form.data" v-show="data.active !== false">
-                                            <td>@{{ data.model }}</td>
-                                            <td>@{{ data.license_plate }}</td>
-                                            <td>@{{ data.color }}</td>
-                                            <td>@{{ data.chassis }}</td>
-                                            <td>@{{ data.driver_license }}</td>
+                                            <td>@{{ data.id_service }}</td>
+                                            <td>@{{ data.value }}</td>
+                                            <td>@{{ data.addition_discount }}</td>
 
                                             <td><button type="button" @click="delValor(data)" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button></td>
                                         </tr>

@@ -52,6 +52,7 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #SERVICE
     Route::post('/service/activeDisabled', 'ServiceController@activeDisabled');
     Route::resource('/service', 'ServiceController');
+    Route::get('/service/contract_service', 'Service@nameService')
 
     #TICKET
     Route::resource('/ticket', 'TicketController');
@@ -66,16 +67,20 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/payment_type/activeDisabled', 'PaymentTypeController@activeDisabled');
 
     #IMEI
-    Route::resource('/imei', 'ImeiController');
+    Route::resource('/contract/contract_imei', 'ImeiController');
 
     #CAR
-    Route::resource('/car', 'CarController');
+    Route::post('/contract/contract_car', 'CarController@store');
+
+    #CONTRACT_SERVICE
+    Route::post('/contract/contract_service', 'ContractServiceController@store');
 
     #CONTRACT
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
     Route::resource('/contract', 'ContractController');
-    Route::resource('/contract/car/{id}/save', 'CarController');
-    Route::resource('/contract/imei/{id}/save', 'ImeiController');
+    Route::get('/contract/contract_car/{id}/save', 'CarController@index');
+    Route::resource('/contract/contract_imei/{id}/save', 'ImeiController');
+    Route::resource('/contract/contract_service/{id}/save', 'ContractServiceController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

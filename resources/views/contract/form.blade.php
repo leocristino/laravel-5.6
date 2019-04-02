@@ -26,7 +26,7 @@
                                         <select class="form-control" v-model="person" required>
                                             <option value="">Selecione</option>
                                             @foreach($person as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
+                                                <option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -36,10 +36,20 @@
                                         <select class="form-control" v-model="payment_type" required>
                                             <option value="">Selecione</option>
                                             @foreach($payment_type as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    {{--<div class="form-group col-md-6">--}}
+                                        {{--<label>Serviço</label>--}}
+                                        {{--<select class="form-control" v-model="service" required>--}}
+                                            {{--<option value="">Selecione</option>--}}
+                                            {{--@foreach($service as $item)--}}
+                                                {{--<option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
 
                                     <div class="form-group col-md-6">
                                         <label >Dia de Pagamento</label>
@@ -69,7 +79,9 @@
                                     </div>
 
                                     <br><br>
-
+                                    <div class="form-group col-md-12">
+                                        <hr>
+                                    </div>
                                 </div>
 
                                 <div class="clearfix">

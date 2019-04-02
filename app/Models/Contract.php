@@ -20,7 +20,6 @@ class Contract extends CawModel
         'contra_emergency_password',
         'start_date',
         'end_date',
-        'active',
     ];
 
 
@@ -41,9 +40,9 @@ class Contract extends CawModel
             'person.name_social_name',
             'payment_type.id as id_payment_type',
             'payment_type.name')
-            ->addSelect(DB::raw("(select COUNT(car.id) from car
+            ->addSelect(DB::raw("(select COUNT(car.id) from contract_car as car
             where car.id_contract = contract.id) as qtde_valores_car"))
-            ->addSelect(DB::raw("(select COUNT(imei.id) from imei
+            ->addSelect(DB::raw("(select COUNT(imei.id) from contract_imei as imei
             where imei.id_contract = contract.id) as qtde_valores_imei"))
             ->join('person', 'person.id', '=', 'contract.id_person')
             ->join('payment_type','payment_type.id','=','contract.id_payment_type');
@@ -122,5 +121,8 @@ class Contract extends CawModel
     }
     public function getImei(){
         return $this->hasMany(Imei::class, 'id_contract')->get();
+    }
+    public function getContractService(){
+        return $this->hasMany(ContractService::class,'id_service')->get();
     }
 }

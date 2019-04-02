@@ -11,7 +11,7 @@ class Cep extends Model
 
     public static function CepDB()
     {
-        return DB::connection(config("database.connections.cep.database"));
+        return DB::connection("cep");
     }
 
     public static function listaUFs(){

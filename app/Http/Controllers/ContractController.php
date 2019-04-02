@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentType;
-use Faker\Provider\DateTime;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Contract;
@@ -13,7 +13,7 @@ class ContractController extends Controller
 {
     public function index(Request $request)
     {
-        $payment_type = PaymentType::selectAll();
+        $payment_type = PaymentType::all();
 
         return view('contract.index',
             [
@@ -30,9 +30,9 @@ class ContractController extends Controller
         $date = date("Y-m-d");
         $contract->start_date = $date;
 
-        $person = Person::getSelect();
-        $payment_type = PaymentType::getSelect();
-
+        $person = Person::all();
+        $payment_type = PaymentType::all();
+        $service = Service::all();
         $contract->active = 1;
 
         return view('contract.form',
@@ -40,6 +40,7 @@ class ContractController extends Controller
                 'data' => $contract,
                 'person' => $person,
                 'payment_type' => $payment_type,
+                'service' => $service
             ]
         );
     }
@@ -47,8 +48,9 @@ class ContractController extends Controller
     public function edit($id)
     {
         $contract = Contract::find($id);
-        $person = Person::getSelect();
-        $payment_type = PaymentType::getSelect();
+        $person = Person::all();
+        $payment_type = PaymentType::all();
+        $service = Service::all();
 
         return view('contract.form',
             [
@@ -56,6 +58,7 @@ class ContractController extends Controller
                 'person' => $person,
                 'payment_type' => $payment_type,
                 'name' => Person::select('name_social_name')->where('id', '=', $contract->id_person)->first(),
+                'service' => $service,
             ]
         );
 

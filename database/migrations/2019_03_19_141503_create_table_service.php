@@ -31,6 +31,6 @@ class CreateTableService extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('person');
+        Schema::dropIfExists('service');
     }
 }

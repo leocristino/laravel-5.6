@@ -50,6 +50,7 @@ require('./payment_type');
 require('./imei');
 require('./car');
 require('./contract');
+require('./contract_service');
 
 
 if(window.vue == undefined) {

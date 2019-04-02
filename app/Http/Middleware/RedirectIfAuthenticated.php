@@ -82,19 +82,6 @@ class RedirectIfAuthenticated
                 }
                 break;
 
-            case 'imei':
-                if(Permissao::userHasPermissao('IMEI')) {
-                    return $next($request);
-                }
-                break;
-
-            case 'car':
-                if(Permissao::userHasPermissao('CAR')) {
-                    return $next($request);
-                }
-                break;
-
-
             case 'contract':
                 if(Permissao::userHasPermissao('CONTRACT')) {
                     return $next($request);

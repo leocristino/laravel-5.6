@@ -17,7 +17,7 @@ class CreateTablePaymentType extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->index();
             $table->string('name',100);
-            $table->char('type',1);
+            $table->char('type',1)->nullable(true);
             $table->tinyInteger('active')->defaul(0);
             $table->timestamps();
         });
