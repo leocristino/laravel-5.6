@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Models\PaymentType;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -26,21 +27,24 @@ class ContractController extends Controller
 
     public function create()
     {
+        $current_account = BankAccount::bankAccountInCurrentAccount();
         $contract = new Contract();
         $date = date("Y-m-d");
         $contract->start_date = $date;
 
         $person = Person::all();
-        $payment_type = PaymentType::all();
+        $payment_type = PaymentType::get();
         $service = Service::all();
         $contract->active = 1;
 
+//        dd($payment_type);
         return view('contract.form',
             [
                 'data' => $contract,
                 'person' => $person,
                 'payment_type' => $payment_type,
-                'service' => $service
+                'service' => $service,
+                'current_account' => $current_account,
             ]
         );
     }

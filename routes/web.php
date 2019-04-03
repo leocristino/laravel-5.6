@@ -51,8 +51,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #SERVICE
     Route::post('/service/activeDisabled', 'ServiceController@activeDisabled');
+    Route::get('/service/contract_service', 'ContractServiceController@findValue');
     Route::resource('/service', 'ServiceController');
-    Route::get('/service/contract_service', 'Service@nameService')
 
     #TICKET
     Route::resource('/ticket', 'TicketController');
@@ -81,6 +81,9 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::get('/contract/contract_car/{id}/save', 'CarController@index');
     Route::resource('/contract/contract_imei/{id}/save', 'ImeiController');
     Route::resource('/contract/contract_service/{id}/save', 'ContractServiceController');
+
+    #   CONTRACT SERVICE
+    Route::get('/contract_service/', 'ContractServiceController@getValueOfService');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

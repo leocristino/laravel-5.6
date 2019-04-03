@@ -5,7 +5,7 @@
 
         <h1>Contrato {{ isset($name->name_social_name) ? ' nº ' . str_pad($data->id, 5, '0', STR_PAD_LEFT) . ' - ' . $name->name_social_name : '[ Novo ]' }} </h1>
     </section>
-    <section class="content" :json="[form.setData({{ $data }})]">
+    <section class="content" :json="[form.setData({{ $data }}), functionPaymentType({{ $payment_type }})]">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
@@ -33,26 +33,28 @@
 
                                     <div class="form-group col-md-6">
                                         <label>Tipo de Pagamento</label>
-                                        <select class="form-control" v-model="payment_type" required>
+
+                                        <select class="form-control" v-model="payment_type" @change="valuePaymentType()" required>
                                             <option value="">Selecione</option>
-                                            @foreach($payment_type as $item)
+                                            <option v-for="option in optionPaymentType" :value="option.id">
+                                                @{{ option.name }}
+                                            </option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6" id="current_account" style="display:none;">
+                                        <label>Conta Corrente</label>
+                                        <select class="form-control" v-model="current_account" required>
+                                            <option value="">Selecione</option>
+                                            @foreach($current_account as $item)
                                                 <option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    {{--<div class="form-group col-md-6">--}}
-                                        {{--<label>Serviço</label>--}}
-                                        {{--<select class="form-control" v-model="service" required>--}}
-                                            {{--<option value="">Selecione</option>--}}
-                                            {{--@foreach($service as $item)--}}
-                                                {{--<option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-
                                     <div class="form-group col-md-6">
-                                        <label >Dia de Pagamento</label>
+                                        <label >Dia de Vencimento</label>
                                         <input type="number" class="form-control" v-model="form.data.due_day" required maxlength="2" min="1" max="31"/>
                                     </div>
 

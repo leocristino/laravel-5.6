@@ -44,12 +44,18 @@ class Contract extends CawModel
             where car.id_contract = contract.id) as qtde_valores_car"))
             ->addSelect(DB::raw("(select COUNT(imei.id) from contract_imei as imei
             where imei.id_contract = contract.id) as qtde_valores_imei"))
+            ->addSelect(DB::raw("(select COUNT(service.id) from contract_service as service
+            where service.id_contract = contract.id) as qtde_valores_service"))
             ->join('person', 'person.id', '=', 'contract.id_person')
             ->join('payment_type','payment_type.id','=','contract.id_payment_type');
 
         CawHelpers::addWhereLike($builder, 'person.name_social_name', $request['name_social_name']);
+
+        if ($request['id_contract']){
+            $builder->where('contract.id', '=', $request['id_contract']);
+        }
         CawHelpers::addWhereLike($builder, 'contract.id_payment_type', $request['id_payment_type']);
-        CawHelpers::addWhereLike($builder, 'contract.id', $request['id_contract']);
+//        CawHelpers::addWhereLike($builder, 'contract.id', $request['id_contract']);
 
         if ($request['active'] != ""){
             $builder->where('contract.active','=',$request['active']);
@@ -123,6 +129,6 @@ class Contract extends CawModel
         return $this->hasMany(Imei::class, 'id_contract')->get();
     }
     public function getContractService(){
-        return $this->hasMany(ContractService::class,'id_service')->get();
+        return $this->hasMany(ContractService::class,'id_contract')->get();
     }
 }

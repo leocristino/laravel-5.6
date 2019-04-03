@@ -39,7 +39,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
-                                    <option value="">Selecione um valor</option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>

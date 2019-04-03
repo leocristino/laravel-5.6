@@ -40,7 +40,7 @@
                     @endif
 
                     @if(\App\Models\Permissao::userHasPermissao('TICKET'))
-                        <li><a href="{{URL::to('/')}}/ticket">Cadastro de contas</a></li>
+                        <li><a href="{{URL::to('/')}}/ticket">Plano de contas</a></li>
                     @endif
 
                 </ul>

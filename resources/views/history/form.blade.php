@@ -34,7 +34,7 @@
                                     <div class="form-group col-md-12">
                                         <label>Cliente</label>
                                         <select class="form-control" v-model="person" required>
-                                            <option value="">Selecione um cliente</option>
+                                            <option value="">Todos</option>
                                             @foreach($person as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach

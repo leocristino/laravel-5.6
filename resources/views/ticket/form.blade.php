@@ -28,7 +28,7 @@
                                         <div class="form-group col-md-6">
                                             <label>Tipo</label>
                                             <select name="type" id="" class="form-control" v-model="form.data.type" required>
-                                                <option value="">Selecione um item</option>
+                                                <option value="">Todos</option>
                                                 <option value="D">Despesa</option>
                                                 <option value="R">Receita</option>
                                             </select>

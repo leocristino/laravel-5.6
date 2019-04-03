@@ -42,8 +42,8 @@ class Ticket extends CawModel
             $builder->where('active','=',$request['active']);
         }
 
-        $builder->orderBy('name');
-//        dd($builder);
+        $builder->orderBy('type','name');
+
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 

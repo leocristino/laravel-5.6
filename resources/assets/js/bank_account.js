@@ -62,9 +62,15 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
             },
 
             submit_form() {
-                // this.form.data.id_person = this.person
                 let url = '/bank_account';
+                if (this.form.data.id_bank == null)
+                {
+                    this.$refs.modal.configModal('Campo obrigatório', 'Preencha o campo Banco!', '', 'OK', function () {
 
+                    });
+                    this.$refs.modal.show(1500);
+                    return;
+                }
 
                 this.form.submit(url, this.onSuccess);
             },

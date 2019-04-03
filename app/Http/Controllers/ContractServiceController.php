@@ -45,8 +45,11 @@ class ContractServiceController extends Controller
         }
     }
 
-    public function getCar(){
-        return $this->hasMany(Contract::class, 'id_contract')->get();
+    public function findValue (Request $request){
+        $service = $request->get('service');
+
+        $value = Service::query()->where('id', '=', $service)->first();
+        return $value;
     }
 
 }

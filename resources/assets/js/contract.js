@@ -21,9 +21,11 @@ if ($('body[view-name="contractform"]').length > 0) {
             namePerson: '',
             date: '',
             objPaymentType: {},
+            current_account: '',
+            optionPaymentType: [],
+            boolPaymentType: false,
         },
         created(){
-
         },
         mounted() {
             this.form.data.start_date = moment(this.form.data.start_date, 'YYYY-MM-DD', true);
@@ -46,9 +48,42 @@ if ($('body[view-name="contractform"]').length > 0) {
 
         },
         watch: {
+
         },
         methods: {
+            valuePaymentType()
+            {
+                // console.log(this.optionPaymentType);
+                for(var i = 0; i < this.optionPaymentType.length; i++)
+                {
+                    if(this.optionPaymentType[i].id == this.payment_type)
+                    {
+                        var value = this.optionPaymentType[i].type;
+                    }
+                }
+                if(value == 'B')
+                {
+                    $('#current_account').slideToggle(200);
+                }
+                else
+                {
+                    $('#current_account').hide();
+                }
+            },
+            functionPaymentType(res)
+            {
+                if(this.boolPaymentType == true)
+                {
+                    return;
+                }
+                this.boolPaymentType = true;
 
+                // console.log(res);
+                this.optionPaymentType = res;
+
+
+
+            },
             submit_form() {
                 this.form.data.id_person = this.person
                 this.form.data.id_payment_type = this.payment_type

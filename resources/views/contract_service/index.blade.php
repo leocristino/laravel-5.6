@@ -19,21 +19,21 @@
 
                     <div class="box-body">
 
-                        <fieldset><legend>Adicionar Veículo</legend>
+                        <fieldset><legend>Adicionar Serviço</legend>
                             <div class="col-md-10 col-md-offset-1">
                                 <form method="POST" @submit.prevent="addValor">
 
                                     <div class="form-group col-md-4">
                                         <label>Serviço</label>
-                                        <select name="" id="" required class="form-control" v-model="service" v-on:blur="findValue()">
+                                        <select required class="form-control" v-model="service" v-on:change="findValue()">
                                             @foreach( $service as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option {{$item->active == 0 ? 'disabled' : ''}} value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Valor</label>
-                                        <money class="form-control" v-model="formAdd.value" prefix="R$ " decimal="," thousands="." required />
+                                        <money class="form-control" v-model="formAdd.value" readonly="true" prefix="R$ " decimal="," thousands="." required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Acréscimo / Desconto</label>
@@ -48,7 +48,7 @@
                             </div>
                         </fieldset>
 
-                        <fieldset><legend>Veículos Cadastrados</legend>
+                        <fieldset><legend>Serviços Cadastrados</legend>
 
                             <div class="col-md-8 col-md-offset-2">
                                 <form method="POST" @submit.prevent="submit_form()">
@@ -61,7 +61,7 @@
                                             <th width="33%">Acréscimo / Desconto</th>
                                         </tr>
                                         <tr v-for="data in form.data" v-show="data.active !== false">
-                                            <td>@{{ data.id_service }}</td>
+                                            <td>@{{ data.service }}</td>
                                             <td>@{{ data.value }}</td>
                                             <td>@{{ data.addition_discount }}</td>
 

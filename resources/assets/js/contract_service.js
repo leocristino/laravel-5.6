@@ -9,13 +9,16 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
            Modal,
         },
         data: {
-            id_contract: 0,
             service: '',
+            id_contract: 0,
             form: new Form(),
             modal: Modal,
             // id_contract: '',
             valores: '',
+
             formAdd: {
+                id_service: '',
+                name: '',
                 value: '',
                 addition_discount: '',
             },
@@ -32,29 +35,20 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
         methods: {
             findValue() {
                 let thisCopy = Object.assign({}, this);
+                // console.log(this.service);
+                this.form.get('/service/contract_service/', {service: this.service}, function (response) {
+                    // console.log(response);
+                    thisCopy.formAdd.value = response.data.price;
+                    thisCopy.formAdd.name = response.data.name;
+                    thisCopy.formAdd.id_service = response.data.id;
 
-                this.form.get('/service/', {service: this.service}, function (response) {
-                    // thisCopy.form.data.street = response.data[0].logradouro;
-                    // thisCopy.form.data.id_city = response.data[0].cidade_codigo;
-                    // thisCopy.form.data.city = response.data[0].cidade;
-                    // thisCopy.form.data.district = response.data[0].bairro;
-                    // if (thisCopy.form.data.state != response.data[0].uf) {
-                    //     thisCopy.form.data.state = response.data[0].uf;
-                    //     thisCopy.changeUf();
-                    // }
-                    // console.log(thisCopy.form.data.district)
-                    // if (thisCopy.form.data.district == null || thisCopy.form.data.district == '') {
-                    //     thisCopy.$refs.district.focus();
-                    // }
-                    // else {
-                    //     thisCopy.$refs.street_number.focus();
-                    // }
                 });
             },
 
             submit_form() {
-                this.formAdd.id_service = this.formAdd.service;
+                // this.formAdd.id_service = this.formAdd.service;
                 let url = '/contract/contract_service';
+                // console.log(this.form.data);
                 this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 
@@ -83,11 +77,13 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
                     this.$refs.modal.show();
                     return;
                 }
-
+                // console.log(this.service);
                 this.form.data.push({
-                    id_service: this.service,
+                    service: this.formAdd.name,
                     value: this.formAdd.value,
                     addition_discount: this.formAdd.addition_discount,
+                    id_service: this.formAdd.id_service,
+
 
                 });
                 this.service = '';
@@ -96,7 +92,6 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
             },
 
             delValor(data){
-                // console.log(data);
                 data.active = false;
                 this.$forceUpdate();
             }

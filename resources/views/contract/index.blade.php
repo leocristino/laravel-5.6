@@ -23,7 +23,7 @@
                                 <input type="text" class="form-control" name="id_contract" value="{{ empty($_GET['id_contract']) ? '' : $_GET['id_contract'] }}" />
                             </div>
                             <div class="form-group col-md-2 col-sm-6">
-                                <label>Pessoa</label>
+                                <label>Cliente</label>
                                 <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
                             </div>
 
@@ -39,7 +39,7 @@
                                 ?>
                                 {{isset($_GET['id_payment_type'])}}
                                 <select name="id_payment_type" id="" class="form-control" value="{{ empty($_GET['id_payment_type']) ? '' : $_GET['id_payment_type'] }}">
-                                    <option value="">Selecione um valor</option>
+                                    <option value="">Todos</option>
                                     @foreach ($payment_type as $item)
                                         <option {{ $selectPayment_type == $item->id ? 'selected' : '' }} value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
@@ -62,7 +62,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value="">Selecione um valor</option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
@@ -115,7 +115,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/contract_imei/{{ $item['id'] }}/save">
-                                                        <button class="btn btn-small btn-default" title="IMEI">
+                                                        <button class="btn btn-small btn-default" title="IMEIs">
                                                             <i class="fas fa-mobile-alt"></i>
                                                             <span class="badge badge-light">{{ $item->qtde_valores_imei }}</span>
                                                         </button>

@@ -65,9 +65,9 @@ class BankAccount extends CawModel
         {
             return new \Exception('O campo nome do serviço é obrigatório.');
         }
-        if($this->currentBalance == "" || $this->price == "R$ 0") {
-            return new \Exception('O campo saldo inicial é obrigatório.');
-        }
+//        if($this->currentBalance == "" || $this->price == "R$ 0") {
+//            return new \Exception('O campo saldo inicial é obrigatório.');
+//        }
         if($this->balance_date == "")
         {
             return new \Exception('O campo data do saldo é obrigatório.');
@@ -80,8 +80,7 @@ class BankAccount extends CawModel
     public static function activeDisabled($id, $type){
 
         try {
-            $service = BankAccount::where('id', '=', $id)
-                ->first();
+            $service = BankAccount::where('id', '=', $id)->first();
             if($service != null) {
 
                 if ($type == 1) {
@@ -104,5 +103,13 @@ class BankAccount extends CawModel
         }catch (QueryException $e){
             return false;
         }
+    }
+
+    public static function bankAccountInCurrentAccount ()
+    {
+        $current_account = BankAccount::where('bill_option', '=', 'S')
+                                    ->where('active','=',1)->get();
+
+        return $current_account;
     }
 }

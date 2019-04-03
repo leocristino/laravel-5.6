@@ -28,11 +28,12 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label >Banco</label>
+                                    <label ref="banco">Banco</label>
                                     <basic-select :options="bank"
                                                   :selected-option="bankSelected"
                                                   placeholder="Selecione ou digite"
                                                   @select="onSelectBank"
+                                                  required="required"
                                                  >
                                     </basic-select>
                                 </div>
@@ -49,7 +50,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Saldo Inicial</label>
-                                    <money class="form-control" v-model="form.data.currentBalance" prefix="R$ " decimal="," thousands="." required />
+                                    <money class="form-control" v-model="form.data.currentBalance" prefix="R$ " decimal="," thousands="." />
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -64,7 +65,7 @@
                                         <div class="form-group col-md-2">
                                             <label >Emite Boleto</label>
                                             <select class="form-control" v-model="form.data.bill_option">
-                                                <option value="">Selecione uma opção</option>
+                                                <option value="">Todos</option>
                                                 <option value="S">SIM</option>
                                                 <option value="N">NÃO</option>
                                             </select>
@@ -108,7 +109,7 @@
                                         <div class="form-group col-md-3">
                                             <label >Quem emite o Boleto?</label>
                                             <select class="form-control" v-model="form.data.who_send_ticket">
-                                                <option value="">Selecione uma opção</option>
+                                                <option value="">Todos</option>
                                                 <option value="Banco">Banco</option>
                                                 <option value="Tatical">Tatical</option>
                                             </select>

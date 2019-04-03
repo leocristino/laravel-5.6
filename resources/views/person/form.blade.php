@@ -66,7 +66,7 @@
                                     <div  v-if="picked == 'F'" class="form-group col-md-4 type-date">
                                         <label>Data Nascimento</label>
                                         {{--<input type="date" class="form-control" v-model="form.data.date_birth" />--}}
-                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
                                                     input-name="data_saida" v-model="form.data.date_birth" />
                                     </div>
 
