@@ -14,12 +14,12 @@ class InsertNewPermissionContract extends Migration
     public function up()
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Contrato', 'nickname' => 'CONTRACT']
+            ['nome' => 'Contratos', 'nickname' => 'CONTRACT']
         );
 
 
         DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 10]
+            ['id_user' => 1, 'id_permissao' => 9]
         );
 
     }

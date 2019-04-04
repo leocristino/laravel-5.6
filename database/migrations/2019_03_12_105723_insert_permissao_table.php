@@ -15,11 +15,11 @@ class InsertPermissaoTable extends Migration
 
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Gestão de Pessoas', 'nickname' => 'PERSON']
+            ['nome' => 'Pessoas', 'nickname' => 'PERSON']
         );
 
         DB::table('permissao')->insert(
-            ['nome' => 'Histórico do Cliente', 'nickname' => 'HISTORY']
+            ['nome' => 'Históricos', 'nickname' => 'HISTORY']
         );
 
         DB::table('permissao')->insert(
@@ -27,12 +27,10 @@ class InsertPermissaoTable extends Migration
         );
 
         DB::table('permissao')->insert(
-            ['nome' => 'Serviços contratados', 'nickname' => 'SERVICE']
+            ['nome' => 'Serviços', 'nickname' => 'SERVICE']
         );
 
-        DB::table('permissao')->insert(
-            ['nome' => 'Financeiro', 'nickname' => 'FINANCIAL']
-        );
+
 
 
 
@@ -48,9 +46,7 @@ class InsertPermissaoTable extends Migration
         DB::table('user_permissao')->insert(
             ['id_user' => 1, 'id_permissao' => 5]
         );
-        DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 6]
-        );
+
     }
     /**
      * Reverse the migrations.

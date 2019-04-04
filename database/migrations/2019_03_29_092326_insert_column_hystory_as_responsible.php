@@ -15,7 +15,7 @@ class InsertColumnHystoryAsResponsible extends Migration
     {
         Schema::table('history', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer("responsible")->nullable(true)->after('contact_time_hour');
+            $table->string("responsible", 150)->nullable(true)->after('contact_time_hour');
         });
     }
 

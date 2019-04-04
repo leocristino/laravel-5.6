@@ -37,7 +37,7 @@
                                     }
                                 }
                                 ?>
-                                {{isset($_GET['id_payment_type'])}}
+                                {{--{{isset($_GET['id_payment_type'])}}--}}
                                 <select name="id_payment_type" id="" class="form-control" value="{{ empty($_GET['id_payment_type']) ? '' : $_GET['id_payment_type'] }}">
                                     <option value="">Todos</option>
                                     @foreach ($payment_type as $item)
@@ -50,21 +50,24 @@
                                 <label>Ativo</label>
                                 <?php
                                 $select = 2;
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "1"){
+                                if(isset($_GET['end_date'])){
+                                    if($_GET['end_date'] == 1){
                                         $select = 1;
                                     }
+//                                    else{
+//                                        $select = 0;
+//                                    }
                                 }
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "0"){
+                                if(isset($_GET['end_date'])){
+                                    if($_GET['end_date'] == date('Y-m-d')){
                                         $select = 0;
                                     }
                                 }
                                 ?>
-                                <select name="active" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
+                                <select name="end_date" id="" class="form-control" value="{{ empty($_GET['end_date']) ? '' : $_GET['end_date'] }}">
                                     <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
-                                    <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
+                                    <option {{ $select == 0 ? 'selected' : ''}} value="{{ date('Y-m-d') }}">Inativo</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3 col-sm-6">
@@ -84,6 +87,8 @@
                                             <th>Nº Contrato</th>
                                             <th>Pessoa</th>
                                             <th class="hidden-xs">Tipo de pagamento</th>
+                                            <th width="50px">Data Inicial</th>
+                                            <th width="50px">Data Final</th>
                                             <th class="hidden-xs">Ativo</th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
@@ -92,11 +97,14 @@
                                         </thead>
                                         <tbody>
                                         @foreach($data as $item)
-                                            <tr class="{{ $item->end_date == null ? '' : 'danger'  }}" id="table{{ $item->id }}" >
+
+                                            <tr class="{{ $item->contractActive == 0 ? 'danger' : ''  }}" id="table{{ $item->id }}" >
                                                 <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->name }}</td>
-                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->end_date == null ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td class="hidden-xs">{{ $item->start_date }}</td>
+                                                <td class="hidden-xs">{{ $item->end_date }}</td>
+                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->contractActive == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/contract_service/{{ $item['id'] }}/save">
                                                         <button class="btn btn-small btn-default" title="Serviços">

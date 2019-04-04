@@ -24,12 +24,13 @@ if ($('body[view-name="contractform"]').length > 0) {
             current_account: '',
             optionPaymentType: [],
             boolPaymentType: false,
+            ifBill: false
         },
         created(){
         },
         mounted() {
             this.form.data.start_date = moment(this.form.data.start_date, 'YYYY-MM-DD', true);
-            this.form.data.end_date = moment(this.form.data.end_date, 'YYYY-MM-DD', true);
+            // this.form.data.end_date = moment(this.form.data.end_date, 'YYYY-MM-DD', true);
 
             if (this.form.data.id_person != null){
                 this.person = this.form.data.id_person
@@ -42,7 +43,10 @@ if ($('body[view-name="contractform"]').length > 0) {
             if (this.form.data.id_service != null){
                 this.service = this.form.data.id_service
             }
-
+            if(this.form.data.id_bank_account != null){
+                this.current_account = this.form.data.id_bank_account
+                this.valuePaymentType();
+            }
         },
         updated(){
 
@@ -53,7 +57,6 @@ if ($('body[view-name="contractform"]').length > 0) {
         methods: {
             valuePaymentType()
             {
-                // console.log(this.optionPaymentType);
                 for(var i = 0; i < this.optionPaymentType.length; i++)
                 {
                     if(this.optionPaymentType[i].id == this.payment_type)
@@ -63,11 +66,12 @@ if ($('body[view-name="contractform"]').length > 0) {
                 }
                 if(value == 'B')
                 {
-                    $('#current_account').slideToggle(200);
+                    this.ifBill = true;
                 }
                 else
                 {
-                    $('#current_account').hide();
+                    this.current_account = '';
+                    this.ifBill = false;
                 }
             },
             functionPaymentType(res)
@@ -77,17 +81,16 @@ if ($('body[view-name="contractform"]').length > 0) {
                     return;
                 }
                 this.boolPaymentType = true;
-
-                // console.log(res);
                 this.optionPaymentType = res;
 
 
 
             },
             submit_form() {
-                this.form.data.id_person = this.person
-                this.form.data.id_payment_type = this.payment_type
-                this.form.data.id_service = this.service
+                this.form.data.id_person = this.person;
+                this.form.data.id_payment_type = this.payment_type;
+                this.form.data.id_service = this.service;
+                this.form.data.id_bank_account = this.current_account;
                 let url = '/contract';
 
 

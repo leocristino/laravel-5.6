@@ -26,11 +26,15 @@
                             <div class="form-group col-md-3 type-date">
                                 <label>Data Contato Inicial</label>
                                 <input type="date" class="form-control" name="bigger_than" v-model="form.data.bigger_than" value="{{ empty($_GET['bigger_than']) ? '' : $_GET['bigger_than'] }}" />
+                                {{--<datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" value="{{ empty($_GET['bigger_than']) ? '' : $_GET['bigger_than'] }}"--}}
+                                            {{--input-name="data_saida" v-model="form.data.bigger_than" />--}}
                             </div>
 
                             <div class="form-group col-md-3 type-date">
                                 <label>Data Contato Final</label>
                                 <input type="date" class="form-control" name="less_than" v-model="form.data.less_than" value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}" />
+                                {{--<datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}"--}}
+                                            {{--input-name="data_saida" v-model="form.data.less_than" />--}}
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">

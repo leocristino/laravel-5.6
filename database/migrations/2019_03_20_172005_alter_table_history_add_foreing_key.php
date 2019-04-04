@@ -19,7 +19,7 @@ class AlterTableHistoryAddForeingKey extends Migration
 
         Schema::table('history', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->unsignedInteger('id_person');
+            $table->unsignedInteger('id_person')->after('id');
             $table->foreign('id_person')->references('id')->on('person')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -32,7 +32,7 @@ class AlterTableHistoryAddForeingKey extends Migration
     public function down()
     {
         Schema::table('history', function (Blueprint $table) {
-            $table->dropForeign('telefones_tipo_telefone_id_foreign');
+            $table->dropForeign('history_id_person_foreign');
             $table->dropColumn('id_person');
         });
     }

@@ -14,15 +14,15 @@ class InsertNewPermissionBankAccount extends Migration
     public function up()
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Conta Corrente', 'nickname' => 'BANK_ACCOUNT']
+            ['nome' => 'Contas Corrente', 'nickname' => 'BANK_ACCOUNT']
+        );
+
+        DB::table('user_permissao')->insert(
+            ['id_user' => 1, 'id_permissao' => 6]
         );
 
         DB::table('user_permissao')->insert(
             ['id_user' => 1, 'id_permissao' => 7]
-        );
-
-        DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 8]
         );
     }
 

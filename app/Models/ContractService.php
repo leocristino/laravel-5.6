@@ -30,16 +30,13 @@ class ContractService extends CawModel
 
     public $timestamps = true;
 
-    public static function getList(Request $request){
+    public static function getList(Request $request)
+    {
+    dd($request);
+        $builder = ContractService::select('contract_service.*','service.*','contract.*')
+                    ->join('service','id','=','id_service')
+                    ->join('contract','id','=','1');
 
-        $builder = Car::select('contract_service.*','service.*')
-                    ->join('service','id','=','id_service');
-
-//        CawHelpers::addWhereLike($builder, 'model', $request['model']);
-
-//        if ($request['active'] != ""){
-//            $builder->where('active','=',$request['active']);
-//        }
 
         $builder->orderBy('service.name');
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));

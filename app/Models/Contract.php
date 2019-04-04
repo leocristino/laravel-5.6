@@ -7,6 +7,7 @@ use App\Models\Helpers\CawHelpers;
 use Illuminate\Http\Request;
 use \DB;
 use Mockery\Exception;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Contract extends CawModel
 {
@@ -15,6 +16,7 @@ class Contract extends CawModel
     protected $fillable = [
         'id_person',
         'id_payment_type',
+        'id_bank_account',
         'due_day',
         'emergency_password',
         'contra_emergency_password',
@@ -47,7 +49,9 @@ class Contract extends CawModel
             ->addSelect(DB::raw("(select COUNT(service.id) from contract_service as service
             where service.id_contract = contract.id) as qtde_valores_service"))
             ->join('person', 'person.id', '=', 'contract.id_person')
-            ->join('payment_type','payment_type.id','=','contract.id_payment_type');
+            ->join('payment_type','payment_type.id','=','contract.id_payment_type')
+            ->addSelect(DB::raw('(CASE WHEN contract.end_date < CURDATE() THEN 0 ELSE 1 END) AS contractActive'));
+
 
         CawHelpers::addWhereLike($builder, 'person.name_social_name', $request['name_social_name']);
 
@@ -55,12 +59,19 @@ class Contract extends CawModel
             $builder->where('contract.id', '=', $request['id_contract']);
         }
         CawHelpers::addWhereLike($builder, 'contract.id_payment_type', $request['id_payment_type']);
-//        CawHelpers::addWhereLike($builder, 'contract.id', $request['id_contract']);
 
-        if ($request['active'] != ""){
-            $builder->where('contract.active','=',$request['active']);
+        $date = date("Y-m-d");
+        if ($request['end_date'] == $date)
+        {
+            $builder->where('contract.end_date','<=', $date);
         }
+        else if ($request['end_date'] == "1")
+        {
+            $builder->where('contract.end_date','=', Null);
+        }
+
         $builder->orderBy('contract.id');
+
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 
@@ -130,5 +141,24 @@ class Contract extends CawModel
     }
     public function getContractService(){
         return $this->hasMany(ContractService::class,'id_contract')->get();
+    }
+
+    public function getStartDateAttribute($value)
+    {
+        if ($value != "")
+        {
+            $value =  CawHelpers::decodeData($value);
+        }
+
+        return $value;
+    }
+    public function getEndDateAttribute($value)
+    {
+        if ($value != "")
+        {
+            $value =  CawHelpers::decodeData($value);
+        }
+
+        return $value;
     }
 }

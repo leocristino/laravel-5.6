@@ -24,11 +24,15 @@ class HistoryController extends Controller
     {
         $history = new History();
         $person = Person::getSelect();
+        $currentUser = auth()->user()->id;
+        $user = new User();
 
         return view('history.form',
             [
                 'data' => $history,
                 'person' => $person,
+                'currentUser' => $currentUser,
+                'responsible' => $user,
             ]
         );
     }

@@ -14,6 +14,7 @@
                         @{{ nomePessoa(<?= $person ?>) }}
                         @{{ dataUser(<?= $responsible ?>, <?= $currentUser ?>) }}
 
+
                     </div>
 
                     <div class="box-body">
@@ -28,13 +29,13 @@
                                 <div id="formFields">
 
                                     <div class="form-group col-md-6">
-                                        <label>Criado por: {{ $responsible->name != '' ? $responsible->name : auth()->user()->name  }}</label>
+                                        <label>Criado por: {{ isset($responsible->name) != '' ? $responsible->name : auth()->user()->name  }}</label>
                                     </div>
 
                                     <div class="form-group col-md-12">
                                         <label>Cliente</label>
                                         <select class="form-control" v-model="person" required>
-                                            <option value="">Todos</option>
+                                            <option value="">Selecione</option>
                                             @foreach($person as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach
@@ -43,7 +44,8 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data do Contato</label>
-                                        <input type="date" class="form-control type-date" required v-model="form.data.contact_time" />
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
+                                                    input-name="data_saida" v-model="form.data.contact_time" />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Horário</label>

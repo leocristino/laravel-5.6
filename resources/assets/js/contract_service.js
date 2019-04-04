@@ -15,7 +15,7 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
             modal: Modal,
             // id_contract: '',
             valores: '',
-
+            ifNameService: false,
             formAdd: {
                 id_service: '',
                 name: '',
@@ -24,6 +24,7 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
             },
         },
         mounted() {
+
 
         },
         updated(){

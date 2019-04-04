@@ -43,12 +43,12 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-6" id="current_account" style="display:none;">
+                                    <div class="form-group col-md-6" id="current_account" v-show="ifBill == true">
                                         <label>Conta Corrente</label>
-                                        <select class="form-control" v-model="current_account" required>
+                                        <select class="form-control" v-model="current_account">
                                             <option value="">Selecione</option>
                                             @foreach($current_account as $item)
-                                                <option {{ $item->active == 0 ? 'disabled' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -7,15 +7,12 @@
     <div class="col-md-9">
         <h1>Contrato nº {{ str_pad($data->id, 5, '0', STR_PAD_LEFT)}} - {{$name->name_social_name}}</h1>
     </div>
-    <section class="content">
+    <section class="content" :json="[form.setData({{ $values }}), id_contract = {{$data->id}}]">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
 
-                    <div class="hidden">
-                        @{{ form.setData(<?= $values ?>) }}
-                        @{{ id_contract = <?= $data->id ?> }}
-                    </div>
+
 
                     <div class="box-body">
 

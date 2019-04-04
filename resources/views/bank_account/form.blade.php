@@ -64,7 +64,7 @@
 
                                         <div class="form-group col-md-2">
                                             <label >Emite Boleto</label>
-                                            <select class="form-control" v-model="form.data.bill_option">
+                                            <select class="form-control" v-model="form.data.bill_option" required>
                                                 <option value="">Todos</option>
                                                 <option value="S">SIM</option>
                                                 <option value="N">NÃO</option>

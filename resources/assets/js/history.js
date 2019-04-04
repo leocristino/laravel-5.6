@@ -20,19 +20,13 @@ if ($('body[view-name="historyform"]').length > 0) {
             moment: '',
         },
         mounted() {
-            // console.log(this.form.data.contact_time.toLocaleDateString('en'));
-            // console.log(this.form.data.created_at);
-
-            // this.form.data.contact_time = new Date(this.form.data.contact_time);
-            // console.log(this.form.data.contact_time.toLocaleDateString('pt-br'));
-
-            // if(this.form.data.contact_time == null)
-            // {
-            //     this.form.data.contact_time = new Date()
-            // }
-            // else {
-               // this.form.data.contact_time = moment(this.form.data.contact_time.substr(0, 10), 'yyyy/MM/dd', true);
-            // }
+            if(this.form.data.contact_time == null)
+            {
+                this.form.data.contact_time = new Date()
+            }
+            else {
+                this.form.data.contact_time = moment(this.form.data.contact_time, 'YYYY-MM-DD', true);
+            }
 
             if (this.form.data.id_person != null){
                 this.person = this.form.data.id_person
@@ -46,7 +40,8 @@ if ($('body[view-name="historyform"]').length > 0) {
         },
         methods: {
             dataUser(responsible, currentUser){
-                if(responsible.id != currentUser)
+
+                if(responsible.id != currentUser && this.form.data.id > 0)
                 {
                     $("#submit").prop( "disabled", true );
                 }
@@ -104,16 +99,7 @@ if ($('body[view-name="historyindex"]').length > 0) {
             moment: '',
         },
         mounted() {
-            if(this.form.data.contact_time == null)
-            {
-                this.form.data.contact_time = new Date()
-            }
-            else
-                this.form.data.contact_time = new Date(this.form.data.contact_time), 'yyyy-MM-dd'
 
-            if (this.form.data.id_person != null){
-                this.person = this.form.data.id_person
-            }
         },
         updated(){
 

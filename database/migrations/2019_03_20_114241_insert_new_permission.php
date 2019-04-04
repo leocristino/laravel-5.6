@@ -14,7 +14,7 @@ class InsertNewPermission extends Migration
     public function up()
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Cadastro de contas', 'nickname' => 'TICKET']
+            ['nome' => 'Tipo de contas', 'nickname' => 'TICKET']
         );
     }
 

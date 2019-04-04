@@ -15,7 +15,7 @@ class ContractController extends Controller
     public function index(Request $request)
     {
         $payment_type = PaymentType::all();
-
+//        dd(Contract::getList($request));
         return view('contract.index',
             [
                 'data' => Contract::getList($request),
@@ -27,7 +27,6 @@ class ContractController extends Controller
 
     public function create()
     {
-        $current_account = BankAccount::bankAccountInCurrentAccount();
         $contract = new Contract();
         $date = date("Y-m-d");
         $contract->start_date = $date;
@@ -36,8 +35,10 @@ class ContractController extends Controller
         $payment_type = PaymentType::get();
         $service = Service::all();
         $contract->active = 1;
+        $current_account = BankAccount::bankAccountInCurrentAccount();
 
-//        dd($payment_type);
+
+//        dd($current_account);
         return view('contract.form',
             [
                 'data' => $contract,
@@ -56,6 +57,9 @@ class ContractController extends Controller
         $payment_type = PaymentType::all();
         $service = Service::all();
 
+        $current_account = BankAccount::bankAccountInCurrentAccount();
+//        dd($current_account);
+
         return view('contract.form',
             [
                 'data' => $contract,
@@ -63,6 +67,7 @@ class ContractController extends Controller
                 'payment_type' => $payment_type,
                 'name' => Person::select('name_social_name')->where('id', '=', $contract->id_person)->first(),
                 'service' => $service,
+                'current_account' => $current_account,
             ]
         );
 

@@ -14,11 +14,11 @@ class InsertNewPermissionPaymentType extends Migration
     public function up()
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Forma de Pagamento', 'nickname' => 'PAYMENT_TYPE']
+            ['nome' => 'Formas de Pagamento', 'nickname' => 'PAYMENT_TYPE']
         );
 
         DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 9]
+            ['id_user' => 1, 'id_permissao' => 8]
         );
 
     }
