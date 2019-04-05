@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
-                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo Usuário</button>
+                <button class="btn btn-block btn-success"><i class="fa fa-plus"></i> Novo </button>
             </a>
         </div>
     </section>
@@ -43,7 +43,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
-                                    <option value=""></option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
@@ -64,6 +64,7 @@
                                         <tr role="row">
                                             <th>Nome / Razão Social</th>
                                             <th class="hidden-xs">CPF / CNPJ</th>
+                                            <th class="hidden-xs"></th>
                                             <th class="hidden-xs">Status</th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
@@ -73,6 +74,14 @@
                                             <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->cpf_cnpj }}</td>
+                                                <td>
+                                                    <a href="{{ config('APP_URL') }}/history/?name_social_name={{ $item->name_social_name }}">
+                                                        <button class="btn btn-small btn-default" title="Histórico">
+                                                            <i class="fas fa-history"></i></i>
+                                                            <span class="badge badge-light">{{ $item->count_history }}</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
                                                 <td class="hidden-xs"><i class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>

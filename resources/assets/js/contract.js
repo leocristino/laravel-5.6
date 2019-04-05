@@ -29,8 +29,18 @@ if ($('body[view-name="contractform"]').length > 0) {
         created(){
         },
         mounted() {
-            this.form.data.start_date = moment(this.form.data.start_date, 'YYYY-MM-DD', true);
-            // this.form.data.end_date = moment(this.form.data.end_date, 'YYYY-MM-DD', true);
+
+            this.form.data.end_date = moment(this.form.data.end_date, 'YYYY-MM-DD', true);
+
+            if(this.form.data.start_date == null)
+            {
+                this.form.data.start_date = new Date()
+            }
+            else {
+                this.form.data.start_date = moment(this.form.data.start_date, 'YYYY-MM-DD', true);
+            }
+
+            // alert(this.form.data.start_date);
 
             if (this.form.data.id_person != null){
                 this.person = this.form.data.id_person
@@ -132,7 +142,6 @@ if ($('body[view-name="contractindex"]').length > 0) {
             namePerson: '',
         },
         mounted() {
-
         },
         updated(){
 
@@ -141,6 +150,7 @@ if ($('body[view-name="contractindex"]').length > 0) {
 
         },
         methods: {
+
             activeDisabled(id, type){
                 if(type == 1){
                     var msn = "Deseja desativar este registro?";

@@ -42,6 +42,8 @@ class Contract extends CawModel
             'person.name_social_name',
             'payment_type.id as id_payment_type',
             'payment_type.name')
+            ->addSelect(DB::raw("(select SUM(contract_service.value + contract_service.addition_discount) from contract_service
+            where contract_service.id_contract = contract.id) as valueContract"))
             ->addSelect(DB::raw("(select COUNT(car.id) from contract_car as car
             where car.id_contract = contract.id) as qtde_valores_car"))
             ->addSelect(DB::raw("(select COUNT(imei.id) from contract_imei as imei
@@ -50,7 +52,9 @@ class Contract extends CawModel
             where service.id_contract = contract.id) as qtde_valores_service"))
             ->join('person', 'person.id', '=', 'contract.id_person')
             ->join('payment_type','payment_type.id','=','contract.id_payment_type')
-            ->addSelect(DB::raw('(CASE WHEN contract.end_date < CURDATE() THEN 0 ELSE 1 END) AS contractActive'));
+            ->leftJoin('contract_service', 'contract_service.id_contract','=','contract.id')
+            ->addSelect(DB::raw('(CASE WHEN contract.end_date < CURDATE() THEN 0 ELSE 1 END) AS contractActive'))
+            ->groupBy('contract.id');
 
 
         CawHelpers::addWhereLike($builder, 'person.name_social_name', $request['name_social_name']);
@@ -63,11 +67,12 @@ class Contract extends CawModel
         $date = date("Y-m-d");
         if ($request['end_date'] == $date)
         {
-            $builder->where('contract.end_date','<=', $date);
+            $builder->where('contract.end_date','<', $date);
         }
         else if ($request['end_date'] == "1")
         {
-            $builder->where('contract.end_date','=', Null);
+            $builder->where('contract.end_date', '>',$date);
+            $builder->orWhere('contract.end_date', '=', Null);
         }
 
         $builder->orderBy('contract.id');
@@ -139,26 +144,14 @@ class Contract extends CawModel
     public function getImei(){
         return $this->hasMany(Imei::class, 'id_contract')->get();
     }
+
     public function getContractService(){
-        return $this->hasMany(ContractService::class,'id_contract')->get();
+        return $this->hasMany(ContractService::class,'id_contract')
+            ->select('contract_service.id_service', 'service.name as service','contract_service.value','contract_service.addition_discount','contract_service.id as idContractInService','service.*')
+            ->join('service','service.id','=','contract_service.id_service')
+            ->orderBy('service.name')
+            ->get();
+
     }
 
-    public function getStartDateAttribute($value)
-    {
-        if ($value != "")
-        {
-            $value =  CawHelpers::decodeData($value);
-        }
-
-        return $value;
-    }
-    public function getEndDateAttribute($value)
-    {
-        if ($value != "")
-        {
-            $value =  CawHelpers::decodeData($value);
-        }
-
-        return $value;
-    }
 }

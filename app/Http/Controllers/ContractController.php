@@ -15,7 +15,6 @@ class ContractController extends Controller
     public function index(Request $request)
     {
         $payment_type = PaymentType::all();
-//        dd(Contract::getList($request));
         return view('contract.index',
             [
                 'data' => Contract::getList($request),

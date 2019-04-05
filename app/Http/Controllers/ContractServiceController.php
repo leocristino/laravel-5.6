@@ -20,6 +20,7 @@ class ContractServiceController extends Controller
         $service = Service::all();
 
 
+
         return view('contract_service.index',
             [
                 'name' => Person::select('name_social_name')->where('id', '=', $data->id_person)->first(),
@@ -32,7 +33,6 @@ class ContractServiceController extends Controller
 
     public function store(Request $request)
     {
-
         if(empty($request->get('id'))){
             return ['result' => 'false', 'msg' => 'Dados Inválidos'];
         }

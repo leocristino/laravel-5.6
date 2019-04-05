@@ -32,7 +32,6 @@ class ContractService extends CawModel
 
     public static function getList(Request $request)
     {
-    dd($request);
         $builder = ContractService::select('contract_service.*','service.*','contract.*')
                     ->join('service','id','=','id_service')
                     ->join('contract','id','=','1');
@@ -54,27 +53,24 @@ class ContractService extends CawModel
                 //adicionando valores
                 if (empty($item['id_contract']) && $verificador === true)
                 {
+
                     if (empty($item['id_contract']))
                         $item['id_contract'] = $id_contract;
 
-                    $contract_service['id_contract'] = $id_contract;
-                    $contract_service['id_service'] = $item['id_service'];
-                    $contract_service['value'] = $item['value'];
-                    $contract_service['addition_discount'] = $item['addition_discount'];
-                    $contract_service = new ContractService($contract_service);
+                    $contract_service = new ContractService();
+                    $contract_service->id_contract = $id_contract;
+                    $contract_service->id_service = $item['id_service'];
+                    $contract_service->value = $item['value'];
+                    $contract_service->addition_discount = $item['addition_discount'];
                     $contract_service->save();
                 }
                 //excluindo valores
-                else if (!empty($item['id_contract'])&& $verificador === false)
+                else if (!empty($id_contract)&& $item['active'] === false || $item['active'] != 1)
                 {
-                    ContractService::query()
-                        ->where('id_contract', '=', $id_contract)
-                        ->where('id', '=', $item['id'])->delete();
-
+                    ContractService::where('id',$item['idContractInService'])->delete();
                 }
 
             }
-
             DB::commit();
             return true;
 

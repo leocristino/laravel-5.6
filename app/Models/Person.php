@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Helpers\CawModel;
 use App\Models\Helpers\CawHelpers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Person extends CawModel
 {
@@ -45,21 +46,25 @@ class Person extends CawModel
 
     public static function getList(Request $request){
 
-        $builder = Person::select("id",
-                                          "type",
-                                          "name_social_name",
-                                          "fantasy_name",
-                                          "cpf_cnpj",
-                                          "rg",
-                                          "ie",
-                                          "date_birth",
-                                          "email",
-                                          "zip",
-                                          "street",
-                                          "district",
-                                          "city",
-                                          "state",
-                                          "active");
+        $builder = Person::select("person.id",
+                                          "person.type",
+                                          "person.name_social_name",
+                                          "person.fantasy_name",
+                                          "person.cpf_cnpj",
+                                          "person.rg",
+                                          "person.ie",
+                                          "person.date_birth",
+                                          "person.email",
+                                          "person.zip",
+                                          "person.street",
+                                          "person.district",
+                                          "person.city",
+                                          "person.state",
+                                          "person.active")
+                                        ->addSelect(DB::raw("(select COUNT(history.id) from history
+                                        where history.id_person = person.id) as count_history"))
+                                        ->leftJoin('history','history.id_person','=','person.id')
+                                        ->groupBy('person.id');
 
         CawHelpers::addWhereLike($builder, 'name_social_name', $request['name_social_name']);
         CawHelpers::addWhereLike($builder, 'cpf_cnpj', CawHelpers::removeFormatting($request['cpf_cnpj']));

@@ -23,9 +23,7 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
                 addition_discount: '',
             },
         },
-        mounted() {
-
-
+    mounted() {
         },
         updated(){
 
@@ -36,9 +34,9 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
         methods: {
             findValue() {
                 let thisCopy = Object.assign({}, this);
-                // console.log(this.service);
+
                 this.form.get('/service/contract_service/', {service: this.service}, function (response) {
-                    // console.log(response);
+
                     thisCopy.formAdd.value = response.data.price;
                     thisCopy.formAdd.name = response.data.name;
                     thisCopy.formAdd.id_service = response.data.id;
@@ -47,9 +45,10 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
             },
 
             submit_form() {
-                // this.formAdd.id_service = this.formAdd.service;
+
                 let url = '/contract/contract_service';
                 // console.log(this.form.data);
+
                 this.form.post(url, {id: this.id_contract, valores: this.form.data}, this.onSuccess);
             },
 
@@ -78,10 +77,9 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
                     this.$refs.modal.show();
                     return;
                 }
-                // console.log(this.service);
                 this.form.data.push({
                     service: this.formAdd.name,
-                    value: this.formAdd.value,
+                    value: Number.parseFloat(this.formAdd.value).toFixed(2),
                     addition_discount: this.formAdd.addition_discount,
                     id_service: this.formAdd.id_service,
 

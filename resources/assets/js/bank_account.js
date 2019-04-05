@@ -72,6 +72,15 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
                     return;
                 }
 
+                if (this.form.data.priceOfSend == '0')
+                {
+                    this.$refs.modal.configModal('Campo obrigatório', 'Preencha o campo Valor de Emissão!', '', 'OK', function () {
+
+                    });
+                    this.$refs.modal.show(1500);
+                    return;
+                }
+
                 this.form.submit(url, this.onSuccess);
             },
 

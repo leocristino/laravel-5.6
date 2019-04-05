@@ -11,7 +11,7 @@
             </a>
         </div>
     </section>
-    <section class="content">
+    <section class="content" >
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
@@ -87,8 +87,9 @@
                                             <th>Nº Contrato</th>
                                             <th>Pessoa</th>
                                             <th class="hidden-xs">Tipo de pagamento</th>
-                                            <th width="50px">Data Inicial</th>
-                                            <th width="50px">Data Final</th>
+                                            <th class="hidden-xs">Data Inicial</th>
+                                            <th class="hidden-xs">Data Final</th>
+                                            <th class="hidden-xs">Valor Contrato</th>
                                             <th class="hidden-xs">Ativo</th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
@@ -102,8 +103,9 @@
                                                 <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->name }}</td>
-                                                <td class="hidden-xs">{{ $item->start_date }}</td>
-                                                <td class="hidden-xs">{{ $item->end_date }}</td>
+                                                <td class="hidden-xs">{{ date("d/m/Y", strtotime($item->start_date)) }}</td>
+                                                <td class="hidden-xs">{{ empty($item->end_date) ? '' : date("d/m/Y", strtotime($item->end_date)) }}</td>
+                                                <td class="hidden-xs">R$ {{ $item->valueContract }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->contractActive == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/contract_service/{{ $item['id'] }}/save">
