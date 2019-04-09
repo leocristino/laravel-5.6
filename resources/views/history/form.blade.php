@@ -37,7 +37,7 @@
                                         <select class="form-control" v-model="person" required>
                                             <option value="">Selecione</option>
                                             @foreach($person as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name_social_name }}</option>
+                                                <option {{$item->active == 0 ? 'disabled' : ''}} value="{{ $item->id }}">{{ $item->name_social_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

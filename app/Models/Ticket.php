@@ -98,5 +98,7 @@ class Ticket extends CawModel
         }
     }
 
-
+    public static function getSelect(){
+        return Ticket::where('active','=',1)->get();
+    }
 }

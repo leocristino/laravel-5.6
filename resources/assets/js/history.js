@@ -99,7 +99,7 @@ if ($('body[view-name="historyindex"]').length > 0) {
             moment: '',
         },
         mounted() {
-
+            // this.form.data.bigger_than = moment(this.form.data.bigger_than).format('YYYY/MM/DD');
         },
         updated(){
 
@@ -108,11 +108,17 @@ if ($('body[view-name="historyindex"]').length > 0) {
 
         },
         methods: {
+            changeDateBiggerThan()
+            {
+                // console.log(this.form.data.bigger_than);
+                //
+                // this.form.data.bigger_than  = moment(this.form.data.bigger_than).format('YYYY-MM-DD HH:mm');
+                // console.log(this.form.data.bigger_than);
 
+            },
             submit_form() {
                 this.form.data.id_person = this.person
                 let url = '/history';
-
 
                 this.form.submit(url, this.onSuccess);
             },

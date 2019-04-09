@@ -41,12 +41,14 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #PESSOAS
     Route::get('/person/list-person', 'PessoaController@listPessoa');
-    Route::resource('/person', 'PersonController');
     Route::post('/person/activeDisabled', 'PersonController@activeDisabled');
     Route::get('/person/pdf', 'PersonController@pdf');
     Route::get('/person/csv', 'PersonController@csv');
+    Route::resource('/person', 'PersonController');
 
     #HISTORICO
+    Route::get('/history/pdf', 'HistoryController@pdf');
+    Route::get('/history/csv', 'HistoryController@csv');
     Route::resource('/history', 'HistoryController');
 
     #SERVICE
@@ -84,6 +86,10 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #   CONTRACT SERVICE
     Route::get('/contract_service/', 'ContractServiceController@getValueOfService');
+
+    #ACCOUNTSRECEIVABLE
+    Route::resource('/account_receivable', 'AccountReceivableController');
+
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

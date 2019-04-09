@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Helpers\CawModel;
 use App\Models\Helpers\CawHelpers;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use \DB;
 use Mockery\Exception;
@@ -16,7 +17,7 @@ class History extends CawModel
         'id_person',
         'description',
         'contact_time',
-        'contact_time_hour'
+        'contact_time_hour',
     ];
 
 
@@ -37,13 +38,20 @@ class History extends CawModel
 
 
         CawHelpers::addWhereLike($builder, 'name_social_name', $request['name_social_name']);
+
         if ($request['bigger_than'])
         {
+//            $request['bigger_than'] = explode('/',$request['bigger_than']);
+//            $request['bigger_than'] = $request['bigger_than'][2]."-".$request['bigger_than'][1]."-".$request['bigger_than'][0];
+
             $builder->where('contact_time','>=',$request['bigger_than']);
         }
 
         if ($request['less_than'])
         {
+//            $request['less_than'] = explode('/',$request['less_than']);
+//            $request['less_than'] = $request['less_than'][2]."-".$request['less_than'][1]."-".$request['less_than'][0];
+
             $builder->where('contact_time','<=',$request['less_than']);
         }
 

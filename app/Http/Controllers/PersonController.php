@@ -113,10 +113,24 @@ class PersonController extends Controller
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
             $pdf->Cell(40,4,'Nome');
-            $pdf->Cell(40,4,'Tipo');
-            $pdf->Cell(30,4,'Nome Fantasia');
-            $pdf->Cell(50,4,'CPF / CNPJ');
-            $pdf->Cell(25,4,'RG');
+            $pdf->Cell(25,4,'Tipo de Pessoa');
+//            $pdf->Cell(40,4,'Nome Fantasia');
+            $pdf->Cell(50,4,'Email');
+            $pdf->Cell(25,4,'CPF / CNPJ');
+//            $pdf->Cell(25,4,'RG');
+//            $pdf->Cell(25,4,'Inscrição Estadual');
+//            $pdf->Cell(25,4,'Data de Nascimento');
+//            $pdf->Cell(25,4,'CEP');
+//            $pdf->Cell(25,4,'Logradouro');
+//            $pdf->Cell(25,4,'Nº');
+//            $pdf->Cell(25,4,'Complemento');
+//            $pdf->Cell(25,4,'Bairro');
+//            $pdf->Cell(25,4,'Cidade');
+//            $pdf->Cell(25,4,'Estado');
+            $pdf->Cell(25,4,'Telefone Fixo');
+            $pdf->Cell(25,4,'Celular');
+//            $pdf->Cell(25,4,'Observação');
+//            $pdf->Cell(25,4,'Ativo');
             $pdf->Ln();
             $pdf->HrLine();
         };
@@ -128,11 +142,30 @@ class PersonController extends Controller
 
         $data = Person::getList($request, false);
         foreach ($data as $item) {
+
+            if($item->type == "F")
+                $type = 'Física';
+            else
+                $type = 'Jurídica';
             $pdf->Cell(40,4, $item->name_social_name);
-            $pdf->Cell(40,4, $item->type);
-            $pdf->Cell(30,4, $item->fantasy_name);
-            $pdf->Cell(50,4, $item->email);
-            $pdf->Cell(25,4, $item->cpf_cnpj);
+            $pdf->Cell(20,4, $type);
+//            $pdf->Cell(40,4, $item->fantasy_name);
+            $pdf->Cell(40,4, $item->email);
+            $pdf->Cell(30,4, $item->cpf_cnpj);
+//            $pdf->Cell(25,4, $item->rg);
+//            $pdf->Cell(25,4, $item->ie);
+//            $pdf->Cell(25,4, $item->date_birth);
+//            $pdf->Cell(25,4, $item->zip);
+//            $pdf->Cell(25,4, $item->street);
+//            $pdf->Cell(25,4, $item->street_number);
+//            $pdf->Cell(15,4, $item->complement);
+//            $pdf->Cell(25,4, $item->district);
+//            $pdf->Cell(25,4, $item->city);
+//            $pdf->Cell(25,4, $item->state);
+            $pdf->Cell(25,4, $item->fixed_telephone);
+            $pdf->Cell(25,4, $item->cellphone);
+//            $pdf->Cell(40,4, $item->obs);
+//            $pdf->Cell(25,4, $item->active);
             $pdf->Ln();
         }
 
@@ -144,21 +177,63 @@ class PersonController extends Controller
     public function csv(Request $request){
 
         $csv = '';
+
+        $csv .= 'Cód.;';
         $csv .= 'Nome;';
-        $csv .= 'Tipo;';
-        $csv .= 'CPF /CNPJ;';
+        $csv .= 'Tipo de Pessoa;';
+        $csv .= 'Nome Fantasia;';
+        $csv .= 'Email;';
+        $csv .= 'CPF / CNPJ;';
         $csv .= 'RG;';
-        $csv .= 'IE;';
+        $csv .= 'Inscrição Estadual;';
+        $csv .= 'Data de Nascimento;';
+        $csv .= 'CEP;';
+        $csv .= 'Logradouro;';
+        $csv .= 'Nº;';
+        $csv .= 'Complemento;';
+        $csv .= 'Bairro;';
+        $csv .= 'Cidade;';
+        $csv .= 'Estado;';
+        $csv .= 'Telefone Fixo;';
+        $csv .= 'Celular;';
+        $csv .= 'Observação;';
+        $csv .= 'Ativo;';
 
         $csv .= chr(13);
 
         $data = Person::getList($request);
         foreach ($data as $item) {
+            if($item->type == "F")
+                $type = 'Física';
+            else
+                $type = 'Jurídica';
+
+            if($item->active == 1)
+                $active = 'SIM';
+            else
+                $active = 'NÃO';
+
+            $csv .= "\"$item->id\";";
             $csv .= "\"$item->name_social_name\";";
-            $csv .= "\"$item->type\";";
+            $csv .= "\"$type\";";
+            $csv .= "\"$item->fantasy_name\";";
+            $csv .= "\"$item->email\";";
             $csv .= "\"$item->cpf_cnpj\";";
             $csv .= "\"$item->rg\";";
             $csv .= "\"$item->ie\";";
+            $csv .= "\"$item->date_birth\";";
+            $csv .= "\"$item->zip\";";
+            $csv .= "\"$item->street\";";
+            $csv .= "\"$item->street_number\";";
+            $csv .= "\"$item->complement\";";
+            $csv .= "\"$item->district\";";
+            $csv .= "\"$item->city\";";
+            $csv .= "\"$item->state\";";
+            $csv .= "\"$item->fixed_telephone\";";
+            $csv .= "\"$item->cellphone\";";
+            $csv .= "\"$item->obs\";";
+            $csv .= "\"$active\";";
+
             $csv .= chr(13);
         }
 
@@ -167,6 +242,7 @@ class PersonController extends Controller
         return response()
             ->make($csv)
             ->header('Content-Type', 'text/csv; charset=utf-8')
-            ->header('Content-Disposition', 'attachment; filename=rel_destino_pedagogico.csv');
+            ->header('Content-Disposition', 'attachment; filename=rel_pessoas.csv');
+
     }
 }

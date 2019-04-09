@@ -58,7 +58,12 @@ class Person extends CawModel
                                           "person.zip",
                                           "person.street",
                                           "person.district",
+                                          "person.complement",
                                           "person.city",
+                                          "person.street_number",
+                                          "person.fixed_telephone",
+                                          "person.cellphone",
+                                          "person.obs",
                                           "person.state",
                                           "person.active")
                                         ->addSelect(DB::raw("(select COUNT(history.id) from history
@@ -136,6 +141,30 @@ class Person extends CawModel
         }
 
         return $value;
+    }
+
+    public function getZipAttribute($value)
+    {
+        if ($value != "")
+        {
+            return CawHelpers::mask($value, '##.###-###');
+        }
+
+    }
+    public function getFixedTelephoneAttribute($value)
+    {
+        if ($value != "")
+        {
+            return CawHelpers::mask($value, '(##)#####-####');
+        }
+    }
+
+    public function getCellphoneAttribute($value)
+    {
+        if ($value != "")
+        {
+            return CawHelpers::mask($value, '(##)#####-####');
+        }
     }
 
     /**

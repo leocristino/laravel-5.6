@@ -62,7 +62,7 @@ class BankAccount extends CawModel
     {
         if($this->name == "")
         {
-            return new \Exception('O campo nome do serviço é obrigatório.');
+            return new \Exception('O campo nome do serviço é obrigatório11111111111.');
         }
 //        if($this->currentBalance == "" || $this->price == "R$ 0") {
 //            return new \Exception('O campo saldo inicial é obrigatório.');
@@ -115,5 +115,9 @@ class BankAccount extends CawModel
                                     ->where('active','=',1)->get();
 
         return $current_account;
+    }
+
+    public static function getSelect(){
+        return BankAccount::where('active','=',1)->get();
     }
 }

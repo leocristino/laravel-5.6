@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Histórico de Clientes</h1>
+            <h1>Contas a Receber</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">
@@ -19,29 +19,34 @@
                         <form action="{{ url()->current() }}">
 
                             <div class="form-group col-md-3 col-sm-6">
-                                <label>Cliente</label>
-                                <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
-                            </div>
-
-                            <div class="form-group col-md-3 type-date col-sm-6">
-                                <label>Data Contato Inicial</label>
-                                {{--<datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" value="{{ empty($_GET['bigger_than']) ? '' : $_GET['bigger_than'] }}"--}}
-                                            {{--input-name="bigger_than" />--}}
-                                <input type="date" class="form-control" name="bigger_than"  value="{{ empty($_GET['bigger_than']) ? '' : $_GET['bigger_than'] }}" />
-
-
-                            </div>
-
-                            <div class="form-group col-md-3 type-date">
-                                <label>Data Contato Final</label>
-                                <input type="date" class="form-control" name="less_than"  value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}" />
-                                {{--<datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}"--}}
-                                            {{--input-name="less_than" v-model="form.data.less_than" />--}}
+                                <label>Nome</label>
+                                <input type="text" class="form-control" name="name" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}" />
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">
+                                <label>Ativo</label>
+                                <?php
+                                $select = 2;
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "1"){
+                                        $select = 1;
+                                    }
+                                }
+                                if(isset($_GET['active'])){
+                                    if($_GET['active'] == "0"){
+                                        $select = 0;
+                                    }
+                                }
+                                ?>
+                                <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
+                                    <option value="">Todos</option>
+                                    <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
+                                    <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
+                                </select>
+                            </div>
+                                <div class="form-group col-md-3 col-sm-6">
                                 <br>
-                                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 5px"><i class="fa fa-search"></i> Pesquisar</button>
+                                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Pesquisar</button>
                             </div>
                         </form>
                     </div>
@@ -54,16 +59,24 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>Pessoa</th>
-                                                <th class="hidden-xs">Data Cadastro</th>
-                                                <th class="hidden-xs">Data Contato</th>
+                                                <th class="hidden-xs">Plano de Conta</th>
+                                                <th class="hidden-xs">Forma de Pagamento</th>
+                                                <th class="hidden-xs"></th>
+                                                <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $item)
-                                            <tr id="table{{ $item->id }}" >
+                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
                                                 <td>{{ $item->name_social_name }}</td>
-                                                <td class="hidden-xs">{{ $item->created_at }}</td>
-                                                <td class="hidden-xs">{{  date("d/m/Y", strtotime(substr($item->contact_time,0,10))) }} {{ substr($item->contact_time_hour, 0 ,5) }}</td>
+                                                <td class="hidden-xs">{{ $item->ticket_name }}</td>
+                                                <td class="hidden-xs">{{ $item->payment_type_name }}</td>
+                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td>
+                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
+                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
+                                                </td>
+
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
