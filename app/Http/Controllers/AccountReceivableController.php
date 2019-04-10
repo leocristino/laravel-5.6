@@ -32,6 +32,8 @@ class AccountReceivableController extends Controller
         $bank_account = BankAccount::getSelect();
         $account_receivable->value_bill = 0.00;
         $account_receivable->amount_paid = 0.00;
+        $account_receivable->account_type = "R";
+
 
         return view('account_receivable.form',
             [
@@ -46,13 +48,21 @@ class AccountReceivableController extends Controller
 
     public function edit($id)
     {
-        $bank_account = BankAccount::find($id);
+        $account_receivable = AccountReceivable::find($id);
+        $person = Person::getSelect();
+        $ticket = Ticket::getSelect();
+        $payment_type = PaymentType::getSelect();
+        $bank_account = BankAccount::getSelect();
 
 
-        return view('bank_account.form',
+
+        return view('account_receivable.form',
             [
-                'data' => $bank_account,
-                'banks' => Bank::getSelectBank(),
+                'data' => $account_receivable,
+                'person' => $person,
+                'ticket' => $ticket,
+                'payment_type' => $payment_type,
+                'bank_account' => $bank_account,
             ]
         );
     }
@@ -69,7 +79,7 @@ class AccountReceivableController extends Controller
 
         try {
             DB::beginTransaction();
-
+            $account_recevaible->account_type = "R";
             $res = $account_recevaible->save();
 
             if ($res === true) {
@@ -84,5 +94,24 @@ class AccountReceivableController extends Controller
             return ['result' => 'false', 'msg' => $e->getMessage()];
         }
     }
+    public function delete(Request $request){
 
+        try {
+
+            $res = AccountReceivable::deleteLine($request->id);
+            if ($res === true) {
+                DB::commit();
+                return ['result' => true, 'msg' => 'Excluido com sucesso.'];
+            } else {
+                DB::rollBack();
+                return ['result' => false, 'msg' => 'Registro não foi excluido.'];
+            }
+
+        }catch (QueryException $e){
+            DB::rollBack();
+            return ['result' => false, 'msg' => $e->getMessage()];
+        }
+
+
+    }
 }

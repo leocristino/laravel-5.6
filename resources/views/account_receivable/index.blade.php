@@ -61,27 +61,23 @@
                                                 <th>Pessoa</th>
                                                 <th class="hidden-xs">Plano de Conta</th>
                                                 <th class="hidden-xs">Forma de Pagamento</th>
-                                                <th class="hidden-xs"></th>
+                                                <th class="hidden-xs">Valor a Pagar</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
+                                            <tr>
                                                 <td>{{ $item->name_social_name }}</td>
-                                                <td class="hidden-xs">{{ $item->ticket_name }}</td>
-                                                <td class="hidden-xs">{{ $item->payment_type_name }}</td>
-                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
-                                                <td>
-                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
-                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
-                                                </td>
-
+                                                <td class="hidden-xs">{{ $item->name_ticket }}</td>
+                                                <td class="hidden-xs">{{ $item->name_payment_type }}</td>
+                                                <td class="hidden-xs">R$ {{ $item->value_bill }}</td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                 </td>
+                                                <td><button class="btn btn-small btn-danger" title="Excluir Conta a Receber" @click="deleteAccountReceivable({{$item}})"><i class="fas fa-trash-alt"></i></button> </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -97,14 +93,14 @@
                                     {{$data->links()}}
                                 </div>
                                 <br><br>
-                                <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
-                                    </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
-                                    </a>
-                                </div>
+                                {{--<div class="col-sm-12 text-center">--}}
+                                    {{--<a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">--}}
+                                        {{--<button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>--}}
+                                    {{--</a>--}}
+                                    {{--<a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">--}}
+                                        {{--<button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>--}}
+                                    {{--</a>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
                     </div>

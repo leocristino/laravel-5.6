@@ -19,7 +19,7 @@
 
                             <div id="formFields">
                                 <div class="form-group col-md-3">
-                                    <label >Nome</label>
+                                    <label >Pessoa</label>
                                     <select name="" id="" v-model="form.data.id_person" class="form-control" required>
                                         <option value="">Selecione</option>
                                         @foreach($person as $item)
@@ -79,7 +79,7 @@
                                 <div class="form-group col-md-3">
                                     <label >Data do Pagamento</label>
                                     <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
-                                                input-name="due_date" v-model="form.data.payment_date" />
+                                                 input-name="payment_date" v-model="form.data.payment_date" />
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -117,6 +117,11 @@
                                         <label >Data da Devolução</label>
                                         <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
                                                     input-name="due_date" v-model="form.data.chq_date_return" />
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <label >Lote do Cheque</label>
+                                        <input type="text" class="form-control" v-model="form.data.chq_lot" maxlength="255"/>
                                     </div>
                                 </div>
 

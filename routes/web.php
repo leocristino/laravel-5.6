@@ -79,8 +79,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #CONTRACT
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
-    Route::resource('/contract', 'ContractController');
     Route::get('/contract/contract_car/{id}/save', 'CarController@index');
+    Route::resource('/contract', 'ContractController');
     Route::resource('/contract/contract_imei/{id}/save', 'ImeiController');
     Route::resource('/contract/contract_service/{id}/save', 'ContractServiceController');
 
@@ -88,6 +88,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::get('/contract_service/', 'ContractServiceController@getValueOfService');
 
     #ACCOUNTSRECEIVABLE
+    Route::post('/account_receivable/delete', 'AccountReceivableController@delete');
+    Route::get('/account_receivable/index', 'AccountReceivableController@index');
     Route::resource('/account_receivable', 'AccountReceivableController');
 
 
