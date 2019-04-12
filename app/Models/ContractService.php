@@ -41,7 +41,16 @@ class ContractService extends CawModel
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 
+    public static function getListReport(Request $request, $id)
+    {
+        $builder = ContractService::select('contract_service.*','service.*')
+            ->leftJoin('service','service.id','=','contract_service.id_service')
+            ->where('contract_service.id_contract','=',$id);
 
+
+        $builder->orderBy('service.name');
+        return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+    }
 
     public static function updateArray($id_contract, $itens)
     {

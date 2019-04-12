@@ -93,7 +93,7 @@ class CawPDF extends Fpdf
     function Header(){
         if($this->hasHeader) {
             //cabecalho base
-            $this->Image(public_path('images/logotatical.png'), $this->lMargin, 5, 15, 15);
+            $this->Image(public_path('images/logotatical.png'), $this->lMargin, 5, 13, 15);
 
             $this->SetFont('Arial', 'B', 12);
             $this->Cell($this->GetPageWidth() - ($this->lMargin + $this->rMargin), 4, $this->reportName, 0, 1, 'C');

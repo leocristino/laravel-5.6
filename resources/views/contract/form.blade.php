@@ -22,7 +22,7 @@
                                 <div id="formFields">
 
                                     <div class="form-group col-md-12">
-                                        <label>Pessoa</label>
+                                        <label>Cliente</label>
                                         <select class="form-control" v-model="person" required>
                                             <option value="">Selecione</option>
                                             @foreach($person as $item)

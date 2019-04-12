@@ -8,16 +8,16 @@ use App\Models\PaymentType;
 use App\Models\Person;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
-use App\Models\AccountReceivable;
+use App\Models\PayableReceivable;
 use \DB;
 
-class AccountReceivableController extends Controller
+class PayableReceivableController extends Controller
 {
     public function index(Request $request)
     {
-        return view('account_receivable.index',
+        return view('payable_receivable.index',
             [
-                'data' => AccountReceivable::getList($request),
+                'data' => PayableReceivable::getList($request),
                 'params' => $request->all()
             ]
         );
@@ -25,17 +25,17 @@ class AccountReceivableController extends Controller
 
     public function create()
     {
-        $account_receivable = new AccountReceivable();
+        $account_receivable = new PayableReceivable();
         $person = Person::getSelect();
         $ticket = Ticket::getSelect();
         $payment_type = PaymentType::getSelect();
         $bank_account = BankAccount::getSelect();
         $account_receivable->value_bill = 0.00;
         $account_receivable->amount_paid = 0.00;
-        $account_receivable->account_type = "R";
+//        $account_receivable->account_type = "R";
 
 
-        return view('account_receivable.form',
+        return view('payable_receivable.form',
             [
                 'data' => $account_receivable,
                 'person' => $person,
@@ -48,7 +48,7 @@ class AccountReceivableController extends Controller
 
     public function edit($id)
     {
-        $account_receivable = AccountReceivable::find($id);
+        $account_receivable = PayableReceivable::find($id);
         $person = Person::getSelect();
         $ticket = Ticket::getSelect();
         $payment_type = PaymentType::getSelect();
@@ -56,7 +56,7 @@ class AccountReceivableController extends Controller
 
 
 
-        return view('account_receivable.form',
+        return view('payable_receivable.form',
             [
                 'data' => $account_receivable,
                 'person' => $person,
@@ -70,16 +70,16 @@ class AccountReceivableController extends Controller
     public function store(Request $request)
     {
         if(empty($request->get('id'))){
-            $account_recevaible = new AccountReceivable();
+            $account_recevaible = new PayableReceivable();
         }else {
-            $account_recevaible = AccountReceivable::find($request->get('id'));
+            $account_recevaible = PayableReceivable::find($request->get('id'));
         }
 
         $account_recevaible->fill($request->toArray());
 
         try {
             DB::beginTransaction();
-            $account_recevaible->account_type = "R";
+//            $account_recevaible->account_type = "R";
             $res = $account_recevaible->save();
 
             if ($res === true) {
@@ -98,7 +98,7 @@ class AccountReceivableController extends Controller
 
         try {
 
-            $res = AccountReceivable::deleteLine($request->id);
+            $res = PayableReceivable::deleteLine($request->id);
             if ($res === true) {
                 DB::commit();
                 return ['result' => true, 'msg' => 'Excluido com sucesso.'];

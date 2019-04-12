@@ -85,7 +85,7 @@
                                         <thead>
                                         <tr role="row">
                                             <th>Nº Contrato</th>
-                                            <th>Pessoa</th>
+                                            <th>Cliente</th>
                                             <th class="hidden-xs">Tipo de pagamento</th>
                                             <th class="hidden-xs">Data Inicial</th>
                                             <th class="hidden-xs">Data Final</th>
@@ -153,13 +153,25 @@
                                 </div>
                                 <br><br>
                                 <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
+                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=yes{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> Completo para PDF</button>
                                     </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
+                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=yes{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Completo para CSV</button>
                                     </a>
                                 </div>
+                                <br><br>
+                                <div class="col-sm-12 text-center">
+                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=no{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> Simplificado para PDF</button>
+                                    </a>
+                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=no{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Simplificado para CSV</button>
+                                    </a>
+
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

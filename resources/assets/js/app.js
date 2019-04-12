@@ -51,7 +51,7 @@ require('./imei');
 require('./car');
 require('./contract');
 require('./contract_service');
-require('./account_receivable');
+require('./payable_receivable');
 
 
 if(window.vue == undefined) {

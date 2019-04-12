@@ -14,7 +14,7 @@ class InsertNewPermissionAccountsReceivable extends Migration
     public function up()
     {
         DB::table('permissao')->insert(
-            ['nome' => 'Contas a Receber', 'nickname' => 'ACCOUNT_RECEIVABLE']
+            ['nome' => 'Contas a Receber/Pagar', 'nickname' => 'PAYABLE_RECEIVABLE']
         );
 
 

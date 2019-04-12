@@ -88,8 +88,8 @@ class RedirectIfAuthenticated
                 }
                 break;
 
-            case 'account_receivable':
-                if(Permissao::userHasPermissao('ACCOUNT_RECEIVABLE')) {
+            case 'payable_receivable':
+                if(Permissao::userHasPermissao('PAYABLE_RECEIVABLE')) {
                     return $next($request);
                 }
                 break;

@@ -25,23 +25,23 @@
 
                                     <div class="form-group col-md-4">
                                         <label>Modelo</label>
-                                        <input class="form-control" v-model="formAdd.model" type="text" required />
+                                        <input class="form-control" v-model="formAdd.model" type="text" maxlength="25" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Placa</label>
-                                        <input class="form-control" v-mask="'SSS-####'" placeholder="ABC-1234" v-model="formAdd.license_plate" type="text" required />
+                                        <input class="form-control" v-mask="'SSS-####'" placeholder="ABC-1234" maxlength="8" v-model="formAdd.license_plate" type="text" required />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Cor</label>
-                                        <input class="form-control" v-model="formAdd.color" type="text" required />
+                                        <input class="form-control" v-model="formAdd.color" type="text" required maxlength="25"/>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Chassi</label>
-                                        <input class="form-control" v-model="formAdd.chassis" type="text" required />
+                                        <input class="form-control" v-model="formAdd.chassis" type="text" required maxlength="25"/>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>CNH motorista</label>
-                                        <input class="form-control" v-model="formAdd.driver_license" type="text" required />
+                                        <input class="form-control" v-model="formAdd.driver_license" type="text" required maxlength="25"/>
                                     </div>
                                     <div class="form-group col-md-1">
                                         <br>

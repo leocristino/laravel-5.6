@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Helpers\CawHelpers;
 use App\Models\Helpers\CawPDF;
 use Illuminate\Http\Request;
 use App\Models\Person;
@@ -56,6 +57,7 @@ class PersonController extends Controller
         }
 
         $pessoa->fill($request->toArray());
+//        dd($pessoa);
 
         try {
             DB::beginTransaction();
@@ -114,23 +116,10 @@ class PersonController extends Controller
             $pdf->SetFont('Arial','B',8);
             $pdf->Cell(40,4,'Nome');
             $pdf->Cell(25,4,'Tipo de Pessoa');
-//            $pdf->Cell(40,4,'Nome Fantasia');
             $pdf->Cell(50,4,'Email');
             $pdf->Cell(25,4,'CPF / CNPJ');
-//            $pdf->Cell(25,4,'RG');
-//            $pdf->Cell(25,4,'Inscrição Estadual');
-//            $pdf->Cell(25,4,'Data de Nascimento');
-//            $pdf->Cell(25,4,'CEP');
-//            $pdf->Cell(25,4,'Logradouro');
-//            $pdf->Cell(25,4,'Nº');
-//            $pdf->Cell(25,4,'Complemento');
-//            $pdf->Cell(25,4,'Bairro');
-//            $pdf->Cell(25,4,'Cidade');
-//            $pdf->Cell(25,4,'Estado');
             $pdf->Cell(25,4,'Telefone Fixo');
             $pdf->Cell(25,4,'Celular');
-//            $pdf->Cell(25,4,'Observação');
-//            $pdf->Cell(25,4,'Ativo');
             $pdf->Ln();
             $pdf->HrLine();
         };
@@ -147,25 +136,23 @@ class PersonController extends Controller
                 $type = 'Física';
             else
                 $type = 'Jurídica';
+
+            if (strlen($item->fixed_telephone) == 10)
+                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)####-####');
+            elseif (strlen($item->fixed_telephone) == 11)
+                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)#####-####');
+
+            if (strlen($item->cellphone) == 10)
+                $item->cellphone = CawHelpers::mask($item->cellphone, '(##)####-####');
+            elseif (strlen($item->cellphone) == 11)
+                $item->cellphone = CawHelpers::mask($item->cellphone, '(##)#####-####');
+
             $pdf->Cell(40,4, $item->name_social_name);
-            $pdf->Cell(20,4, $type);
-//            $pdf->Cell(40,4, $item->fantasy_name);
-            $pdf->Cell(40,4, $item->email);
-            $pdf->Cell(30,4, $item->cpf_cnpj);
-//            $pdf->Cell(25,4, $item->rg);
-//            $pdf->Cell(25,4, $item->ie);
-//            $pdf->Cell(25,4, $item->date_birth);
-//            $pdf->Cell(25,4, $item->zip);
-//            $pdf->Cell(25,4, $item->street);
-//            $pdf->Cell(25,4, $item->street_number);
-//            $pdf->Cell(15,4, $item->complement);
-//            $pdf->Cell(25,4, $item->district);
-//            $pdf->Cell(25,4, $item->city);
-//            $pdf->Cell(25,4, $item->state);
+            $pdf->Cell(25,4, $type);
+            $pdf->Cell(50,4, $item->email);
+            $pdf->Cell(25,4, $item->cpf_cnpj);
             $pdf->Cell(25,4, $item->fixed_telephone);
             $pdf->Cell(25,4, $item->cellphone);
-//            $pdf->Cell(40,4, $item->obs);
-//            $pdf->Cell(25,4, $item->active);
             $pdf->Ln();
         }
 
@@ -212,6 +199,16 @@ class PersonController extends Controller
                 $active = 'SIM';
             else
                 $active = 'NÃO';
+
+            if (strlen($item->cellphone) == 10)
+                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)####-####');
+            elseif (strlen($item->cellphone) == 11)
+                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)#####-####');
+
+            if (strlen($item->fixed_telephone) == 10)
+                $item->cellphone = CawHelpers::mask($item->cellphone, '(##)####-####');
+            elseif (strlen($item->cellphone) == 11)
+                $item->cellphone = CawHelpers::mask($item->cellphone, '(##)#####-####');
 
             $csv .= "\"$item->id\";";
             $csv .= "\"$item->name_social_name\";";

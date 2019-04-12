@@ -8,7 +8,7 @@ import moment from "moment";
 import axios from 'axios';
 
 
-if ($('body[view-name="account_receivableform"]').length > 0) {
+if ($('body[view-name="payable_receivableform"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
@@ -56,7 +56,7 @@ if ($('body[view-name="account_receivableform"]').length > 0) {
                 }
             },
             submit_form() {
-                let url = '/account_receivable';
+                let url = '/payable_receivable';
 
                 this.form.submit(url, this.onSuccess);
             },
@@ -83,7 +83,7 @@ if ($('body[view-name="account_receivableform"]').length > 0) {
     });
 }
 
-if ($('body[view-name="account_receivableindex"]').length > 0) {
+if ($('body[view-name="payable_receivableindex"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
@@ -106,7 +106,7 @@ if ($('body[view-name="account_receivableindex"]').length > 0) {
             deleteAccountReceivable(id)
             {
                 let originalData = Object.assign({} , this);
-                let url = window.baseUrl+'/account_receivable/delete';
+                let url = window.baseUrl+'/payable_receivable/delete';
 
                 this.$refs.modal.configModal('Aviso', 'Tem certeza que deseja excluir?', 'Confirmar', 'Cancelar', function () {
                     axios.post(url, {
@@ -115,14 +115,12 @@ if ($('body[view-name="account_receivableindex"]').length > 0) {
                         .then(function (response) {
 
                             if (response.data.result == true) {
-                                if (response.data.result == true) {
 
-                                    originalData.$refs.modal.configModal('Sucesso', 'Conta a Pagar excluída!', 'OK', '', function () {
-                                        $('#modal').modal('hide');
-                                        location.reload();
-                                    });
-                                    originalData.$refs.modal.show(2500);
-                                }
+                                originalData.$refs.modal.configModal('Sucesso', 'Conta a Pagar excluída!', 'OK', '', function () {
+                                    $('#modal').modal('hide');
+                                    location.reload();
+                                });
+                                originalData.$refs.modal.show(2500);
                             }
                         })
                         .catch(function (error) {

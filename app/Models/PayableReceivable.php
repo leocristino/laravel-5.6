@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use \DB;
 
-class AccountReceivable extends CawModel
+class PayableReceivable extends CawModel
 {
     use SoftDeletes;
 
@@ -47,7 +47,7 @@ class AccountReceivable extends CawModel
     public $timestamps = true;
 
     public static function getList(Request $request){
-        $builder = AccountReceivable::select('financial_launch.*',
+        $builder = PayableReceivable::select('financial_launch.*',
                                                         'person.name_social_name',
                                                         'person.active as active_person',
                                                         'person.id as person_id',
@@ -59,7 +59,8 @@ class AccountReceivable extends CawModel
                             ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
                             ->leftJoin('bank_account','bank_account.id','=','financial_launch.id_bank_account');
 
-//        CawHelpers::addWhereLike($builder, 'bank_account.name', $request['name']);
+        CawHelpers::addWhereLike($builder, 'person.name_social_name', $request['name_social_name']);
+        CawHelpers::addWhereLike($builder, 'financial_launch.account_type', $request['account_type']);
 
 //        if( $request['active'] != null){
 //            $builder->where('bank_account.active', '=',  $request['active']);
@@ -67,7 +68,7 @@ class AccountReceivable extends CawModel
 
 
         $builder->orderBy('financial_launch.id');
-
+//        dd($builder);
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 
@@ -105,7 +106,7 @@ class AccountReceivable extends CawModel
     public static function deleteLine($id)
     {
 
-        $account_receivable = AccountReceivable::query()
+        $account_receivable = PayableReceivable::query()
             ->where('id', '=', $id)
             ->delete();
 

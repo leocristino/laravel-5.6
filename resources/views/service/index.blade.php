@@ -95,14 +95,7 @@
                                     {{$data->links()}}
                                 </div>
                                 <br><br>
-                                <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
-                                    </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                     </div>

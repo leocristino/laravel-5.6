@@ -20,28 +20,28 @@
 
                             <div class="form-group col-md-3 col-sm-6">
                                 <label>Nome</label>
-                                <input type="text" class="form-control" name="name" value="{{ empty($_GET['name']) ? '' : $_GET['name'] }}" />
+                                <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
                             </div>
 
                             <div class="form-group col-md-3 col-sm-6">
-                                <label>Ativo</label>
+                                <label>Tipo de Despesa</label>
                                 <?php
                                 $select = 2;
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "1"){
-                                        $select = 1;
+                                if(isset($_GET['account_type'])){
+                                    if($_GET['account_type'] == "R"){
+                                        $select = "R";
                                     }
                                 }
-                                if(isset($_GET['active'])){
-                                    if($_GET['active'] == "0"){
-                                        $select = 0;
+                                if(isset($_GET['account_type'])){
+                                    if($_GET['account_type'] == "P"){
+                                        $select = "P";
                                     }
                                 }
                                 ?>
-                                <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
+                                <select name="account_type" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
                                     <option value="">Todos</option>
-                                    <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
-                                    <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
+                                    <option {{ $select == "P" ? 'selected' : ''}} value="P">Pagar</option>
+                                    <option {{ $select == "R" ? 'selected' : ''}} value="R">Receber</option>
                                 </select>
                             </div>
                                 <div class="form-group col-md-3 col-sm-6">
@@ -59,6 +59,7 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>Pessoa</th>
+                                                <th class="hidden-xs">Tipo de Despesa</th>
                                                 <th class="hidden-xs">Plano de Conta</th>
                                                 <th class="hidden-xs">Forma de Pagamento</th>
                                                 <th class="hidden-xs">Valor a Pagar</th>
@@ -69,6 +70,7 @@
                                             @foreach($data as $item)
                                             <tr>
                                                 <td>{{ $item->name_social_name }}</td>
+                                                <td class="hidden-xs">{{ $item->account_type == "R" ? "Receber" : "Pagar" }}</td>
                                                 <td class="hidden-xs">{{ $item->name_ticket }}</td>
                                                 <td class="hidden-xs">{{ $item->name_payment_type }}</td>
                                                 <td class="hidden-xs">R$ {{ $item->value_bill }}</td>
@@ -93,14 +95,14 @@
                                     {{$data->links()}}
                                 </div>
                                 <br><br>
-                                {{--<div class="col-sm-12 text-center">--}}
-                                    {{--<a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">--}}
-                                        {{--<button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>--}}
-                                    {{--</a>--}}
-                                    {{--<a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">--}}
-                                        {{--<button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>--}}
-                                    {{--</a>--}}
-                                {{--</div>--}}
+                                <div class="col-sm-12 text-center">
+                                    <a target="_blank" href="{{ url()->current() }}/pdf/?{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
+                                    </a>
+                                    <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

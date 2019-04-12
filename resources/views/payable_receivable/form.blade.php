@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Conta a Receber [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name }} ]</h1>
+        <h1>Conta a Receber [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.id }} ]</h1>
     </section>
     <section class="content" :json="[form.setData({{ $data }}), objPayment_Type = {{ $payment_type }}]">
         <div class="row">
@@ -18,7 +18,17 @@
                             <input type="hidden" name="id" value="" v-model="form.data.id">
 
                             <div id="formFields">
-                                <div class="form-group col-md-3">
+
+                                <div class="form-group col-md-4">
+                                    <label >Tipo de Conta</label>
+                                    <select name="" id="" v-model="form.data.account_type" class="form-control" required>
+                                        <option value="">Selecione</option>
+                                        <option value="P">Pagar</option>
+                                        <option value="R">Receber</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label >Pessoa</label>
                                     <select name="" id="" v-model="form.data.id_person" class="form-control" required>
                                         <option value="">Selecione</option>
@@ -28,7 +38,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Plano de Contas</label>
                                     <select name="" id="" v-model="form.data.id_ticket" class="form-control" required>
                                         <option value="">Selecione</option>
@@ -38,7 +48,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Forma de Pagamento</label>
                                     <select name="" id="" v-model="form.data.id_payment_type" @change="verifyPaymentType_OnChange()" class="form-control" required>
                                         <option value="">Selecione</option>
@@ -48,7 +58,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Conta Corrente</label>
                                     <select name="" id="" v-model="form.data.id_bank_account" class="form-control">
                                         <option value="">Selecione</option>
@@ -58,9 +68,7 @@
                                     </select>
                                 </div>
 
-
-
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Descrição</label>
                                     <input type="text" class="form-control" v-model="form.data.description" maxlength="255"/>
                                 </div>
@@ -87,42 +95,45 @@
                                     <money class="form-control" v-model="form.data.amount_paid" prefix="R$ " decimal="," thousands="." />
                                 </div>
                                 
-                                <div id="chq" style="display: none;">
-                                    <div class="form-group col-md-3">
-                                        <label >Cheque do Banco</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_bank" maxlength="11"/>
-                                    </div>
-    
-                                    <div class="form-group col-md-3">
-                                        <label >Agência do Cheque</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_agency" maxlength="255"/>
-                                    </div>
-    
-                                    <div class="form-group col-md-3">
-                                        <label >C.C. do Cheque</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_current_account" maxlength="255"/>
-                                    </div>
-    
-                                    <div class="form-group col-md-3">
-                                        <label >Nº do Cheque</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_number" maxlength="255"/>
-                                    </div>
-    
-                                    <div class="form-group col-md-3">
-                                        <label >Motivo da Devolução</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_reason_return" maxlength="255"/>
-                                    </div>
-    
-                                    <div class="form-group col-md-3">
-                                        <label >Data da Devolução</label>
-                                        <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
-                                                    input-name="due_date" v-model="form.data.chq_date_return" />
-                                    </div>
+                                <div class="form-group col-md-12" id="chq" style="display: none;">
+                                    <fieldset>
+                                        <legend>Dados do cheque</legend>
+                                        <div class="form-group col-md-4">
+                                            <label >Banco</label>
+                                            <input type="text" class="form-control" v-model="form.data.chq_bank" maxlength="11"/>
+                                        </div>
 
-                                    <div class="form-group col-md-3">
-                                        <label >Lote do Cheque</label>
-                                        <input type="text" class="form-control" v-model="form.data.chq_lot" maxlength="255"/>
-                                    </div>
+                                        <div class="form-group col-md-4">
+                                            <label >Agência</label>
+                                            <input type="text" class="form-control" v-model="form.data.chq_agency" maxlength="255"/>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label >Conta Corrente</label>
+                                            <input type="text" class="form-control" v-model="form.data.chq_current_account" maxlength="255"/>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label >Número</label>
+                                            <input type="text" class="form-control" v-model="form.data.chq_number" maxlength="255"/>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label >Motivo da Devolução</label>
+                                            <input type="text" class="form-control" v-model="form.data.chq_reason_return" maxlength="255"/>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label >Data da Devolução</label>
+                                            <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
+                                                        input-name="chq_date_return" v-model="form.data.chq_date_return" />
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label >Descrição do retorno</label>
+                                    <input type="text" readonly class="form-control" v-model="form.data.description_bank_return" maxlength="255"/>
                                 </div>
 
 

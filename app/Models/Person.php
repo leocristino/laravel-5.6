@@ -99,6 +99,7 @@ class Person extends CawModel
                 return new \Exception('CPF Inválido');
             }
         }
+
         $this->cpf_cnpj = CawHelpers::removeFormatting($this->cpf_cnpj);
         $this->zip = CawHelpers::removeFormatting($this->zip);
         $this->fixed_telephone = CawHelpers::removeFormatting($this->fixed_telephone);
@@ -151,21 +152,21 @@ class Person extends CawModel
         }
 
     }
-    public function getFixedTelephoneAttribute($value)
-    {
-        if ($value != "")
-        {
-            return CawHelpers::mask($value, '(##)#####-####');
-        }
-    }
-
-    public function getCellphoneAttribute($value)
-    {
-        if ($value != "")
-        {
-            return CawHelpers::mask($value, '(##)#####-####');
-        }
-    }
+//    public function getFixedTelephoneAttribute($value)
+//    {
+//        if ($value != "")
+//        {
+//            return CawHelpers::mask($value, '(##)#####-####');
+//        }
+//    }
+//
+//    public function getCellphoneAttribute($value)
+//    {
+//        if ($value != "")
+//        {
+//            return CawHelpers::mask($value, '(##)#####-####');
+//        }
+//    }
 
     /**
      * @param $id_user

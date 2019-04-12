@@ -32,7 +32,7 @@ class CreateTableFinancialLaunch extends Migration
             // P para contars a pagar  e R para contas a receger
             $table->char('account_type',1);
             $table->string('description',255)->nullable(true);
-            $table->integer('due_date');
+            $table->date('due_date');
             $table->decimal('value_bill',8,2);
             $table->date('payment_date')->nullable(true);
             $table->decimal('amount_paid',8,2)->nullable(true);

@@ -89,14 +89,14 @@ class HistoryController extends Controller
 
     public function pdf(Request $request){
 
-        $pdf = new CawPDF(true, 'Relatório de Pessoas');
+        $pdf = new CawPDF(true, 'Relatório do Histórico de Pessoas');
 
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
             $pdf->Cell(40,4,'Nome');
-            $pdf->Cell(40,4,'Criado em');
-            $pdf->Cell(40,4,'Data do Contato');
-//            $pdf->Cell(60,4,'Observação');
+            $pdf->Cell(28,4,'Criado em');
+            $pdf->Cell(28,4,'Data do Contato');
+            $pdf->Cell(95,4,'Observação');
             $pdf->Ln();
             $pdf->HrLine();
         };
@@ -112,9 +112,9 @@ class HistoryController extends Controller
             $contact_time = $contact_time . " " . $item->contact_time_hour;
 
             $pdf->Cell(40,4, $item->name_social_name);
-            $pdf->Cell(40,4, $item->created_at);
-            $pdf->Cell(40,4, $contact_time);
-//            $pdf->Cell(70,4, $item->description);
+            $pdf->Cell(28,4, $item->created_at);
+            $pdf->Cell(28,4, $contact_time);
+            $pdf->MultiCell(95,4, $item->description);
             $pdf->Ln();
         }
 

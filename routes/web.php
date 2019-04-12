@@ -57,16 +57,16 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::resource('/service', 'ServiceController');
 
     #TICKET
-    Route::resource('/ticket', 'TicketController');
     Route::post('/ticket/activeDisabled', 'TicketController@activeDisabled');
+    Route::resource('/ticket', 'TicketController');
 
     #   BANK_ACCOUNT
-    Route::resource('/bank_account', 'BankAccountController');
     Route::post('/bank_account/activeDisabled', 'BankAccountController@activeDisabled');
+    Route::resource('/bank_account', 'BankAccountController');
 
     # PAYMENT_TYPE
-    Route::resource('/payment_type', 'PaymentTypeController');
     Route::post('/payment_type/activeDisabled', 'PaymentTypeController@activeDisabled');
+    Route::resource('/payment_type', 'PaymentTypeController');
 
     #IMEI
     Route::resource('/contract/contract_imei', 'ImeiController');
@@ -78,6 +78,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/contract/contract_service', 'ContractServiceController@store');
 
     #CONTRACT
+    Route::get('/contract/pdf', 'ContractController@pdf');
+    Route::get('/contract/csv', 'ContractController@csv');
     Route::post('/contract/activeDisabled', 'ContractController@activeDisabled');
     Route::get('/contract/contract_car/{id}/save', 'CarController@index');
     Route::resource('/contract', 'ContractController');
@@ -88,9 +90,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::get('/contract_service/', 'ContractServiceController@getValueOfService');
 
     #ACCOUNTSRECEIVABLE
-    Route::post('/account_receivable/delete', 'AccountReceivableController@delete');
-    Route::get('/account_receivable/index', 'AccountReceivableController@index');
-    Route::resource('/account_receivable', 'AccountReceivableController');
+    Route::post('/payable_receivable/delete', 'PayableReceivableController@delete');
+    Route::resource('/payable_receivable', 'PayableReceivableController');
 
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
