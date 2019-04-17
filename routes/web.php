@@ -89,7 +89,9 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #   CONTRACT SERVICE
     Route::get('/contract_service/', 'ContractServiceController@getValueOfService');
 
-    #ACCOUNTSRECEIVABLE
+    #payable_receivable
+    Route::get('/payable_receivable/pdf', 'PayableReceivableController@pdf');
+    Route::get('/payable_receivable/csv', 'PayableReceivableController@csv');
     Route::post('/payable_receivable/delete', 'PayableReceivableController@delete');
     Route::resource('/payable_receivable', 'PayableReceivableController');
 

@@ -128,4 +128,34 @@ class Imei extends CawModel
     public static function getSelect(){
         return Imei::where('active','=',1)->get();
     }
+
+    public static function getListReport($request)
+    {
+        $builder = Imei::select('*')
+            ->leftJoin('contract', 'contract.id', '=', 'id_contract')
+            ->leftJoin('person', 'person.id', '=', 'contract.id_person');
+
+        CawHelpers::addWhereLike($builder, 'name_social_name', $request['name_social_name']);
+        CawHelpers::addWhereLike($builder, 'id_payment_type', $request['id_payment_type']);
+
+        if ($request['id_contract'])
+        {
+            $builder->where('contract.id', '=', $request['id_contract']);
+        }
+
+        if ($request['end_date'] == '1')
+        {
+            $builder->where(function ($query) {
+                $query->where('contract.end_date', '=', NULL)
+                    ->orWhere('contract.end_date', '>=', date('Y-m-d'));
+            });
+        }
+        elseif($request['end_date'] != '')
+        {
+            $builder->where('contract.end_date','<', $request['end_date']);
+        }
+
+        $builder->orderBy('contract.id');
+        return $builder->get();
+    }
 }

@@ -91,21 +91,21 @@
                                             <th class="hidden-xs">Data Final</th>
                                             <th class="hidden-xs">Valor Contrato</th>
                                             <th class="hidden-xs">Ativo</th>
-                                            <th width="50px"></th>
-                                            <th width="50px"></th>
-                                            <th width="50px"></th>
+                                            <th class="hidden-xs" width="50px"></th>
+                                            <th class="hidden-xs" width="50px"></th>
+                                            <th class="hidden-xs" width="50px"></th>
                                             <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $item)
-
-                                            <tr class="{{ $item->contractActive == 0 ? 'danger' : ''  }}" id="table{{ $item->id }}" >
+                                            {{--desktop--}}
+                                            <tr class="hidden-xs {{ $item->contractActive == 0 ? 'danger' : ''  }}" id="table{{ $item->id }}" >
                                                 <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
                                                 <td class="hidden-xs">{{ $item->name }}</td>
                                                 <td class="hidden-xs">{{ date("d/m/Y", strtotime($item->start_date)) }}</td>
                                                 <td class="hidden-xs">{{ empty($item->end_date) ? '' : date("d/m/Y", strtotime($item->end_date)) }}</td>
-                                                <td class="hidden-xs">R$ {{ $item->valueContract }}</td>
+                                                <td class="hidden-xs">R$ {{ $item->valueContract != '' ? $item->valueContract : '0,00' }}</td>
                                                 <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->contractActive == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
                                                 <td>
                                                     <a href="{{ url()->current() }}/contract_service/{{ $item['id'] }}/save">
@@ -138,6 +138,39 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            {{--mobile--}}
+                                            <tr class="visible-xs" >
+                                                <td>{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</td>
+                                                <td>{{ $item->name_social_name }}</td>
+                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->contractActive == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                <td>
+                                                    <a href="{{ url()->current() }}/contract_service/{{ $item['id'] }}/save">
+                                                        <button class="btn btn-small btn-default" title="Serviços">
+                                                            <i class="fas fa-tasks"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_service }}</span>
+                                                        </button>
+                                                    </a>
+                                                <br>
+                                                    <a href="{{ url()->current() }}/contract_car/{{ $item['id'] }}/save">
+                                                        <button class="btn btn-small btn-default" title="Carros">
+                                                            <i class="fas fa-car"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_car }}</span>
+                                                        </button>
+                                                    </a>
+                                                <br>
+                                                    <a href="{{ url()->current() }}/contract_imei/{{ $item['id'] }}/save">
+                                                        <button class="btn btn-small btn-default" title="IMEIs">
+                                                            <i class="fas fa-mobile-alt"></i>
+                                                            <span class="badge badge-light">{{ $item->qtde_valores_imei }}</span>
+                                                        </button>
+                                                    </a>
+                                                <br>
+                                                    <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
+                                                        <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -153,20 +186,20 @@
                                 </div>
                                 <br><br>
                                 <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=yes{{ http_build_query($params) }}">
+                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=yes&{{ http_build_query($params) }}">
                                         <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> Completo para PDF</button>
                                     </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=yes{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Completo para CSV</button>
+                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=yes&report=true&{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Completo para Excel</button>
                                     </a>
                                 </div>
                                 <br><br>
                                 <div class="col-sm-12 text-center">
-                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=no{{ http_build_query($params) }}">
+                                    <a target="_blank" href="{{ url()->current() }}/pdf/?full=no&{{ http_build_query($params) }}">
                                         <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> Simplificado para PDF</button>
                                     </a>
-                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=no{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Simplificado para CSV</button>
+                                    <a target="_blank" href="{{ url()->current() }}/csv/?full=no&report=true&{{ http_build_query($params) }}">
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> Simplificado para EXCEL</button>
                                     </a>
 
                                 </div>

@@ -203,7 +203,7 @@ class Person extends CawModel
     }
 
     public static function getSelect(){
-        return Person::where('active','=',1)->get();
+        return Person::orderBy('name_social_name')->get();
     }
 
 }

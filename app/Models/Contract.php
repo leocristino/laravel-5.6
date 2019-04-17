@@ -71,13 +71,24 @@ class Contract extends CawModel
         }
         else if ($request['end_date'] == "1")
         {
-            $builder->where('contract.end_date', '>',$date);
-            $builder->orWhere('contract.end_date', '=', Null);
+            # WHERE COM OR CIRCUNDADO POR PARENTESES
+            $builder->where(function ($query) {
+                $query->where('contract.end_date', '=', NULL)
+                    ->orWhere('contract.end_date', '>=', date('Y-m-d'));
+            });
         }
 
         $builder->orderBy('contract.id');
 
-        return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+        if (isset($_GET['report']) == true)
+        {
+            return $builder->get();
+        }
+        else
+        {
+            return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+        }
+
     }
 
     public function save(array $options = [])
@@ -153,5 +164,6 @@ class Contract extends CawModel
             ->get();
 
     }
+
 
 }

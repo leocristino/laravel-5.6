@@ -66,7 +66,7 @@ if ($('body[view-name="payable_receivableform"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', 'Conta a Pagar salva!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', 'Conta salva!', 'OK', '', function () {
                             util.goBack();
                         });
                         this.$refs.modal.show(1500);
@@ -116,7 +116,7 @@ if ($('body[view-name="payable_receivableindex"]').length > 0) {
 
                             if (response.data.result == true) {
 
-                                originalData.$refs.modal.configModal('Sucesso', 'Conta a Pagar excluída!', 'OK', '', function () {
+                                originalData.$refs.modal.configModal('Sucesso', 'Conta excluída!', 'OK', '', function () {
                                     $('#modal').modal('hide');
                                     location.reload();
                                 });

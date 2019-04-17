@@ -2,7 +2,14 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Conta a Receber [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.id }} ]</h1>
+        <?php
+//            echo $ticket[0]->type;
+            if(isset($_GET['ticket']) == 'R' || $ticket[0]->type == 'R')
+                $type = 'Receita';
+            else
+                $type = 'Despesa';
+            ?>
+        <h1>{{$type}} [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.id }} ]</h1>
     </section>
     <section class="content" :json="[form.setData({{ $data }}), objPayment_Type = {{ $payment_type }}]">
         <div class="row">
@@ -18,15 +25,6 @@
                             <input type="hidden" name="id" value="" v-model="form.data.id">
 
                             <div id="formFields">
-
-                                <div class="form-group col-md-4">
-                                    <label >Tipo de Conta</label>
-                                    <select name="" id="" v-model="form.data.account_type" class="form-control" required>
-                                        <option value="">Selecione</option>
-                                        <option value="P">Pagar</option>
-                                        <option value="R">Receber</option>
-                                    </select>
-                                </div>
 
                                 <div class="form-group col-md-4">
                                     <label >Pessoa</label>
@@ -131,10 +129,14 @@
 
                                     </fieldset>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label >Descrição do retorno</label>
-                                    <input type="text" readonly class="form-control" v-model="form.data.description_bank_return" maxlength="255"/>
-                                </div>
+
+                                @if($type == 'Receita')
+                                    <div class="form-group col-md-6">
+                                        <label >Descrição do retorno</label>
+                                        <input type="text" readonly class="form-control" v-model="form.data.description_bank_return" maxlength="255"/>
+                                    </div>
+                                @endif
+
 
 
                                 <div class="form-group col-md-12">

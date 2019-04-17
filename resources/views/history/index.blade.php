@@ -89,7 +89,7 @@
                                         <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
                                     </a>
                                     <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para EXCEL</button>
                                     </a>
                                 </div>
                             </div>

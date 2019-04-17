@@ -13,15 +13,23 @@ use Illuminate\Http\Request;
 use App\Models\Person;
 use App\Models\Contract;
 use \DB;
+use Box\Spout\Common\Type;
+use Box\Spout\Writer\Style\Border;
+use Box\Spout\Writer\Style\BorderBuilder;
+use Box\Spout\Writer\Style\Color;
+use Box\Spout\Writer\Style\StyleBuilder;
+use Box\Spout\Writer\WriterFactory;
 
 class ContractController extends Controller
 {
     public function index(Request $request)
     {
         $payment_type = PaymentType::all();
+        $contract = Contract::getList($request);
+//        $this->csv($request);
         return view('contract.index',
             [
-                'data' => Contract::getList($request),
+                'data' => $contract,
                 'params' => $request->all(),
                 'payment_type' => $payment_type,
             ]
@@ -34,7 +42,7 @@ class ContractController extends Controller
         $date = date("Y-m-d");
         $contract->start_date = $date;
 
-        $person = Person::all();
+        $person = Person::getSelect();
         $payment_type = PaymentType::get();
         $service = Service::all();
         $contract->active = 1;
@@ -140,13 +148,15 @@ class ContractController extends Controller
 
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
-            $pdf->Cell(10,4,'Nº');
-            $pdf->Cell(40,4,'Cliente');
-            $pdf->Cell(39,4,'Tipo Pagamento');
-            $pdf->Cell(39,4,'Data Inicial');
-            $pdf->Cell(39,4,'Data Final');
-            $pdf->Cell(39,4,'Valor Contrato');
-            $pdf->Ln();
+            if ($_GET['full'] == 'no') {
+                $pdf->Cell(10, 4, 'Nº');
+                $pdf->Cell(40, 4, 'Cliente');
+                $pdf->Cell(39, 4, 'Tipo Pagamento');
+                $pdf->Cell(39, 4, 'Data Inicial');
+                $pdf->Cell(39, 4, 'Data Final');
+                $pdf->Cell(39, 4, 'Valor Contrato');
+                $pdf->Ln();
+            }
             $pdf->HrLine();
         };
         $pdf->setFnHeader($header);
@@ -159,6 +169,21 @@ class ContractController extends Controller
 
         foreach ($data as $item)
         {
+            if ($_GET['full'] =='yes')
+            {
+                $pdf->SetFont('Arial', 'B', 8);
+                $pdf->HrLine();
+                $pdf->Cell(10, 4, 'Nº');
+                $pdf->Cell(40, 4, 'Cliente');
+                $pdf->Cell(39, 4, 'Tipo Pagamento');
+                $pdf->Cell(39, 4, 'Data Inicial');
+                $pdf->Cell(39, 4, 'Data Final');
+                $pdf->Cell(39, 4, 'Valor Contrato');
+                $pdf->SetFont('Arial', '', 8);
+                $pdf->Ln();
+                $pdf->HrLine();
+            }
+
             $pdf->SetFont('Arial','B',8);
             $pdf->Cell(10,4, str_pad($item->id, 5, '0', STR_PAD_LEFT));
             $pdf->SetFont('Arial','',8);
@@ -174,16 +199,17 @@ class ContractController extends Controller
 
 
                 #------------------------ INICIO DA PARTE DOS SERVIÇOS DO RELATÓRIO -------------------------------------
-                $contract_services = ContractService::getListReport($request, $item->id);
+                $contract_services = ContractService::getListReportPDF($request, $item->id);
 
-                $pdf->Cell(190, 4, 'Serviços do Contrato:', 1, 0, 'C');
+                $pdf->Cell(190, 4, 'Serviços:', 1, 0, 'C');
                 $pdf->Ln();
                 if (count($contract_services) > 0) {
-
+                    $pdf->SetFont('Arial','B',8);
                     $pdf->Cell(70, 4, 'Nome');
                     $pdf->Cell(50, 4, 'Valor');
                     $pdf->Cell(50, 4, 'Acréscimo / Desconto');
                     $pdf->Cell(50, 4, 'Total Item');
+                    $pdf->SetFont('Arial','',8);
                     $pdf->Ln();
                     foreach ($contract_services as $contract_service)
                     {
@@ -206,12 +232,13 @@ class ContractController extends Controller
                 $pdf->Cell(190, 4, 'Carros:', 1, 0, 'C');
                 $pdf->Ln();
                 if (count($cars) > 0) {
-
+                    $pdf->SetFont('Arial','B',8);
                     $pdf->Cell(38, 4, 'Modelo');
                     $pdf->Cell(38, 4, 'Placa');
                     $pdf->Cell(38, 4, 'Cor');
                     $pdf->Cell(38, 4, 'Chassi');
                     $pdf->Cell(42, 4, 'CNH Motorista');
+                    $pdf->SetFont('Arial','',8);
                     $pdf->Ln();
                     foreach ($cars as $car) {
                         $pdf->Cell(38, 4, $car->model);
@@ -234,9 +261,10 @@ class ContractController extends Controller
                 $pdf->Cell(190, 4, 'IMEIs:', 1, 0, 'C');
                 $pdf->Ln();
                 if (count($imeis) > 0) {
-
+                    $pdf->SetFont('Arial','B',8);
                     $pdf->Cell(95, 4, 'Nº');
                     $pdf->Cell(95, 4, 'Descrição');
+                    $pdf->SetFont('Arial','',8);
                     $pdf->Ln();
 
                     foreach ($imeis as $imei) {
@@ -251,8 +279,6 @@ class ContractController extends Controller
                 }
 
                 #------------------------ FIM DA PARTE DOS IMEIS DO RELATÓRIO -------------------------------------
-
-
                 $pdf->Ln();
             }
         }
@@ -262,128 +288,113 @@ class ContractController extends Controller
             ->header('Content-Type', 'application/pdf');
     }
 
-    public function csv(Request $request){
-        $csv = '';
 
-        $csv .= 'Nº;';
-        $csv .= 'Cliente;';
-        $csv .= 'Tipo Pagamento;';
-        $csv .= 'Data Inicial;';
-        $csv .= 'Data Final;';
-        $csv .= 'Valor Contrato;';
+    public function csv(Request $request)
+    {
+        $border = (new BorderBuilder())
+            ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            ->setBorderLeft(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            ->setBorderRight(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            ->setBorderTop(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            ->build();
 
-        $csv .= chr(13);
+        $style = (new StyleBuilder())
+            ->setBorder($border)
+            ->setFontBold()
+            ->setFontName('Arial')
+            ->setFontSize(9)
+            ->build();
 
-        $data = Contract::getList($request);
-//        dd($data);
-        foreach ($data as $item)
+        $styleRow = (new StyleBuilder())
+            ->setBorder($border)
+            ->setFontName('Arial')
+            ->setFontSize(8)
+            ->build();
+
+        $writer = WriterFactory::create(Type::XLSX);
+
+        # INVERTER OS COMENTÁRIOS PARA QUE O ERRO SEJA MOSTRADO NA TELA
+
+//        $writer->openToFile(storage_path('app') . DIRECTORY_SEPARATOR . 'Relatório de Contratos.xlsx');
+        $writer->openToBrowser(storage_path('app') . DIRECTORY_SEPARATOR . 'Relatório de Contratos.xlsx');
+
+        ######################################################################################################################
+
+        $sheet = $writer->getCurrentSheet();
+        $sheet->setName('Contratos');
+
+        $writer->addRowWithStyle(['Nº Contrato','Cliente','Tipo de Pagamento','Data Inicial','Data Final','Valor do Contrato'], $style);
+
+        $contracts = Contract::getList($request);
+        foreach($contracts as  $contract)
         {
-            $start_date = date("d/m/Y", strtotime($item->start_date));
-            $end_date = $item->end_date != '' ? date("d/m/Y", strtotime($item->end_date)) : '';
-            $contract_value = "R$ " . ($item->valueContract != '' ? number_format($item->valueContract, 2, ',', '.') : '0,00');
-            $csv .= "\"$item->id\";";
-            $csv .= "\"$item->name_social_name\";";
-            $csv .= "\"$item->name\";";
-            $csv .= "\"$start_date\";";
-            $csv .= "\"$end_date\";";
-            $csv .= "\"$contract_value\";";
-
-            if ($_GET['full'] == 'yes')
-            {
-                #------------------------ INICIO DA PARTE DOS SERVIÇOS DO RELATÓRIO -------------------------------------
-                $contract_services = ContractService::getListReport($request, $item->id);
-
-                $csv .= chr(13);
-                $csv .= 'Serviços do Contrato:;';
-                $csv .= chr(13);
-
-//                if (count($contract_services) > 0) {
-//
-//                    $pdf->Cell(70, 4, 'Nome');
-//                    $pdf->Cell(50, 4, 'Valor');
-//                    $pdf->Cell(50, 4, 'Acréscimo / Desconto');
-//                    $pdf->Cell(50, 4, 'Total Item');
-//                    $pdf->Ln();
-//                    foreach ($contract_services as $contract_service)
-//                    {
-//                        $pdf->Cell(70, 4, $contract_service->name);
-//                        $pdf->Cell(50, 4, "R$ " . ($contract_service->value != '' ? number_format($contract_service->value, 2, ',', ' ') : '0,00'));
-//                        $pdf->Cell(50, 4, "R$ " . number_format($contract_service->addition_discount, 2, ',', '.'));
-//                        $pdf->Cell(50, 4, "R$ " . number_format($contract_service->value + $contract_service->addition_discount, 2, ',', '.'));
-//                        $pdf->Ln();
-//                    }
-//                } else {
-//                    $pdf->Cell(190, 4, 'Nenhum item cadastrado.', 0, 0, 'C');
-//                    $pdf->Ln();
-//
-//                }
-//
-//                #------------------------ FIM DA PARTE DOS SERVIÇOS DO RELATÓRIO -------------------------------------
-//                #------------------------ PARTE DOS CARROS DO RELATÓRIO--------------------------------------
-//                $cars = Car::query()->where('id_contract', '=', $item->id)->get();
-//
-//                $pdf->Cell(190, 4, 'Carros:', 1, 0, 'C');
-//                $pdf->Ln();
-//                if (count($cars) > 0) {
-//
-//                    $pdf->Cell(38, 4, 'Modelo');
-//                    $pdf->Cell(38, 4, 'Placa');
-//                    $pdf->Cell(38, 4, 'Cor');
-//                    $pdf->Cell(38, 4, 'Chassi');
-//                    $pdf->Cell(42, 4, 'CNH Motorista');
-//                    $pdf->Ln();
-//                    foreach ($cars as $car) {
-//                        $pdf->Cell(38, 4, $car->model);
-//                        $pdf->Cell(38, 4, $car->license_plate);
-//                        $pdf->Cell(38, 4, $car->color);
-//                        $pdf->Cell(38, 4, $car->chassis);
-//                        $pdf->Cell(42, 4, $car->driver_license);
-//                        $pdf->Ln();
-//                    }
-//                } else {
-//                    $pdf->Cell(190, 4, 'Nenhum item cadastrado.', 0, 0, 'C');
-//                    $pdf->Ln();
-//
-//                }
-//                #------------------------ FIM DA PARTE DOS CARROS DO RELATÓRIO -------------------------------------
-//                #------------------------ INICIO DA PARTE DOS IMEI DO RELATÓRIO -------------------------------------
-//                $imeis = Imei::query()->where('id_contract', '=', $item->id)->get();
-//
-//
-//                $pdf->Cell(190, 4, 'IMEIs:', 1, 0, 'C');
-//                $pdf->Ln();
-//                if (count($imeis) > 0) {
-//
-//                    $pdf->Cell(95, 4, 'Nº');
-//                    $pdf->Cell(95, 4, 'Descrição');
-//                    $pdf->Ln();
-//
-//                    foreach ($imeis as $imei) {
-//                        $pdf->Cell(95, 4, $imei->number);
-//                        $pdf->Cell(95, 4, $imei->description);
-//                        $pdf->Ln();
-//                    }
-//                } else {
-//                    $pdf->Cell(190, 4, 'Nenhum item cadastrado.', 0, 0, 'C');
-//                    $pdf->Ln();
-//
-//                }
-//
-//                #------------------------ FIM DA PARTE DOS IMEIS DO RELATÓRIO -------------------------------------
-//
-//
-//                $pdf->Ln();
-            }
-
-            $csv .= chr(13);
+            $writer->addRowWithStyle([str_pad($contract['id'], 5, '0', STR_PAD_LEFT),
+                $contract['name_social_name'],
+                $contract['name'],
+                date("d/m/Y", strtotime($contract['start_date'])),
+                empty($contract['end_date']) ? '' : date("d/m/Y", strtotime($contract['end_date'])),
+                'R$ ' . number_format($contract['valueContract'], 2, ',', '.')],
+                $styleRow);
         }
 
-        $csv = utf8_decode($csv);
 
-        return response()
-            ->make($csv)
-            ->header('Content-Type', 'text/csv; charset=utf-8')
-            ->header('Content-Disposition', 'attachment; filename=rel_histórico.csv');
+//        #------------------------ INICIO DA PARTE DOS SERVIÇOS DO RELATÓRIO -------------------------------------
+        if($_GET['full'] == 'yes') {
+            $contract_services = ContractService::getListReport($request);
+            $writer->addNewSheetAndMakeItCurrent();
+            $sheet = $writer->getCurrentSheet();
+            $sheet->setName('Serviços');
 
+            $writer->addRowWithStyle(['Nº Contrato', 'Cliente', 'Valor', 'Acréscimo / Desconto', 'Total Serviço'], $style);
+
+            foreach ($contract_services as $keyContractServices => $contract_service) {
+                $writer->addRowWithStyle([str_pad($contract_service['id_contract'], 5, '0', STR_PAD_LEFT),
+                    $contract_service['name_social_name'],
+                    'R$ ' . number_format($contract_service['value'], 2, ',', '.'),
+                    'R$ ' . number_format($contract_service['addition_discount'], 2, ',', '.'),
+                    'R$ ' . number_format($contract_service['value'] + $contract_service['addition_discount'], 2, ',', '.')],
+                    $styleRow);
+            }
+
+            #------------------------ PARTE DOS CARROS DO RELATÓRIO--------------------------------------
+            $cars = Car::getListReport($request);
+            $writer->addNewSheetAndMakeItCurrent();
+            $sheet = $writer->getCurrentSheet();
+            $sheet->setName('Carros');
+
+            $writer->addRowWithStyle(['Nº Contrato', 'Cliente', 'Modelo', 'Placa', 'Cor', 'Chassi', 'CNH Motorista'], $style);
+
+            foreach ($cars as $car) {
+                $writer->addRowWithStyle([str_pad($car['id_contract'], 5, '0', STR_PAD_LEFT),
+                    $car['name_social_name'],
+                    $car['model'],
+                    $car['license_plate'],
+                    $car['color'],
+                    $car['chassis'],
+                    $car['driver_license']],
+                    $styleRow);
+
+            }
+            //
+            #------------------------ INICIO DA PARTE DOS IMEI DO RELATÓRIO -------------------------------------
+            $imeis = Imei::getListReport($request);
+            $writer->addNewSheetAndMakeItCurrent();
+            $sheet = $writer->getCurrentSheet();
+            $sheet->setName('IMEIs');
+
+            $writer->addRowWithStyle(['Nº Contrato', 'Cliente', 'Número', 'Descrição'], $style);
+
+            foreach ($imeis as $imei) {
+                $writer->addRowWithStyle([str_pad($imei['id_contract'], 5, '0', STR_PAD_LEFT),
+                    $imei['name_social_name'],
+                    $imei['number'],
+                    $imei['description']],
+                    $styleRow);
+
+            }
+            //                #------------------------ FIM DA PARTE DOS IMEIS DO RELATÓRIO -------------------------------------
+            //
+        }
+        $writer->close();
     }
 }

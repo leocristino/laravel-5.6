@@ -64,7 +64,7 @@
                                         <tr role="row">
                                             <th>Nome / Razão Social</th>
                                             <th class="hidden-xs">CPF / CNPJ</th>
-                                            <th class="hidden-xs"></th>
+                                            <th></th>
                                             <th class="hidden-xs">Status</th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>
@@ -113,7 +113,7 @@
                                         <button class="btn btn-small btn-default"><i class="fa fa-file-pdf"></i> exportar para PDF</button>
                                     </a>
                                     <a target="_blank" href="{{ url()->current() }}/csv/?{{ http_build_query($params) }}">
-                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para CSV</button>
+                                        <button class="btn btn-small btn-default"><i class="fa fa-file-excel"></i> exportar para EXCEL</button>
                                     </a>
                                 </div>
                             </div>

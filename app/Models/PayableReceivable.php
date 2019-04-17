@@ -68,8 +68,14 @@ class PayableReceivable extends CawModel
 
 
         $builder->orderBy('financial_launch.id');
-//        dd($builder);
-        return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+        if (isset($_GET['report']) == true)
+        {
+            return $builder->get();
+        }
+        else
+        {
+            return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+        }
     }
 
     public function save(array $options = [])

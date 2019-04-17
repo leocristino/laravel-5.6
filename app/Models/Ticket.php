@@ -98,7 +98,14 @@ class Ticket extends CawModel
         }
     }
 
-    public static function getSelect(){
-        return Ticket::where('active','=',1)->get();
+    public static function getSelect($type)
+    {
+        $builder = Ticket::select('*')
+            ->where('active','=',1)
+            ->where('type' ,'=', $type)
+            ->orderBy('name');
+//        dd($builder->toSql(),$builder->getBindings());
+        return $builder->get();
+
     }
 }

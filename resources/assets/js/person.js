@@ -195,6 +195,7 @@ if ($('body[view-name="personindex"]').length > 0) {
 
                 this.$refs.modal.configModal('Aviso', msn, btn, 'Cancelar', function () {
                     let url = window.baseUrl+'/person/activeDisabled';
+                    // console.log(id + ' ' + type);
                     originalData.form.post(url, {id: id, type: type}, originalData.onSuccessActiveDisabled);
                 });
                 this.$refs.modal.show();

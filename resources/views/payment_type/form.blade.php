@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Cadastro de Forma de Pagamento [ @{{ form.data.id == undefined ? 'Novo' : form.data.name }} ]</h1>
+        <h1>Forma de Pagamento [ @{{ form.data.id == undefined ? 'Novo' : form.data.name }} ]</h1>
     </section>
     <section class="content">
         <div class="row">
