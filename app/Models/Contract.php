@@ -165,5 +165,26 @@ class Contract extends CawModel
 
     }
 
+    public static function billing($request)
+    {
+        $end_date = substr($request['end_date'],0,10);
+
+        $builder = Contract::select('contract.*')
+            ->addSelect(DB::raw("(select SUM(contract_service.value + contract_service.addition_discount) from contract_service
+            where contract_service.id_contract = contract.id) as valueContract"))
+            ->join('contract_service', 'contract_service.id_contract','=','contract.id')
+            ->where('start_date','<=', $end_date );
+
+//        # WHERE COM OR, CIRCUNDADO POR PARENTESES
+        $builder->where(function ($query) use ($end_date)
+        {
+            $query->where('end_date', '=', NULL)
+                ->orWhere('end_date', '>=',$end_date);
+
+        });
+//        dd($builder->toSql(),$builder->getBindings());
+        return $builder->get();
+    }
+
 
 }

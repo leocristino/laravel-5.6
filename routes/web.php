@@ -95,6 +95,8 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     Route::post('/payable_receivable/delete', 'PayableReceivableController@delete');
     Route::resource('/payable_receivable', 'PayableReceivableController');
 
+    #BILLING
+    Route::resource('/billing', 'BillingController');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });

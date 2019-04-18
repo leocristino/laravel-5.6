@@ -94,6 +94,11 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'billing':
+                if(Permissao::userHasPermissao('BILLING')) {
+                    return $next($request);
+                }
+                break;
 
 
         }

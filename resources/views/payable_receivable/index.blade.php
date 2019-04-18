@@ -25,13 +25,8 @@
                     <div class="box-header">
                         <form action="{{ url()->current() }}">
 
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Nome</label>
-                                <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
-                            </div>
-
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label>Tipo de Despesa</label>
+                            <div class="form-group col-md-2 col-sm-6">
+                                <label>Tipo</label>
                                 <?php
                                 $select = 2;
                                 if(isset($_GET['account_type'])){
@@ -51,6 +46,18 @@
                                     <option {{ $select == "R" ? 'selected' : ''}} value="R">Receita</option>
                                 </select>
                             </div>
+
+                            <div class="form-group col-md-1 col-sm-6">
+                                <label>Lote</label>
+                                <input type="text" class="form-control" name="lot" value="{{ empty($_GET['lot']) ? '' : $_GET['lot'] }}" />
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-6">
+                                <label>Pessoa</label>
+                                <input type="text" class="form-control" name="name_social_name" value="{{ empty($_GET['name_social_name']) ? '' : $_GET['name_social_name'] }}" />
+                            </div>
+
+
                                 <div class="form-group col-md-3 col-sm-6">
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Pesquisar</button>
@@ -65,22 +72,25 @@
                                     <table class="table table-bordered table-hover dataTable" >
                                         <thead>
                                             <tr role="row">
+                                                <th width="60px">Tipo</th>
+                                                <th>Lote</th>
                                                 <th>Pessoa</th>
-                                                <th class="hidden-xs">Tipo de Despesa</th>
+                                                <th>Valor a Pagar</th>
+                                                <th >Valor Pago</th>
                                                 <th class="hidden-xs">Plano de Conta</th>
-                                                <th class="hidden-xs">Forma de Pagamento</th>
-                                                <th class="hidden-xs">Valor a Pagar</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $item)
                                             <tr>
+                                                <td>{{ $item->account_type }}</td>
+                                                <td>{{ $item->lot }}</td>
                                                 <td>{{ $item->name_social_name }}</td>
-                                                <td class="hidden-xs">{{ $item->account_type == "R" ? "Receita" : "Despesa" }}</td>
-                                                <td class="hidden-xs">{{ $item->name_ticket }}</td>
-                                                <td class="hidden-xs">{{ $item->name_payment_type }}</td>
                                                 <td class="hidden-xs">R$ {{ number_format($item->value_bill, 2, ',', '.') }}</td>
+                                                <td class="hidden-xs">R$ {{ number_format($item->amount_paid, 2, ',', '.') }}</td>
+                                                <td class="hidden-xs">{{ $item->name_ticket }}</td>
+
                                                 <td>
                                                     <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
                                                         <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>

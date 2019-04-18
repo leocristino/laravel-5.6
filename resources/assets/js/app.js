@@ -52,6 +52,7 @@ require('./car');
 require('./contract');
 require('./contract_service');
 require('./payable_receivable');
+require('./billing');
 
 
 if(window.vue == undefined) {

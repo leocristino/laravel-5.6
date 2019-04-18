@@ -43,7 +43,7 @@ class CreateTableFinancialLaunch extends Migration
             $table->string('chq_number',30)->nullable(true);
             $table->string('chq_reason_return',50)->nullable(true);
             $table->date('chq_date_return')->nullable(true);
-            $table->string('chq_lot',50)->nullable(true);
+            $table->integer('lot')->nullable(true);
 
             $table->timestamps();
         });

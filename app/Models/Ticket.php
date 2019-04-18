@@ -108,4 +108,12 @@ class Ticket extends CawModel
         return $builder->get();
 
     }
+
+    public static function selectTicketTypeR()
+    {
+        $ticket = Ticket::select('*')
+            ->where('type' ,'=','R')->get();
+
+        return $ticket;
+    }
 }

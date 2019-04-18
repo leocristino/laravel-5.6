@@ -58,6 +58,8 @@ class PayableReceivableController extends Controller
     public function edit($id)
     {
         $account_receivable = PayableReceivable::find($id);
+        $account_receivable->value_bill = $account_receivable->value_bill == '' ? 0.00 : $account_receivable->value_bill;
+        $account_receivable->amount_paid = $account_receivable->amount_paid == '' ? 0.00 : $account_receivable->amount_paid;
         $type = $account_receivable['account_type'];
 
         $person = Person::getSelect();
@@ -132,8 +134,8 @@ class PayableReceivableController extends Controller
 
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
-            $pdf->Cell(35, 4, 'Plano de Conta');
-            $pdf->Cell(37, 4, 'Cliente');
+            $pdf->Cell(35, 4, 'Tipo');
+            $pdf->Cell(37, 4, 'Pessoa');
             $pdf->Cell(35, 4, 'Tipo Despesa');
             $pdf->Cell(35, 4, 'Forma de Pagamento');
             $pdf->Cell(30, 4, 'Data Vencimento');

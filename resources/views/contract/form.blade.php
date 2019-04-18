@@ -32,7 +32,7 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label>Tipo de Pagamento</label>
+                                        <label>Forma de Pagamento</label>
 
                                         <select class="form-control" v-model="payment_type" @change="valuePaymentType()" required>
                                             <option value="">Selecione</option>
