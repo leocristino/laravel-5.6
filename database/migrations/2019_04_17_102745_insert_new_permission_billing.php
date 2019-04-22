@@ -19,7 +19,7 @@ class InsertNewPermissionBilling extends Migration
 
 
         DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 11]
+            ['id_user' => 1, 'id_permissao' => 10]
         );
     }
 

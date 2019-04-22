@@ -25,7 +25,7 @@
 
 
                             <div class="form-group col-md-3 col-sm-6">
-                                <label>Tipo de Pagamento</label>
+                                <label>Tipo</label>
                                 <?php
                                 $select = 2;
                                 if(isset($_GET['type'])){
@@ -40,7 +40,7 @@
                                 }
                                 ?>
                                 <select name="type" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value=""></option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == "B" ? 'selected' : ''}} value="B">Boleto</option>
                                     <option {{ $select == "C" ? 'selected' : ''}} value="C">Cheque</option>
                                 </select>
@@ -62,7 +62,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
-                                    <option value=""></option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
@@ -82,7 +82,7 @@
                                         <thead>
                                         <tr role="row">
                                             <th>Nome</th>
-                                            <th class="hidden-xs">Tipo de Pagamento</th>
+                                            <th class="hidden-xs">Tipo</th>
                                             <th class="hidden-xs">Ativo</th>
                                             <th width="50px"></th>
                                             <th width="50px"></th>

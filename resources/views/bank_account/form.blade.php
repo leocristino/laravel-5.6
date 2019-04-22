@@ -55,7 +55,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Data do Saldo</label>
-                                    <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="form.data.balance_date" required/>
+                                    <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" input-name="data_saida" v-model="form.data.balance_date" required/>
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -65,7 +65,6 @@
                                         <div class="form-group col-md-2">
                                             <label >Emite Boleto</label>
                                             <select class="form-control" v-model="form.data.bill_option" required>
-                                                <option value="">Todos</option>
                                                 <option value="S">SIM</option>
                                                 <option value="N">NÃO</option>
                                             </select>

@@ -28,12 +28,12 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Inicial</label>
-                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required
                                                     input-name="data_saida" v-model="form.data.start_date" />
                                     </div>
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Final</label>
-                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control" required
                                                     input-name="data_saida" v-model="form.data.end_date" />
                                     </div>
 

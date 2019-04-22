@@ -9,7 +9,7 @@ if ($('body[view-name="personform"]').length > 0) {
     window.vue = new Vue({
         el: '#app',
         components: {
-           Modal,BasicSelect,Datepicker
+            Modal,BasicSelect,Datepicker
         },
         data: {
             form: new Form(),

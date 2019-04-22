@@ -70,7 +70,7 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Data Inicial</label>
-                                        <datepicker lang="en" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
+                                        <datepicker lang="pt-br" format="dd/MM/yyyy" :editable="true" width="100%" input-class="form-control"
                                                     input-name="data_saida" v-model="form.data.start_date" />
                                     </div>
 

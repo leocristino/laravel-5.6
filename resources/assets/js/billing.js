@@ -85,7 +85,7 @@ if ($('body[view-name="billingindex"]').length > 0) {
                     if (response.data.result == "true") {
                         this.form.reset();
 
-                        this.$refs.modal.configModal('Sucesso', response.data.qtd + ' contratos foram faturados!', 'OK', '', function () {
+                        this.$refs.modal.configModal('Sucesso', response.data.qtd + ' contrato(s) foi(ram) faturado(s)!', 'OK', '', function () {
                             // util.goBack('/payable_receivable/?lote=' + response.data.lot);
                             window.location.href = '/payable_receivable/?lot=' + response.data.lot;
                         });

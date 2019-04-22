@@ -125,11 +125,14 @@ class PayableReceivable extends CawModel
         }
     }
 
-    public static function selectToBill($id, $date)
+    public static function selectToBill($id_person, $date)
     {
         $builder = PayableReceivable::select('due_date')
-            ->where('id_person','=', $id)
+            ->where('id_person','=', $id_person)
             ->where('due_date','=', $date);
+
+//        $builder->get();
+//        dd($builder->toSql(),$builder->getBindings());
 
         return $builder->get();
     }

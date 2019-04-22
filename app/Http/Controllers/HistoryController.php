@@ -13,8 +13,6 @@ class HistoryController extends Controller
 {
     public function index(Request $request)
     {
-//        $_GET['bigger_than'] =  date("Y-m-d", strtotime(substr($request->bigger_than,0,10)));
-//        dd($request);
         return view('history.index',
             [
                 'data' => History::getList($request),
@@ -114,7 +112,7 @@ class HistoryController extends Controller
             $pdf->Cell(40,4, $item->name_social_name);
             $pdf->Cell(28,4, $item->created_at);
             $pdf->Cell(28,4, $contact_time);
-            $pdf->MultiCell(95,4, $item->description);
+            $pdf->MultiCell(95,4, utf8_encode($item->description));
             $pdf->Ln();
         }
 

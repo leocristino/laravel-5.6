@@ -39,7 +39,7 @@
                                 }
                                 ?>
                                 <select name="type" id="" class="form-control" value="{{ empty($_GET['type']) ? '' : $_GET['type'] }}">
-                                    <option value=""></option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 'D' ? 'selected' : ''}} value="D">Despesa</option>
                                     <option {{ $select == 'R' ? 'selected' : ''}} value="R">Receita</option>
                                 </select>
@@ -61,7 +61,7 @@
                                 }
                                 ?>
                                 <select name="active" id="" class="form-control" value="{{ empty($_GET['active']) ? '' : $_GET['active'] }}">
-                                    <option value=""></option>
+                                    <option value="">Todos</option>
                                     <option {{ $select == 1 ? 'selected' : ''}} value="1">Ativo</option>
                                     <option {{ $select == 0 ? 'selected' : ''}} value="0">Inativo</option>
                                 </select>
@@ -81,29 +81,28 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>Tipo</th>
-                                                <th class="hidden-xs">Nome</th>
+                                                <th>Nome</th>
                                                 <th class="hidden-xs">Ativo</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>
                                         </thead>
                                         <tbody>
-{{--                                        {{dd($data)}}--}}
                                             @foreach($data as $item)
-                                            <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
-                                                <td>{{ $item->type == "D" ? 'Despesa' : 'Receita'}}</td>
-                                                <td class="hidden-xs">{{ $item->name }}</td>
-                                                <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
-                                                <td>
-                                                    <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
-                                                    <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
-                                                </td>
+                                                <tr class="{{ $item->active == 1 ? '' : 'danger'  }}" id="table{{ $item->id }}" >
+                                                    <td>{{ $item->type == "D" ? 'Despesa' : 'Receita'}}</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td class="hidden-xs"><i id="imgStatus{{ $item->id }}" class="{{ $item->active == 1 ? 'fas fa-check' : 'fas fa-times'}}"></i></td>
+                                                    <td>
+                                                        <button id="btnCheck{{ $item->id }}" title="Desativar" class="btn btn-small btn-warning {{ $item->active === 1 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},1)"><i class="fa fa-times"></i></button>
+                                                        <button id="btnTimes{{ $item->id }}" title="Ativar" class="btn btn-success btn-default {{ $item->active === 0 ? "" : "font-active-none" }} btn-block" @click="activeDisabled({{$item->id}},0)"><i class="fa fa-check"></i></button>
+                                                    </td>
 
-                                                <td>
-                                                    <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
-                                                        <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                    <td>
+                                                        <a href="{{ url()->current() }}/{{ $item['id'] }}/edit">
+                                                            <button title="Editar" class="btn btn-small btn-default"><i class="fa fa-edit"></i></button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>

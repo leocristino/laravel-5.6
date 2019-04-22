@@ -18,13 +18,13 @@
 
                             <div class="col-md-12">
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-12">
                                     <label>Tipo: </label>
 
-                                    <input type="radio" id="typeF" name="type" value="F" v-model="picked" required :disabled="this.form.data.id != undefined"/>
+                                    <input type="radio" id="typeF" name="type" value="F" v-model="picked" required :disabled="form.data.id != undefined"/>
                                     <label for="typeF">Física</label>
 
-                                    <input type="radio" id="typeJ" name="type"  value="J" v-model="picked" required :disabled="this.form.data.id != undefined"/>
+                                    <input type="radio" id="typeJ" name="type"  value="J" v-model="picked" required :disabled="form.data.id != undefined"/>
                                     <label for="typeJ">Jurídica</label>
                                 </div>
 
@@ -32,7 +32,7 @@
 
                                 <div id="formFields" style="display:none;">
                                     <div>
-                                        <div class="form-group" :class="this.picked=='F' ? 'col-md-12' : 'col-md-6'">
+                                        <div class="form-group" :class="picked=='F' ? 'col-md-12' : 'col-md-6'">
                                             <label v-if="picked == 'F'">Nome</label>
                                             <label v-else-if="picked == 'J'">Razão Social</label>
                                             <input type="text" class="form-control" v-model="form.data.name_social_name" required ref="name_social_name" maxlength="100"/>
@@ -46,7 +46,7 @@
                                     </div>
 
 
-                                    <div class="form-group" :class="this.picked == 'J' ? 'col-md-6' : 'col-md-4'">
+                                    <div class="form-group" :class="picked == 'J' ? 'col-md-6' : 'col-md-4'">
                                         <label v-if="picked == 'F'">CPF</label>
                                         <input v-if="picked == 'F'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="999.999.999-99" required v-mask="['###.###.###-##']"/>
                                         <label v-if="picked == 'J'">CNPJ</label>

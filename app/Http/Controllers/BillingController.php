@@ -48,7 +48,7 @@ class BillingController extends Controller
                 $account_receivable->value_bill = $contract['valueContract'];
 
                 $billing = PayableReceivable::selectToBill($contract['id_person'], $account_receivable->due_date);
-//                dd($billing);
+
                 if (count($billing) == 0)
                 {
                     $triggerLot = true;

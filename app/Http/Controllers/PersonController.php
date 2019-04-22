@@ -27,6 +27,7 @@ class PersonController extends Controller
         $pessoa = new Person();
 
         $pessoa->active = 1;
+
         return view('person.form',
             [
                 'data' => $pessoa,
@@ -210,6 +211,9 @@ class PersonController extends Controller
             elseif (strlen($item->cellphone) == 11)
                 $item->cellphone = CawHelpers::mask($item->cellphone, '(##)#####-####');
 
+            if ($item->zip != '')
+                $zip = CawHelpers::mask($item->zip, '##.###-###');
+
             $csv .= "\"$item->id\";";
             $csv .= "\"$item->name_social_name\";";
             $csv .= "\"$type\";";
@@ -219,7 +223,7 @@ class PersonController extends Controller
             $csv .= "\"$item->rg\";";
             $csv .= "\"$item->ie\";";
             $csv .= "\"$item->date_birth\";";
-            $csv .= "\"$item->zip\";";
+            $csv .= "\"$zip\";";
             $csv .= "\"$item->street\";";
             $csv .= "\"$item->street_number\";";
             $csv .= "\"$item->complement\";";

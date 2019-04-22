@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Acréscimo / Desconto</label>
-                                        <money class="form-control" v-model="formAdd.addition_discount" prefix="R$ " decimal="," thousands="." required />
+                                        <money class="form-control" v-model="formAdd.addition_discount" prefix="R$ " decimal="," thousands="." />
                                     </div>
 
                                     <div class="form-group col-md-1">

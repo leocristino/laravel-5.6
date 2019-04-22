@@ -23,10 +23,6 @@ class InsertPermissaoTable extends Migration
         );
 
         DB::table('permissao')->insert(
-            ['nome' => 'Relatórios', 'nickname' => 'REPORT']
-        );
-
-        DB::table('permissao')->insert(
             ['nome' => 'Serviços', 'nickname' => 'SERVICE']
         );
 
@@ -43,9 +39,7 @@ class InsertPermissaoTable extends Migration
         DB::table('user_permissao')->insert(
             ['id_user' => 1, 'id_permissao' => 4]
         );
-        DB::table('user_permissao')->insert(
-            ['id_user' => 1, 'id_permissao' => 5]
-        );
+
 
     }
     /**

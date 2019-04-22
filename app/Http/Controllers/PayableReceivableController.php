@@ -134,10 +134,10 @@ class PayableReceivableController extends Controller
 
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
-            $pdf->Cell(35, 4, 'Tipo');
+            $pdf->Cell(20, 4, 'Tipo');
             $pdf->Cell(37, 4, 'Pessoa');
             $pdf->Cell(35, 4, 'Tipo Despesa');
-            $pdf->Cell(35, 4, 'Forma de Pagamento');
+            $pdf->Cell(50, 4, 'Forma de Pagamento');
             $pdf->Cell(30, 4, 'Data Vencimento');
             $pdf->Cell(20, 4, 'Valor');
             $pdf->Ln();
@@ -155,10 +155,10 @@ class PayableReceivableController extends Controller
         foreach ($data as $item)
         {
             $pdf->SetFont('Arial','',8);
-            $pdf->Cell(35,4, $item->account_type == "R" ? 'Receita' : 'Despesa');
+            $pdf->Cell(20,4, $item->account_type == "R" ? 'Receita' : 'Despesa');
             $pdf->Cell(37,4, $item->name_social_name);
             $pdf->Cell(35,4, $item->name_ticket);
-            $pdf->Cell(35,4, $item->name_payment_type);
+            $pdf->Cell(50,4, $item->name_payment_type);
             $pdf->Cell(30,4, $item->due_date != '' ? date("d/m/Y", strtotime($item->due_date)) : '');
             $pdf->Cell(20,4, "R$ " . ($item->value_bill != '' ? $item->value_bill : '0,00'));
             $pdf->Ln();
@@ -201,7 +201,7 @@ class PayableReceivableController extends Controller
                 $value_bill = 'R$ ' . number_format($item->value_bill, 2, ',', '.');
 
             if ($item->amount_paid)
-                $amount_paid = 'R$ ' . number_format($item->amount_paid, 2, ',', '.');
+                $item->amount_paid = 'R$ ' . number_format($item->amount_paid, 2, ',', '.');
 
             $csv .= "\"$account_type\";";
             $csv .= "\"$item->name_social_name\";";
@@ -212,7 +212,7 @@ class PayableReceivableController extends Controller
             $csv .= "\"$item->due_date\";";
             $csv .= "\"$value_bill\";";
             $csv .= "\"$item->payment_date\";";
-            $csv .= "\"$amount_paid\";";
+            $csv .= "\"$item->amount_paid\";";
             $csv .= "\"$item->description_bank_return\";";
 
             $csv .= chr(13);

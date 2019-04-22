@@ -104,7 +104,6 @@ class Person extends CawModel
         $this->zip = CawHelpers::removeFormatting($this->zip);
         $this->fixed_telephone = CawHelpers::removeFormatting($this->fixed_telephone);
         $this->cellphone = CawHelpers::removeFormatting($this->cellphone);
-        $this->zip = CawHelpers::removeFormatting($this->zip);
 
         if ($this->name_social_name == "")
         {
@@ -144,14 +143,14 @@ class Person extends CawModel
         return $value;
     }
 
-    public function getZipAttribute($value)
-    {
-        if ($value != "")
-        {
-            return CawHelpers::mask($value, '##.###-###');
-        }
-
-    }
+//    public function getZipAttribute($value)
+//    {
+//        if ($value != "")
+//        {
+//            return CawHelpers::mask($value, '##.###-###');
+//        }
+//
+//    }
 //    public function getFixedTelephoneAttribute($value)
 //    {
 //        if ($value != "")

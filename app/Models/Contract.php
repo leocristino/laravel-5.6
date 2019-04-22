@@ -182,6 +182,8 @@ class Contract extends CawModel
                 ->orWhere('end_date', '>=',$end_date);
 
         });
+//        $builder->get();
+
 //        dd($builder->toSql(),$builder->getBindings());
         return $builder->get();
     }

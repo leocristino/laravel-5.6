@@ -32,7 +32,7 @@
 
                             </div>
 
-                            <div class="form-group col-md-3 type-date">
+                            <div class="form-group col-md-3 type-date col-sm-6">
                                 <label>Data Contato Final</label>
                                 <input type="date" class="form-control" name="less_than"  value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}" />
                                 {{--<datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" value="{{ empty($_GET['less_than']) ? '' : $_GET['less_than'] }}"--}}
