@@ -13,6 +13,7 @@ class BillingController extends Controller
 {
     public function index(Request $request)
     {
+//        dd(Ticket::selectTicketTypeR);
         return view('billing.index',
             [
                 'ticket' => Ticket::selectTicketTypeR(),
@@ -25,16 +26,15 @@ class BillingController extends Controller
         $contracts = Contract::billing($request);
         $referenceDate = explode('/',$request['referenceDate']);
 
-        $lot = '';
-        $qtd = 0;
-//        dd($lot);
+
         try {
             DB::beginTransaction();
+            $qtd = 0;
 
             $lot = PayableReceivable::max('lot');
             $lot = $lot + 1;
             $triggerLot = false;
-
+//            dd($contracts);
             foreach ($contracts as $contract)
             {
                 $account_receivable = new PayableReceivable();
@@ -46,8 +46,9 @@ class BillingController extends Controller
                 $account_receivable->id_bank_account = $contract['id_bank_account'];
                 $account_receivable->due_date = $referenceDate[1].'-'.$referenceDate[0].'-'.$contract['due_day'];
                 $account_receivable->value_bill = $contract['valueContract'];
+                $account_receivable->contract_number = $contract['id'];
 
-                $billing = PayableReceivable::selectToBill($contract['id_person'], $account_receivable->due_date);
+                $billing = PayableReceivable::selectToBill($contract['id_person'], $account_receivable->due_date, $account_receivable->contract_number);
 
                 if (count($billing) == 0)
                 {

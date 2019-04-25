@@ -74,6 +74,10 @@
                             <li><a href="{{URL::to('/')}}/contract">Contratos</a></li>
                         @endif
 
+                        @if(\App\Models\Permissao::userHasPermissao('INVOICES_NFS'))
+                            <li><a href="{{URL::to('/')}}/invoices_nfs">Emissão de Boletos e NFS-e</a></li>
+                        @endif
+
                         @if(\App\Models\Permissao::userHasPermissao('BILLING'))
                             <li><a href="{{URL::to('/')}}/billing">Faturamento</a></li>
                         @endif

@@ -125,14 +125,48 @@ class PayableReceivable extends CawModel
         }
     }
 
-    public static function selectToBill($id_person, $date)
+    public static function selectToBill($id_person, $date, $number_contract)
     {
         $builder = PayableReceivable::select('due_date')
             ->where('id_person','=', $id_person)
+            ->where('contract_number','=', $number_contract)
             ->where('due_date','=', $date);
 
-//        $builder->get();
 //        dd($builder->toSql(),$builder->getBindings());
+
+        return $builder->get();
+    }
+
+    public static function invoicesNFS($request)
+    {
+        $builder = DB::table('financial_launch')
+            ->select(DB::raw('lot, count(*) as totalLot, max(created_at) as dateLot, SUM(value_bill) as value, due_date, id, id_bank_account'))
+
+            ->where('account_type','=','R')
+            ->where('lot','<>','')
+            ->groupBy('lot','id_bank_account');
+        if ($request['lot'] != '')
+        {
+            $builder->where('lot', '=', $request['lot']);
+        }
+
+//        $builder = PayableReceivable::select('*');
+//        dd($builder->toSql(),$builder->getBindings());
+        return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
+    }
+
+    public static function selectedSendForEmail($id, $id_bank_account)
+    {
+        $builder = PayableReceivable::select(['financial_launch.*','payment_type.name','person.*','financial_launch.id as id_financial_launch'])
+            ->join('person','person.id','=','financial_launch.id_person')
+//            ->join('financial_launch','financial_launch.id_person','=','person.id')
+            ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
+            ->where('account_type','=','R')
+            ->where(DB::raw('md5(financial_launch.id_bank_account)') , $id_bank_account)
+            ->where(DB::raw('md5(financial_launch.lot)') , $id);
+
+//        dd($builder->toSql(),$builder->getBindings());
+//        dd($builder->get());
 
         return $builder->get();
     }

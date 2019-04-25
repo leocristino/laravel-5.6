@@ -17,6 +17,7 @@ class Contract extends CawModel
         'id_person',
         'id_payment_type',
         'id_bank_account',
+        'emit_invoice',
         'due_day',
         'emergency_password',
         'contra_emergency_password',
@@ -173,6 +174,8 @@ class Contract extends CawModel
             ->addSelect(DB::raw("(select SUM(contract_service.value + contract_service.addition_discount) from contract_service
             where contract_service.id_contract = contract.id) as valueContract"))
             ->join('contract_service', 'contract_service.id_contract','=','contract.id')
+            ->join('payment_type','payment_type.id','=','contract.id_payment_type')
+            ->where('payment_type.type','=','B')
             ->where('start_date','<=', $end_date );
 
 //        # WHERE COM OR, CIRCUNDADO POR PARENTESES
@@ -182,11 +185,22 @@ class Contract extends CawModel
                 ->orWhere('end_date', '>=',$end_date);
 
         });
-//        $builder->get();
 
 //        dd($builder->toSql(),$builder->getBindings());
         return $builder->get();
     }
 
+    public  static function printingTicket($id)
+    {
+        $builder = Contract::select(['*','person.name_social_name'])
+            ->join('person','person.id','=','contract.id_person')
+            ->join('payment_type','payment_type.id','=','contract.id_payment_type')
+            ->where(DB::raw('md5(contract.id)') , $id);
+
+//        dd($builder->toSql(),$builder->getBindings());
+//        dd($builder->get());
+
+        return $builder->get();
+    }
 
 }

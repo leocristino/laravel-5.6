@@ -53,6 +53,16 @@
                                         </select>
                                     </div>
 
+                                    <div class="form-group col-md-6" id="emit_invoice">
+                                        <label>Emite NFS</label>
+                                        <select class="form-control" v-model="emit_invoice" required>
+                                            <option value="">Selecione</option>
+                                            <option value="S">SIM</option>
+                                            <option value="N">NÃO</option>
+
+                                        </select>
+                                    </div>
+
                                     <div class="form-group col-md-6">
                                         <label >Dia de Vencimento</label>
                                         <input type="number" class="form-control" v-model="form.data.due_day" required maxlength="2" min="1" max="31"/>

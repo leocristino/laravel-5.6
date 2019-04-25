@@ -100,6 +100,12 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'invoices_nfs':
+                if(Permissao::userHasPermissao('INVOICES_NFS')) {
+                    return $next($request);
+                }
+                break;
+
 
         }
 

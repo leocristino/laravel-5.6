@@ -17,6 +17,7 @@ if ($('body[view-name="contractform"]').length > 0) {
             modal: Modal,
             person: '',
             payment_type: '',
+            emit_invoice: '',
             service: '',
             namePerson: '',
             date: '',
@@ -48,6 +49,10 @@ if ($('body[view-name="contractform"]').length > 0) {
 
             if (this.form.data.id_payment_type != null){
                 this.payment_type = this.form.data.id_payment_type
+            }
+
+            if (this.form.data.emit_invoice != null){
+                this.emit_invoice = this.form.data.emit_invoice
             }
 
             if (this.form.data.id_service != null){
@@ -101,6 +106,7 @@ if ($('body[view-name="contractform"]').length > 0) {
                 this.form.data.id_payment_type = this.payment_type;
                 this.form.data.id_service = this.service;
                 this.form.data.id_bank_account = this.current_account;
+                this.form.data.emit_invoice = this.emit_invoice;
                 let url = '/contract';
 
 

@@ -98,8 +98,16 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #BILLING
     Route::resource('/billing', 'BillingController');
 
+    #   INVOICES NFS
+    Route::get('/invoices_nfs/', 'InvoicesNFSController@index');
+    Route::get('/invoices_nfs/{id}/{id_bank_account}/bill', 'InvoicesNFSController@bill');
+//    Route::post('/invoices_nfs/{id}/nfs', 'InvoicesNFSController@nfs');
+
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });
+
+
+Route::get('/bill/download/{id}', 'BillController@index');
 
 
 //rota para executar as migrations - o servidor não suporta comandos ssh
