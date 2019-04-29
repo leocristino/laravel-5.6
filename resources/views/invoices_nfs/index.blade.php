@@ -1,6 +1,9 @@
 @extends('base_layouts.master')
 
 @section('content')
+    <div class="loading" style="display:none;">
+
+    </div>
     <section class="content-header">
         <div class="col-md-9">
             <h1>Contas a Receber</h1>
@@ -55,15 +58,15 @@
                                                 <td>R$ {{ number_format($item->value, 2, ',', '.') }}</td>
                                                 <td>
 
-                                                    <a href="{{ url()->current() }}/{{ md5($item->lot) }}/{{ md5($item->id_bank_account) }}/bill">
+                                                    <a @click.stop.prevent="sendLotToEmail('{{ md5($item->lot) }}','{{ md5($item->id_bank_account) }}')">
                                                         <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
                                                     </a>
                                                 </td>
-                                                <td>
-                                                    <a href="{{ url()->current() }}/{{ md5($item->lot) }}/nfs">
-                                                        <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
-                                                    </a>
-                                                </td>
+                                                {{--<td>--}}
+                                                    {{--<a href="{{ url()->current() }}/{{ md5($item->lot) }}/nfs">--}}
+                                                        {{--<button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>--}}
+                                                    {{--</a>--}}
+                                                {{--</td>--}}
                                             </tr>
                                             @endforeach
                                         </tbody>

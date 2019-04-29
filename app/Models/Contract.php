@@ -190,17 +190,4 @@ class Contract extends CawModel
         return $builder->get();
     }
 
-    public  static function printingTicket($id)
-    {
-        $builder = Contract::select(['*','person.name_social_name'])
-            ->join('person','person.id','=','contract.id_person')
-            ->join('payment_type','payment_type.id','=','contract.id_payment_type')
-            ->where(DB::raw('md5(contract.id)') , $id);
-
-//        dd($builder->toSql(),$builder->getBindings());
-//        dd($builder->get());
-
-        return $builder->get();
-    }
-
 }

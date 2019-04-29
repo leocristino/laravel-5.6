@@ -6,6 +6,7 @@ use App\Models\Bank;
 use App\Models\BankAccount;
 use App\Models\Helpers\CawHelpers;
 use App\Models\Helpers\CawPDF;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use \DB;
@@ -25,6 +26,7 @@ class BankAccountController extends Controller
     public function create()
     {
         $bank_account = new BankAccount();
+        $company = Company::query()->orderBy('name')->get();
         $bank_account->priceOfSend = 0.00;
         $bank_account->currentBalance = 0.00;
         $bank_account->active = 1;
@@ -33,6 +35,7 @@ class BankAccountController extends Controller
             [
                 'data' => $bank_account,
                 'banks' => Bank::getSelectBank(),
+                'company' => $company,
             ]
         );
     }
@@ -40,12 +43,14 @@ class BankAccountController extends Controller
     public function edit($id)
     {
         $bank_account = BankAccount::find($id);
+        $company = Company::query()->orderBy('name')->get();
 
 
         return view('bank_account.form',
             [
                 'data' => $bank_account,
                 'banks' => Bank::getSelectBank(),
+                'company' => $company,
             ]
         );
     }

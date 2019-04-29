@@ -30,7 +30,17 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
 
         },
         watch: {
+            'form.data.wallet' : function () {
+                if(this.form.data.id_bank == 756)
+                {
 
+                    if (this.form.data.wallet != 1 && this.form.data.wallet != 4 && this.form.data.wallet != 7)
+                    {
+                        this.form.data.wallet = "";
+                    }
+
+                }
+    }
         },
         methods: {
            selectBank(banks)

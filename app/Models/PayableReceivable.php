@@ -139,7 +139,7 @@ class PayableReceivable extends CawModel
 
     public static function invoicesNFS($request)
     {
-        $builder = DB::table('financial_launch')
+        $builder = PayableReceivable::select('financial_launch')
             ->select(DB::raw('lot, count(*) as totalLot, max(created_at) as dateLot, SUM(value_bill) as value, due_date, id, id_bank_account'))
 
             ->where('account_type','=','R')
@@ -155,15 +155,16 @@ class PayableReceivable extends CawModel
         return $builder->paginate(config('app.list_count'))->appends($request->except('page'));
     }
 
-    public static function selectedSendForEmail($id, $id_bank_account)
+    public static function selectedSendForEmail($lot, $id_bank_account)
     {
-        $builder = PayableReceivable::select(['financial_launch.*','payment_type.name','person.*','financial_launch.id as id_financial_launch'])
+        $builder = PayableReceivable::select(['financial_launch.*','payment_type.name','person.name_social_name'])
             ->join('person','person.id','=','financial_launch.id_person')
-//            ->join('financial_launch','financial_launch.id_person','=','person.id')
+//            ->join('contract','contract.id_person','=','person.id')
             ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
             ->where('account_type','=','R')
+            ->where('payment_type.type','=','B')
             ->where(DB::raw('md5(financial_launch.id_bank_account)') , $id_bank_account)
-            ->where(DB::raw('md5(financial_launch.lot)') , $id);
+            ->where(DB::raw('md5(financial_launch.lot)') , $lot);
 
 //        dd($builder->toSql(),$builder->getBindings());
 //        dd($builder->get());
@@ -171,4 +172,45 @@ class PayableReceivable extends CawModel
         return $builder->get();
     }
 
+    public static function searchBill($id_bill)
+    {
+        $builder = PayableReceivable::select(['financial_launch.*','payment_type.name','person.*','financial_launch.id as id_payable_receivable'])
+            ->join('person','person.id','=','financial_launch.id_person')
+            ->join('contract','contract.id_person','=','person.id')
+            ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
+            ->where(DB::raw('md5(financial_launch.id)') , $id_bill)
+            ->orWhere('financial_launch.id','=', $id_bill);
+
+        //        dd($builder->get());
+
+        return $builder->get();
+    }
+
+    public  static function printingTicket($id)
+    {
+        $builder = PayableReceivable::select(['financial_launch.*',
+            'person.*',
+            'company.name as name_company',
+            'company.street',
+            'company.street_number',
+            'company.cpf_cnpj as cpf_cnpj_company',
+            'company.zip as zip_company',
+            'company.city as city_company',
+            'company.state as state_company',
+            'bank_account.agency as agency_bank_account',
+            'bank_account.account_current',
+            'bank_account.id_bank',
+            'bank_account.wallet',
+            'bank_account.pact',
+            'financial_launch.id as id_financial_launch'])
+            ->join('person','person.id','=','financial_launch.id_person')
+            ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
+            ->join('bank_account','bank_account.id','=','financial_launch.id_bank_account')
+            ->join('company','company.id','=','bank_account.id_company')
+            ->where(DB::raw('md5(financial_launch.id)') , $id);
+//        dd($builder->get());
+
+
+        return $builder->get();
+    }
 }

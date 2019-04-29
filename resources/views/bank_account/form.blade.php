@@ -40,12 +40,12 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Agência</label>
-                                    <input type="text" class="form-control" v-model="form.data.agency" maxlength="50"/>
+                                    <input type="text" class="form-control" v-model="form.data.agency" maxlength="4"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label >Conta Corrente</label>
-                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="200"/>
+                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="8"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -72,7 +72,7 @@
 
                                         <div class="form-group col-md-2">
                                             <label >Carteira</label>
-                                            <input type="text" class="form-control" v-model="form.data.wallet" maxlength="50"/>
+                                            <input type="tel" class="form-control" v-model="form.data.wallet" :placeholder="form.data.id_bank == 756 ? '1, 4 ou 7' : ''" maxlength="50" v-mask="'#'"/>
                                         </div>
 
                                         <div class="form-group col-md-2">
@@ -80,27 +80,27 @@
                                             <input type="text" class="form-control" v-model="form.data.special_code" maxlength="50"/>
                                         </div>
 
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-6">
                                             <label>Convênio (Perfil/Cód. Beneficiário)</label>
-                                            <input type="text" class="form-control" v-model="form.data.pact" maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.pact" maxlength="7" placeholder="4, 6 ou 7 dígitos"/>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label >Cód. Transmissão</label>
-                                            <input type="text" class="form-control" v-model="form.data.transmission_code" maxlength="50"/>
+                                            <input type="text" class="form-control" v-model="form.data.transmission_code"  maxlength="50"/>
                                         </div>
 
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-3">
                                             <label >Complemento</label>
                                             <input type="text" class="form-control" v-model="form.data.complement" maxlength="50"/>
                                         </div>
 
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-3">
                                             <label >Local de Pagto</label>
                                             <input type="text" class="form-control" v-model="form.data.local_pay" maxlength="50"/>
                                         </div>
 
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-3">
                                             <label >Instrução</label>
                                             <input type="text" class="form-control" v-model="form.data.instruction" maxlength="50"/>
                                         </div>
@@ -108,7 +108,7 @@
                                         <div class="form-group col-md-3">
                                             <label >Quem emite o Boleto?</label>
                                             <select class="form-control" v-model="form.data.who_send_ticket">
-                                                <option value="">Todos</option>
+                                                <option value="">Selecione</option>
                                                 <option value="Banco">Banco</option>
                                                 <option value="Tatical">Tatical</option>
                                             </select>
@@ -119,7 +119,15 @@
                                             <money class="form-control" v-model="form.data.priceOfSend" prefix="R$ " decimal="," thousands="." required />
                                         </div>
 
-
+                                        <div class="form-group col-md-6">
+                                            <label >Empresa referência</label>
+                                            <select class="form-control" v-model="form.data.id_company" required>
+                                                <option value="">Selecione</option>
+                                                @foreach($company as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
                                     </fieldset>
                                 </div>

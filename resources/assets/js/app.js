@@ -53,6 +53,7 @@ require('./contract');
 require('./contract_service');
 require('./payable_receivable');
 require('./billing');
+require('./invoice_nfs');
 
 
 if(window.vue == undefined) {

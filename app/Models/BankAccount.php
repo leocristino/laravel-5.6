@@ -14,6 +14,7 @@ class BankAccount extends CawModel
     protected $fillable = [
         'name',
         'id_bank',
+        'id_company',
         'agency',
         'account_current',
         'currentBalance',
