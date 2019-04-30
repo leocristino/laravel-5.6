@@ -33,9 +33,8 @@ class InvoicesNFSController extends Controller
             foreach ($payable_receivables as $payable_receivable)
             {
                 $bill = PayableReceivable::searchBill($payable_receivable['id']);
-//                echo $bill[0]['id_payable_receivable'];
+
                 $id_bill = md5($bill[0]['id_payable_receivable']);
-//                dd($id_bill);
                 $path = config('app.url').'bill/download/'.$id_bill;
 
                 $_email = [

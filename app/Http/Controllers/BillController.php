@@ -29,20 +29,20 @@ class BillController extends Controller
 
         $contract = PayableReceivable::printingTicket($id);
         if(count($contract) == 0)
-        return abort(404);
-    elseif ($contract[0]['payment_date'] != '')
-        return 'Este Boleto já foi pago!';
+            return abort(404);
+        elseif ($contract[0]['payment_date'] != '')
+            return 'Este Boleto já foi pago!';
 
 
         $name = $contract[0]['name_social_name'];
         $cpf = CawHelpers::mask($contract[0]['cpf_cnpj'],'###.###.###-##');
-        $adress = $contract[0]['street'].' '.$contract[0]['street_number'];
+        $adress = $contract[0]['street'].', '.$contract[0]['street_number'];
         $zip = $contract[0]['zip'];
         $city = $contract[0]['city'];
         $state = $contract[0]['state'];
 
         $name_company = $contract[0]['name_company'];
-        $address_company = $contract[0]['street'] . ' ' . $contract[0]['street_number'];
+        $address_company = $contract[0]['street'] . ', ' . $contract[0]['street_number'];
         $cpf_cnpj_company = $contract[0]['cpf_cnpj_company'];
         $zip_company = $contract[0]['zip_company'];
         $city_company = $contract[0]['city_company'];
@@ -51,7 +51,7 @@ class BillController extends Controller
         // Parâmetros obrigatórios
         $due_date = $contract[0]['due_date'];
         $value_bill = $contract[0]['value_bill'];
-        $sequencial = str_pad($contract[0]['id_financial_launch'], 7, 0, STR_PAD_LEFT);
+        $sequencial = str_pad($contract[0]['id_financial_launch'], 5, 0, STR_PAD_LEFT);
         $agency_bank_account = $contract[0]['agency_bank_account'];
         $wallet = $contract[0]['wallet'];
         $account_current = str_replace('-', '', $contract[0]['account_current']);
@@ -59,6 +59,7 @@ class BillController extends Controller
 
 
         if ($contract[0]['id_bank'] == '1') {
+//            dd($contract[0]['id_bank'],$sequencial);
 
 
             $sacado = new Agente(

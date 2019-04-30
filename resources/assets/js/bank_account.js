@@ -34,13 +34,13 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
                 if(this.form.data.id_bank == 756)
                 {
 
-                    if (this.form.data.wallet != 1 && this.form.data.wallet != 4 && this.form.data.wallet != 7)
+                    if (this.form.data.wallet != 1 && this.form.data.wallet != 2 && this.form.data.wallet != 5)
                     {
                         this.form.data.wallet = "";
                     }
 
                 }
-    }
+            },
         },
         methods: {
            selectBank(banks)
@@ -76,6 +76,15 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
                 if (this.form.data.id_bank == null)
                 {
                     this.$refs.modal.configModal('Campo obrigatório', 'Preencha o campo Banco!', '', 'OK', function () {
+
+                    });
+                    this.$refs.modal.show(1500);
+                    return;
+                }
+
+                if(this.form.data.pact.length != 4 && this.form.data.pact.length != 6 && this.form.data.pact.length != 7)
+                {
+                    this.$refs.modal.configModal('Campo obrigatório', 'O Campo Convênio (Perfil/Cód. Beneficiário) deve ter 4, 6 ou 7 dígitos!', '', 'OK', function () {
 
                     });
                     this.$refs.modal.show(1500);

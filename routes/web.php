@@ -101,6 +101,7 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #   INVOICES NFS
     Route::get('/invoices_nfs/', 'InvoicesNFSController@index');
     Route::post('/invoices_nfs/bill', 'InvoicesNFSController@bill');
+    Route::get('/invoices_nfs/sending/{lot}/{id_bank_account}', 'SendingController@sendingFile');
 //    Route::post('/invoices_nfs/{id}/nfs', 'InvoicesNFSController@nfs');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated

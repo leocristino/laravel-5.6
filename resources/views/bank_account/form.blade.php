@@ -45,7 +45,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Conta Corrente</label>
-                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="8"/>
+                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="10"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -72,7 +72,7 @@
 
                                         <div class="form-group col-md-2">
                                             <label >Carteira</label>
-                                            <input type="tel" class="form-control" v-model="form.data.wallet" :placeholder="form.data.id_bank == 756 ? '1, 4 ou 7' : ''" maxlength="50" v-mask="'#'"/>
+                                            <input type="tel" class="form-control" v-model="form.data.wallet" :placeholder="form.data.id_bank == 756 ? '1, 2 ou 5' : ''" maxlength="50" v-mask="'##'"/>
                                         </div>
 
                                         <div class="form-group col-md-2">

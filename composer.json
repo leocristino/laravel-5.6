@@ -5,13 +5,14 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "openboleto/openboleto": "dev-master",
         "php": ">=5.6.4",
         "almasaeed2010/adminlte": "2.1.1",
         "box/spout": "^2.7",
         "codedge/laravel-fpdf": "^1.2",
+        "eduardokum/laravel-boleto": "0.8.1.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "openboleto/openboleto": "dev-master",
         "wgenial/numeroporextenso": "^2.0"
     },
     "require-dev": {

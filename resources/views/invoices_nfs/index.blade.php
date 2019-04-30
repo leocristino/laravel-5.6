@@ -46,6 +46,7 @@
                                                 <th width="220px" class="hidden-xs">Mês Referência</th>
                                                 <th width="220px">Total do Lote</th>
                                                 <th width="90px">Boleto</th>
+                                                <th width="90px">Remessa</th>
                                                 <th width="90px">NFS-e</th>
                                         </thead>
                                         <tbody>
@@ -60,6 +61,12 @@
 
                                                     <a @click.stop.prevent="sendLotToEmail('{{ md5($item->lot) }}','{{ md5($item->id_bank_account) }}')">
                                                         <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
+                                                    </a>
+                                                </td>
+                                                <td>
+
+                                                    <a href="{{ url()->current() }}/sending/{{ md5($item->lot) }}/{{ md5($item->id_bank_account) }}">
+                                                    <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
                                                     </a>
                                                 </td>
                                                 {{--<td>--}}

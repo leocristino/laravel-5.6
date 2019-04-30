@@ -157,10 +157,28 @@ class PayableReceivable extends CawModel
 
     public static function selectedSendForEmail($lot, $id_bank_account)
     {
-        $builder = PayableReceivable::select(['financial_launch.*','payment_type.name','person.name_social_name'])
+        $builder = PayableReceivable::select(['financial_launch.*',
+                                            'payment_type.name',
+                                            'company.name as name_company',
+                                            'company.street as address_company',
+                                            'company.street_number as number_company',
+                                            'company.zip as zip_company',
+                                            'company.state as state_company',
+                                            'company.city as city_company',
+                                            'company.district as district_company',
+                                            'person.street as street_person',
+                                            'person.street_number as street_number_person',
+                                            'person.district as district_person',
+                                            'person.zip as zip_person',
+                                            'person.district as district_person',
+                                            'person.city as city_person',
+                                            'person.cpf_cnpj as cpf_cnpj_person',
+                                            'person.name_social_name'])
             ->join('person','person.id','=','financial_launch.id_person')
 //            ->join('contract','contract.id_person','=','person.id')
             ->join('payment_type','payment_type.id','=','financial_launch.id_payment_type')
+            ->join('bank_account','bank_account.id','=','financial_launch.id_bank_account')
+            ->join('company','company.id','=','bank_account.id_company')
             ->where('account_type','=','R')
             ->where('payment_type.type','=','B')
             ->where(DB::raw('md5(financial_launch.id_bank_account)') , $id_bank_account)
