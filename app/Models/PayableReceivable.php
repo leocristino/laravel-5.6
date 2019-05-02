@@ -166,6 +166,11 @@ class PayableReceivable extends CawModel
                                             'company.state as state_company',
                                             'company.city as city_company',
                                             'company.district as district_company',
+                                            'company.cpf_cnpj as cpf_cnpj_company',
+                                            'bank_account.agency as agency_company',
+                                            'bank_account.account_current as account_current_company',
+                                            'bank_account.wallet',
+                                            'bank_account.pact',
                                             'person.street as street_person',
                                             'person.street_number as street_number_person',
                                             'person.district as district_person',
@@ -173,6 +178,7 @@ class PayableReceivable extends CawModel
                                             'person.district as district_person',
                                             'person.city as city_person',
                                             'person.cpf_cnpj as cpf_cnpj_person',
+                                            'person.state as state_person',
                                             'person.name_social_name'])
             ->join('person','person.id','=','financial_launch.id_person')
 //            ->join('contract','contract.id_person','=','person.id')

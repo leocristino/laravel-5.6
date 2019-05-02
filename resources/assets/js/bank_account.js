@@ -82,13 +82,16 @@ if ($('body[view-name="bank_accountform"]').length > 0) {
                     return;
                 }
 
-                if(this.form.data.pact.length != 4 && this.form.data.pact.length != 6 && this.form.data.pact.length != 7)
+                if (this.form.data.pact != '')
                 {
-                    this.$refs.modal.configModal('Campo obrigatório', 'O Campo Convênio (Perfil/Cód. Beneficiário) deve ter 4, 6 ou 7 dígitos!', '', 'OK', function () {
+                    if(this.form.data.pact == '' && this.form.data.pact.length != 4 && this.form.data.pact.length != 6 && this.form.data.pact.length != 7)
+                    {
+                        this.$refs.modal.configModal('Campo obrigatório', 'O Campo Convênio (Perfil/Cód. Beneficiário) deve ter 4, 6 ou 7 dígitos!', '', 'OK', function () {
 
-                    });
-                    this.$refs.modal.show(1500);
-                    return;
+                        });
+                        this.$refs.modal.show(1500);
+                        return;
+                    }
                 }
 
                 if (this.form.data.priceOfSend == '0')

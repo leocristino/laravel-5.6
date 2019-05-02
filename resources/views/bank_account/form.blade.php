@@ -45,7 +45,7 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Conta Corrente</label>
-                                    <input type="text" class="form-control" v-model="form.data.account_current" maxlength="10"/>
+                                    <input type="number" title="Não coloque o dígito" placeholder="Não coloque o dígito" class="form-control" v-model="form.data.account_current" maxlength="10"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
