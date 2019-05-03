@@ -28,6 +28,24 @@ if ($('body[view-name="payable_receivableform"]').length > 0) {
             this.form.data.chq_date_return = moment(this.form.data.chq_date_return, 'YYYY-MM-DD', true);
             this.verifyPaymentType_OnChange();
 
+            var valuePaymentType = '';
+            for(var i = 0; i < this.objPayment_Type.length; i++)
+            {
+                if (this.form.data.id_payment_type == this.objPayment_Type[i].id)
+                {
+                    valuePaymentType = this.objPayment_Type[i].type;
+                    console.log(valuePaymentType)
+                }
+            }
+            $("#printBill").css('display','none');
+            if (this.form.data.id != '')
+            {
+                if(valuePaymentType == 'B')
+                {
+                    $("#printBill").css('display','block');
+                }
+            }
+
         },
         updated(){
 

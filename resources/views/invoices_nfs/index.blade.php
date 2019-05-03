@@ -66,14 +66,14 @@
                                                 <td>
 
                                                     <a href="{{ url()->current() }}/sending/{{ md5($item->lot) }}/{{ md5($item->id_bank_account) }}">
-                                                    <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
+                                                    <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-arrow-circle-down"></i></button>
                                                     </a>
                                                 </td>
-                                                {{--<td>--}}
-                                                    {{--<a href="{{ url()->current() }}/{{ md5($item->lot) }}/nfs">--}}
-                                                        {{--<button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>--}}
-                                                    {{--</a>--}}
-                                                {{--</td>--}}
+                                                <td>
+                                                    <a href="{{ url()->current() }}/{{ md5($item->lot) }}/nfs">
+                                                        <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

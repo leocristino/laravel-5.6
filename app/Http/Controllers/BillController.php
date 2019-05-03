@@ -56,6 +56,8 @@ class BillController extends Controller
         $wallet = $contract[0]['wallet'];
         $account_current = str_replace('-', '', $contract[0]['account_current']);
         $pact = $contract[0]['pact'];
+        $instruction = ['Pagar até a data do vencimento', $contract[0]['instruction']];
+//        dd($instruction);
 
 
         if ($contract[0]['id_bank'] == '1') {
@@ -90,6 +92,7 @@ class BillController extends Controller
                 'carteira' => $wallet,
                 'conta' => $account_current, // Até 8 dígitos
                 'convenio' => $pact, // 4, 6 ou 7 dígitos
+                'instrucoes' => $instruction,
             ));
 
         }
@@ -123,7 +126,9 @@ class BillController extends Controller
                 'carteira' => $wallet,
                 'conta' => $account_current, // Até 8 dígitos
                 'convenio' => $pact, // 4, 6 ou 7 dígitos
+                'instrucoes' => $instruction,
             ));
+
 
         }
         echo $boleto->getOutput();

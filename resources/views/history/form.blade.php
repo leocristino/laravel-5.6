@@ -58,7 +58,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Observação</label>
-                                        <textarea v-model="form.data.description" id="description" required  class="form-control ckeditor" required maxlength="255"></textarea>
+                                        <textarea v-model="form.data.description" id="description" required  class="form-control ckeditor" required></textarea>
                                     </div>
 
 

@@ -10,6 +10,16 @@
                 $type = 'Despesa';
             ?>
         <h1>{{$type}} [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.id }} ]</h1>
+            @if($data->payment_date == '')
+                <div align="right" id="printBill">
+                    {{$data->payment_date}}
+                    <a target="_blanck" href="{{ route('download',[md5($data['id'])])}}">
+                        <button title="Imprimir boleto" class="btn btn-small btn-default"><i class="fas fa-print"></i></button>
+                    </a>
+                </div>
+            @endif
+        {{--{{$data}}<br><br>--}}
+        {{--{{$payment_type}}--}}
     </section>
     <section class="content" :json="[form.setData({{ $data }}), objPayment_Type = {{ $payment_type }}]">
         <div class="row">
@@ -71,24 +81,24 @@
                                     <input type="text" class="form-control" v-model="form.data.description" maxlength="255"/>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Data de Vencimento</label>
                                     <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control" required
                                                 input-name="due_date" v-model="form.data.due_date" />
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Valor a Pagar</label>
                                     <money class="form-control" v-model="form.data.value_bill" prefix="R$ " decimal="," thousands="." required />
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Data do Pagamento</label>
                                     <datepicker lang="pt-br" format="dd/MM/yyyy" readonly="true" :editable="true" width="100%" input-class="form-control"
                                                  input-name="payment_date" v-model="form.data.payment_date" />
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label >Valor Pago</label>
                                     <money class="form-control" v-model="form.data.amount_paid" prefix="R$ " decimal="," thousands="." />
                                 </div>

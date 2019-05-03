@@ -17,7 +17,7 @@ class CreateHistoryTable extends Migration
             $table->increments('id');
             $table->integer('id_person');
 //            $table->foreign('id_person')->references('id')->on('person');
-            $table->string('description', 255);
+            $table->text('description');
             $table->date('contact_time');
             $table->timestamps();
         });

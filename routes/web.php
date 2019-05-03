@@ -108,7 +108,7 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 });
 
 #rota para fazer download do boleto
-Route::get('/bill/download/{id}', 'BillController@index');
+Route::get('/bill/download/{id}', 'BillController@index')->name('download');
 
 
 //rota para executar as migrations - o servidor não suporta comandos ssh

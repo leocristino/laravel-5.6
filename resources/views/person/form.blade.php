@@ -1,7 +1,7 @@
 @extends('base_layouts.master')
 
 @section('content')
-    <section class="content-header">
+    <section class="content-header" xmlns="http://www.w3.org/1999/html">
         <h1>Pessoa [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.name_social_name }} ]</h1>
     </section>
     <section class="content" :json="form.setData({{ $data }})">
@@ -100,17 +100,17 @@
                                         <input type="text" class="form-control" v-model="form.data.street_number" ref="street_number" maxlength="30"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Complemento</label>
                                         <input type="text" class="form-control" v-model="form.data.complement" maxlength="100"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Bairro</label>
                                         <input type="text" class="form-control" v-model="form.data.district" maxlength="100"/>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Estado</label>
                                         <select name="state" id="state" class="form-control" v-model="form.data.state" @change="changeUf">
                                             @foreach($uf as $state)
@@ -119,7 +119,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label>Cidade</label>
                                         <basic-select :options="cidades"
                                                       :selected-option="cidadeSelected"
@@ -129,10 +129,10 @@
                                         </basic-select>
                                     </div>
 
-                                    <div class="form-group col-md-8">
+                                    <div class="form-group col-md-12">
                                         <label>Observação</label>
-                                        <input type="text" class="form-control" v-model="form.data.obs" maxlength="255"/>
-                                    </div>
+                                        <textarea type="text" class="form-control" v-model="form.data.obs" /></textarea>
+
 
                                     <div class="form-group col-md-12">
                                         <hr>

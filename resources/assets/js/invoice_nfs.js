@@ -89,9 +89,7 @@ if ($('body[view-name="invoices_nfsindex"]').length > 0) {
 
                     if (response == "true") {
 
-                        this.$refs.modal.configModal('Sucesso', 'Email enviado com sucesso!', 'OK', '', function () {
-                            util.goBack();
-                        });
+                        this.$refs.modal.configModal('Sucesso', 'Email enviado com sucesso!','', 'OK');
                         this.$refs.modal.show(1500);
                     } else {
                         // this.form.reset();

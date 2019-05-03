@@ -62,6 +62,7 @@ class PayableReceivableController extends Controller
         $account_receivable->value_bill = $account_receivable->value_bill == '' ? 0.00 : $account_receivable->value_bill;
         $account_receivable->amount_paid = $account_receivable->amount_paid == '' ? 0.00 : $account_receivable->amount_paid;
         $type = $account_receivable['account_type'];
+//        $buttonPrintBill = PayableReceivable::printingTicket($id)
 
         $person = Person::getSelect();
         $ticket = Ticket::getSelect($type);

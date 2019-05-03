@@ -33,7 +33,7 @@ class CreatePeopleTable extends Migration
             $table->string('complement',20)->nullable(true);
             $table->string('fixed_telephone',20)->nullable(true);
             $table->string('cellphone',20)->nullable(true);
-            $table->string('obs',255)->nullable(true);
+            $table->text('obs')->nullable(true);
             $table->tinyInteger('active')->default(0);
 
             $table->softDeletes();
