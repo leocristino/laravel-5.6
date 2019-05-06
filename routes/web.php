@@ -92,6 +92,7 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
     #payable_receivable
     Route::get('/payable_receivable/pdf', 'PayableReceivableController@pdf');
     Route::get('/payable_receivable/csv', 'PayableReceivableController@csv');
+
     Route::post('/payable_receivable/delete', 'PayableReceivableController@delete');
     Route::resource('/payable_receivable', 'PayableReceivableController');
 
@@ -100,14 +101,17 @@ Route::group(['middleware' => ['RedirectIfAuthenticated']], function () {
 
     #   INVOICES NFS
     Route::get('/invoices_nfs/', 'InvoicesNFSController@index');
-    Route::post('/invoices_nfs/bill', 'InvoicesNFSController@bill');
     Route::get('/invoices_nfs/sending/{lot}/{id_bank_account}', 'SendingController@sendingFile');
-//    Route::post('/invoices_nfs/{id}/nfs', 'InvoicesNFSController@nfs');
+    Route::get('/read_file', 'InvoicesNFSController@read');
+    Route::post('/read_file/reading', 'InvoicesNFSController@reading');
+    Route::post('/invoices_nfs/bill', 'InvoicesNFSController@bill');
+    Route::post('/invoices_nfs/nfs', 'InvoicesNFSController@nfs');
 
     //adicionar a permissão da rota no /app/Http/Middleware/RedirectIfAuthenticated
 });
 
 #rota para fazer download do boleto
+Route::get('/bill/print_check/{id}', 'BillController@print_check')->name('print_check');
 Route::get('/bill/download/{id}', 'BillController@index')->name('download');
 
 

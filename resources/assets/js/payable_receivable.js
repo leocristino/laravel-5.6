@@ -34,7 +34,7 @@ if ($('body[view-name="payable_receivableform"]').length > 0) {
                 if (this.form.data.id_payment_type == this.objPayment_Type[i].id)
                 {
                     valuePaymentType = this.objPayment_Type[i].type;
-                    console.log(valuePaymentType)
+                    // console.log(valuePaymentType)
                 }
             }
             $("#printBill").css('display','none');
@@ -43,6 +43,15 @@ if ($('body[view-name="payable_receivableform"]').length > 0) {
                 if(valuePaymentType == 'B')
                 {
                     $("#printBill").css('display','block');
+                }
+            }
+
+            $("#printCheque").css('display','none');
+            if (this.form.data.id != '')
+            {
+                if(valuePaymentType == 'C')
+                {
+                    $("#printCheque").css('display','block');
                 }
             }
 

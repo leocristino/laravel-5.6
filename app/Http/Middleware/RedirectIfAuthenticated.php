@@ -106,6 +106,12 @@ class RedirectIfAuthenticated
                 }
                 break;
 
+            case 'read_file':
+                if(Permissao::userHasPermissao('READ_FILE')) {
+                    return $next($request);
+                }
+                break;
+
 
         }
 

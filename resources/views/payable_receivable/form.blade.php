@@ -10,16 +10,24 @@
                 $type = 'Despesa';
             ?>
         <h1>{{$type}} [ @{{ form.data.id == undefined ? 'Novo' : form.originalData.id }} ]</h1>
+{{--            {{$data}}--}}
             @if($data->payment_date == '')
                 <div align="right" id="printBill">
-                    {{$data->payment_date}}
                     <a target="_blanck" href="{{ route('download',[md5($data['id'])])}}">
                         <button title="Imprimir boleto" class="btn btn-small btn-default"><i class="fas fa-print"></i></button>
                     </a>
                 </div>
             @endif
-        {{--{{$data}}<br><br>--}}
-        {{--{{$payment_type}}--}}
+
+            @if($data->payment_date == '' AND $data->payment_date == null)
+                <div align="right" id="printCheque">
+                    <a target="_blanck" href="{{ route('print_check',[md5($data['id'])])}}">
+                        <button title="Imprimir cheque" class="btn btn-small btn-default"><i class="fas fa-print"></i></button>
+                    </a>
+                </div>
+            @endif
+        {{--<br><br>{{$data}}<br><br>--}}
+{{--        {{$payment_type}}--}}
     </section>
     <section class="content" :json="[form.setData({{ $data }}), objPayment_Type = {{ $payment_type }}]">
         <div class="row">

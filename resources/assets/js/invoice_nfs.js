@@ -36,6 +36,28 @@ if ($('body[view-name="invoices_nfsindex"]').length > 0) {
 
         },
         methods: {
+            sendNFSToEmail(lot,id_bank_account)
+            {
+                // console.log(lot,id_bank_account);
+                $(".loading").css("display", "block");
+                this.loading = true;
+                let url = '/invoices_nfs/nfs';
+
+                axios({
+                    method: "POST",
+                    url: url,
+                    data: {lot,id_bank_account}
+                }).then(
+                    result => {
+                        this.loading = false;
+                        this.onSuccess(result.data.result);
+                    },
+                    error => {
+                        console.error(error);
+                    }
+                );
+
+            },
 
             sendLotToEmail(lot,id_bank_account)
             {

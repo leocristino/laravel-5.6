@@ -28,6 +28,32 @@ class CawHelpers
         return preg_replace('/[^0-9]/','',$str);
     }
 
+    /**
+     * Criar diretorio para salvar os arquivos
+     * @param $path
+     */
+    public static function createDirectory($path){
+        if (!\Storage::exists('/public/'.$path)) {
+            \Storage::disk('public')->makeDirectory($path, 0777, true);
+        }
+    }
+
+    public static function fileFormtBase64($path, $name_base64, $file_extension, $name_file){
+
+        $file_data = $name_base64;
+
+        $file_name = $name_file.'_'.time().'.'.$file_extension; //generating unique file name;
+
+        @list($type, $file_data) = explode(';', $file_data);
+        @list(, $file_data) = explode(',', $file_data);
+
+        if($file_data != ""){ // storing image in storage/app/public Folder
+            \Storage::disk('public')->put($path.'/'.$file_name,base64_decode($file_data));
+        }
+
+        return $file_name;
+    }
+
     //validações
     public static function isCPF($cpf){
         $cpf_limpo = CawHelpers::removeFormatting($cpf);

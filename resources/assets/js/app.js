@@ -54,7 +54,7 @@ require('./contract_service');
 require('./payable_receivable');
 require('./billing');
 require('./invoice_nfs');
-
+require('./read_file');
 
 if(window.vue == undefined) {
     window.app = new Vue({

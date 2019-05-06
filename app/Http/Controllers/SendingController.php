@@ -30,19 +30,9 @@ class SendingController extends Controller
 
         foreach ($payable_receivables as $payable_receivable)
         {
+//            dd($payable_receivable['id_bank']);
             if ($payable_receivable['id_bank'] == 756)
             {
-
-            $send = new boleto\Cnab\Remessa\Cnab240\Banco\Bancoob(
-                [
-                    'agencia' => $payable_receivable['agency_company'],
-                    'conta' => $payable_receivable['account_current_company'],
-                    'carteira' => $payable_receivable['wallet'],
-                    'convenio' => $payable_receivable['pact_company'],
-                    'beneficiario' => $beneficiario,
-                    'idremessa' => $payable_receivable['lot'],
-                ]
-            );
 
             $pagador = new boleto\Pessoa([
                     'nome' => $payable_receivable['name_social_name'],
@@ -55,36 +45,48 @@ class SendingController extends Controller
             );
 
 
-                $boleto[] = new boleto\Boleto\Banco\Bancoob([
-                    'logo' => realpath(__DIR__ . '/../logos/') . DIRECTORY_SEPARATOR . '756.png',
-                    'dataVencimento' => new \Carbon\Carbon($payable_receivable['due_date']),
-                    'valor' => number_format($payable_receivable['value_bill'],2),
-                    'multa' => 2.00,
-                    'juros' => 0.33,
-                    'numero' => str_pad($payable_receivable['id'], 15, '0', STR_PAD_LEFT),
-                    'numeroDocumento' => str_pad($payable_receivable['id'], 15, '0', STR_PAD_LEFT),
-                    'pagador' => $pagador,
-                    'beneficiario' => $beneficiario,
-                    'carteira' => $payable_receivable['wallet'],
-                    'agencia' => $payable_receivable['agency_company'],
-                    'conta' => $payable_receivable['account_current_company'],
-                    'convenio' => $payable_receivable['account_current_company'],
-                    'descricaoDemonstrativo' => [
-                        'demonstrativo 1',
-                        'demonstrativo 2',
-                        'demonstrativo 3'
-                    ],
+            $boleto[] = new boleto\Boleto\Banco\Bancoob([
+                'logo' => realpath(__DIR__ . '/../logos/') . DIRECTORY_SEPARATOR . '756.png',
+                'dataVencimento' => new \Carbon\Carbon($payable_receivable['due_date']),
+                'valor' => number_format($payable_receivable['value_bill'],2),
+                'multa' => 2.00,
+                'juros' => 0.33,
+                'numero' => str_pad($payable_receivable['id'], 15, '0', STR_PAD_LEFT),
+                'numeroDocumento' => str_pad($payable_receivable['id'], 15, '0', STR_PAD_LEFT),
+                'pagador' => $pagador,
+                'beneficiario' => $beneficiario,
+                'carteira' => $payable_receivable['wallet'],
+                'agencia' => $payable_receivable['agency_company'],
+                'conta' => $payable_receivable['account_current_company'],
+                'convenio' => $payable_receivable['account_current_company'],
+                'descricaoDemonstrativo' => [
+                    'demonstrativo 1',
+                    'demonstrativo 2',
+                    'demonstrativo 3'
+                ],
 
-                    'instrucoes' => [
-                        'instrucao 1' => $payable_receivable['instruction'],
-                        'instrucao 2',
-                        'instrucao 3'],
+                'instrucoes' => [
+                    'instrucao 1' => $payable_receivable['instruction'],
+                    'instrucao 2',
+                    'instrucao 3'],
                     'aceite' => 'S',
                     'especieDoc' => 'DM',
                 ]);
 
+                $send = new boleto\Cnab\Remessa\Cnab240\Banco\Bancoob(
+                    [
+                        'agencia' => $payable_receivable['agency_company'],
+                        'conta' => $payable_receivable['account_current_company'],
+                        'carteira' => $payable_receivable['wallet'],
+                        'convenio' => $payable_receivable['pact_company'],
+                        'beneficiario' => $beneficiario,
+                        'idremessa' => $payable_receivable['lot'],
+                    ]
+                );
+//                dd($send);
+
                 // Add multiples bill to a send object. Here need a array of instances of Boleto.
-                $send->addBoletos($boleto);
+//                $send->addBoletos($boleto);
 
             }
             elseif ($payable_receivable['id_bank'] == 1)
@@ -143,6 +145,7 @@ class SendingController extends Controller
                     ]
                 );
             }
+
             $send->addBoletos($boleto);
 
 

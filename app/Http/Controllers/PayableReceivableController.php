@@ -227,4 +227,6 @@ class PayableReceivableController extends Controller
             ->header('Content-Type', 'text/csv; charset=utf-8')
             ->header('Content-Disposition', 'attachment; filename=rel_contas.csv');
     }
+
+
 }

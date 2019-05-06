@@ -55,7 +55,7 @@
                 </li>
             @endif
 
-            @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE', 'BANK_ACCOUNT', 'SERVICE', 'TICKET', 'PAYABLE_RECEIVABLE', 'BILLING']))
+            @if(\App\Models\Permissao::userHasPermissao(['CONTRACT', 'PAYMENT_TYPE', 'BANK_ACCOUNT', 'SERVICE', 'TICKET', 'PAYABLE_RECEIVABLE', 'BILLING', 'READ_FILE']))
                 <li class="treeview">
                     <a href="#">
                         <i class="fas fa-dollar-sign"></i> <span>Financeiro</span>
@@ -84,6 +84,10 @@
 
                         @if(\App\Models\Permissao::userHasPermissao('PAYMENT_TYPE'))
                             <li><a href="{{URL::to('/')}}/payment_type">Formas de Pagamento</a></li>
+                        @endif
+
+                        @if(\App\Models\Permissao::userHasPermissao('READ_FILE'))
+                            <li><a href="{{URL::to('/')}}/read_file">Retorno do Banco</a></li>
                         @endif
 
                         @if(\App\Models\Permissao::userHasPermissao('SERVICE'))

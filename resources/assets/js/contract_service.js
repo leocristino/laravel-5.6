@@ -77,6 +77,10 @@ if ($('body[view-name="contract_serviceindex"]').length > 0) {
                     this.$refs.modal.show();
                     return;
                 }
+
+                if(this.formAdd.addition_discount == 0)
+                    this.formAdd.addition_discount = 0.00
+
                 this.form.data.push({
                     service: this.formAdd.name,
                     value: Number.parseFloat(this.formAdd.value).toFixed(2),

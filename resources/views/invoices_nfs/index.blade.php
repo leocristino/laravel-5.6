@@ -70,7 +70,7 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url()->current() }}/{{ md5($item->lot) }}/nfs">
+                                                    <a @click.stop.prevent="sendNFSToEmail('{{ md5($item->lot) }}','{{ md5($item->id_bank_account) }}')">
                                                         <button title="Enviar e-mail" class="btn btn-small btn-default"><i class="fas fa-envelope"></i></button>
                                                     </a>
                                                 </td>

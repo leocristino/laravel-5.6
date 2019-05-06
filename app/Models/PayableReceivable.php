@@ -171,6 +171,7 @@ class PayableReceivable extends CawModel
                                             'bank_account.account_current as account_current_company',
                                             'bank_account.wallet',
                                             'bank_account.pact',
+                                            'bank_account.id_bank',
                                             'person.street as street_person',
                                             'person.street_number as street_number_person',
                                             'person.district as district_person',

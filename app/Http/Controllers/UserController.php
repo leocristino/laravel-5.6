@@ -9,6 +9,7 @@ use App\Models\UserGrupo;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use function MongoDB\BSON\toJSON;
 
 class UserController extends Controller
 {
@@ -40,7 +41,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $user['permissoes'] = $user->getUserPermissoes();
+        $user['permissoes'] = $user->getUserPermissoes()->toJSON();
 
         return view('user.form',
             [
