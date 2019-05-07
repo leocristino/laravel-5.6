@@ -63,7 +63,7 @@
                     </a>
                     <ul class="treeview-menu">
                         @if(\App\Models\Permissao::userHasPermissao('BANK_ACCOUNT'))
-                            <li><a href="{{URL::to('/')}}/bank_account">Contas Corrente</a></li>
+                            <li><a href="{{URL::to('/')}}/bank_account">Contas Correntes</a></li>
                         @endif
 
                         @if(\App\Models\Permissao::userHasPermissao('PAYABLE_RECEIVABLE'))
