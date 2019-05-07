@@ -125,7 +125,14 @@ class PersonController extends Controller
             $pdf->HrLine();
         };
         $pdf->setFnHeader($header);
-        $pdf->setFilters($request->toArray());
+
+        $filters = [
+            'Nome' => $request['name_social_name'],
+            'CPF / CNPJ' => $request['cpf_cnpj'],
+            'Ativo' => $request['active'] == '1' ? 'Sim' : utf8_encode('Não'),
+        ];
+
+        $pdf->setFilters($filters);
 
         $pdf->AddPage();
         $pdf->SetFont('Arial','',8);

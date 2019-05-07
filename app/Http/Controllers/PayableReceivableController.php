@@ -147,7 +147,13 @@ class PayableReceivableController extends Controller
             $pdf->HrLine();
         };
         $pdf->setFnHeader($header);
-        $pdf->setFilters($request->toArray());
+
+        $filters = [
+            'Tipo' => $request['account_type'] == 'D' ? 'Despesa' : 'Receita',
+            'Lote' => $request['lot'],
+            'Pessoa' => $request['name_social_name'],
+        ];
+        $pdf->setFilters($filters);
 
         $pdf->AddPage();
         $pdf->SetFont('Arial','',8);

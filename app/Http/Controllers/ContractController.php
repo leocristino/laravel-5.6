@@ -160,12 +160,20 @@ class ContractController extends Controller
             $pdf->HrLine();
         };
         $pdf->setFnHeader($header);
-        $pdf->setFilters($request->toArray());
+
+        $data = Contract::getList($request, false);
+        $filters = [
+            utf8_encode('Tipo de Relatório') => $request['full'] == 'yes' ? 'Completo' : 'Simplificado',
+            'Contrato' => $request['id_contract'],
+            'Cliente' => $request['name_social_name'],
+            'Tipo de Pgamento' => !empty($data[0]['name']) ? $data[0]['name'] : '',
+            'Ativo' => $request['end_date'] == '1' ? 'Sim' : utf8_decode('Não'),
+        ];
+
+        $pdf->setFilters($filters);
 
         $pdf->AddPage();
         $pdf->SetFont('Arial','',8);
-
-        $data = Contract::getList($request, false);
 
         foreach ($data as $item)
         {

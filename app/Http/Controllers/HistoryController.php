@@ -99,7 +99,12 @@ class HistoryController extends Controller
             $pdf->HrLine();
         };
         $pdf->setFnHeader($header);
-        $pdf->setFilters($request->toArray());
+        $filters = [
+            'Cliente' =>$request['name_social_name'],
+            'Data Contato Inicial' => date('d/m/Y', strtotime($request['bigger_than'])),
+            'Data Contato Final' => date('d/m/Y', strtotime($request['less_than']))
+        ];
+        $pdf->setFilters($filters);
 
         $pdf->AddPage();
         $pdf->SetFont('Arial','',8);
