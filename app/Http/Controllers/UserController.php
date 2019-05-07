@@ -41,7 +41,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $user['permissoes'] = $user->getUserPermissoes()->toJSON();
+        $user['permissoes'] = $user->getUserPermissoes()->toArray();
 
         return view('user.form',
             [

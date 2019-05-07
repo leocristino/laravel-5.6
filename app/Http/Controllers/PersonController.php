@@ -149,7 +149,7 @@ class PersonController extends Controller
                 $item->cellphone = CawHelpers::mask($item->cellphone, '(##)#####-####');
 
             $pdf->Cell(40,4, $item->name_social_name);
-            $pdf->Cell(25,4, $type);
+            $pdf->Cell(25,4, $type,0,0,'C');
             $pdf->Cell(50,4, $item->email);
             $pdf->Cell(25,4, $item->cpf_cnpj);
             $pdf->Cell(25,4, $item->fixed_telephone);

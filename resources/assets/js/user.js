@@ -28,6 +28,7 @@ if ($('body[view-name="userform"]').length > 0) {
                 }
             },
             onSelectPermissao(item){
+                this.form.data.permissoes = JSON.parse(JSON.stringify(this.form.data.permissoes));
                 if(this.form.data.permissoes.indexOf(item) == -1) {
                     this.form.data.permissoes.push(item);
                 }else{

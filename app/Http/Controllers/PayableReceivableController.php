@@ -137,9 +137,9 @@ class PayableReceivableController extends Controller
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
             $pdf->Cell(20, 4, 'Tipo');
-            $pdf->Cell(37, 4, 'Pessoa');
+            $pdf->Cell(50, 4, 'Pessoa');
             $pdf->Cell(35, 4, 'Tipo Despesa');
-            $pdf->Cell(50, 4, 'Forma de Pagamento');
+            $pdf->Cell(30, 4, 'Forma de Pagamento');
             $pdf->Cell(30, 4, 'Data Vencimento');
             $pdf->Cell(20, 4, 'Valor');
             $pdf->Ln();
@@ -158,11 +158,11 @@ class PayableReceivableController extends Controller
         {
             $pdf->SetFont('Arial','',8);
             $pdf->Cell(20,4, $item->account_type == "R" ? 'Receita' : 'Despesa');
-            $pdf->Cell(37,4, $item->name_social_name);
+            $pdf->Cell(50,4, $item->name_social_name);
             $pdf->Cell(35,4, $item->name_ticket);
-            $pdf->Cell(50,4, $item->name_payment_type);
-            $pdf->Cell(30,4, $item->due_date != '' ? date("d/m/Y", strtotime($item->due_date)) : '');
-            $pdf->Cell(20,4, "R$ " . ($item->value_bill != '' ? $item->value_bill : '0,00'));
+            $pdf->Cell(30,4, $item->name_payment_type,0,0,'C');
+            $pdf->Cell(30,4, $item->due_date != '' ? date("d/m/Y", strtotime($item->due_date)) : '',0,0,'C');
+            $pdf->Cell(20,4, "R$ " . ($item->value_bill != '' ? number_format($item->value_bill,2,',','.') : '0,00'));
             $pdf->Ln();
 
 
