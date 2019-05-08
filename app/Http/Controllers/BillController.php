@@ -133,7 +133,10 @@ class BillController extends Controller
 
 
         }
-        echo $boleto->getOutput();
+        if ($contract[0]['id_bank'] != '756' and $contract[0]['id_bank'] != '1')
+            return view('errors.account_currente',['fechar' => 'fechar']);
+        else
+            echo $boleto->getOutput();
     }
 
     public function print_check($id)

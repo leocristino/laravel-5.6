@@ -4,7 +4,8 @@
     <section class="content-header">
         <?php
 //            echo $ticket[0]->type;
-            if(isset($_GET['ticket']) == 'R' || $ticket[0]->type == 'R')
+//            echo $ticket;
+            if($ticket[0]->type == 'R')
                 $type = 'Receita';
             else
                 $type = 'Despesa';
@@ -147,7 +148,6 @@
 
                                     </fieldset>
                                 </div>
-
                                 @if($type == 'Receita')
                                     <div class="form-group col-md-6">
                                         <label >Descrição do retorno</label>
