@@ -75,8 +75,8 @@
                                                 <th width="60px">Tipo</th>
                                                 <th>Lote</th>
                                                 <th>Pessoa</th>
-                                                <th>Valor a Pagar</th>
-                                                <th >Valor Pago</th>
+                                                <th class="hidden-xs">Valor a Pagar</th>
+                                                <th class="hidden-xs">Valor Pago</th>
                                                 <th class="hidden-xs">Plano de Conta</th>
                                                 <th width="50px"></th>
                                                 <th width="50px"></th>

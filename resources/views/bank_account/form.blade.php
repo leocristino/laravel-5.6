@@ -40,12 +40,12 @@
 
                                 <div class="form-group col-md-3">
                                     <label >Agência</label>
-                                    <input type="text" class="form-control" required v-model="form.data.agency" maxlength="4"/>
+                                    <input type="tel" class="form-control" v-mask="'####'" required v-model="form.data.agency" maxlength="4"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label >Conta Corrente</label>
-                                    <input required type="number" title="Não coloque traço e dígito" placeholder="Não coloque traço e dígito" class="form-control" v-model="form.data.account_current" min="1" max="99999"/>
+                                    <input required type="tel" title="Não coloque traço e dígito" placeholder="Não coloque traço e dígito" class="form-control" v-model="form.data.account_current" v-mask="'#####'"/>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -82,7 +82,7 @@
 
                                         <div class="form-group col-md-6">
                                             <label>Convênio (Perfil/Cód. Beneficiário)</label>
-                                            <input type="text" class="form-control" v-model="form.data.pact" maxlength="7" required placeholder="4, 6 ou 7 dígitos"/>
+                                            <input type="tel" class="form-control" v-model="form.data.pact" v-mask="'#######'" required placeholder="4, 6 ou 7 dígitos"/>
                                         </div>
 
                                         <div class="form-group col-md-3">

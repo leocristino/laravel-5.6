@@ -49,7 +49,7 @@
 
                                     <div class="form-group col-md-6 type-date">
                                         <label>Mês / Ano Referência</label>
-                                        <input type="text" class="form-control" v-model="form.data.referenceDate" placeholder="{{ date('m') }}/{{ date('Y') }}" v-mask="'##/####'"  required/>
+                                        <input type="tel" class="form-control" v-model="form.data.referenceDate" placeholder="{{ date('m') }}/{{ date('Y') }}" v-mask="'##/####'"  required/>
                                     </div>
 
                                     <div class="form-group col-md-12">
