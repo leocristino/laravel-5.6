@@ -26,7 +26,7 @@
 
                                 <div class="form-group col-md-12">
                                     <label>Arquivo do Retorno</label>
-                                    <input type="file" class="form-control input-file" @change="onFileChange($event)" maxlength="200"/>
+                                    <input type="file" class="form-control input-file" style="height: auto !important;" @change="onFileChange($event)" maxlength="200"/>
                                 </div>
                                 {{--<div v-if="form.data.profile_image != null && image == ''" class="form-group col-md-12">--}}
                                     {{--<img class="formt-image" :src="form.data.image_way" onerror="if (this.src != '../images/sem-image.png') this.src = '../images/sem-image.png';"/>--}}
