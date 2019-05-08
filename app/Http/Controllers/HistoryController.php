@@ -91,7 +91,7 @@ class HistoryController extends Controller
 
         $header = function() use ($pdf){
             $pdf->SetFont('Arial','B',8);
-            $pdf->Cell(40,4,'Nome');
+            $pdf->Cell(40,4,'Cliente');
             $pdf->Cell(28,4,'Criado em');
             $pdf->Cell(28,4,'Data do Contato');
             $pdf->Cell(95,4,'Observação');
@@ -100,9 +100,9 @@ class HistoryController extends Controller
         };
         $pdf->setFnHeader($header);
         $filters = [
-            'Cliente' =>$request['name_social_name'],
-            'Data Contato Inicial' => date('d/m/Y', strtotime($request['bigger_than'])),
-            'Data Contato Final' => date('d/m/Y', strtotime($request['less_than']))
+            'Cliente' =>utf8_encode($request['name_social_name']),
+            'Data Contato Inicial' => !empty($request['bigger_than']) ? date('d/m/Y', strtotime($request['bigger_than'])) : '',
+            'Data Contato Final' => !empty($request['less_than']) ? date('d/m/Y', strtotime($request['less_than'])) : '',
         ];
         $pdf->setFilters($filters);
 

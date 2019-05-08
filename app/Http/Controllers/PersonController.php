@@ -126,11 +126,19 @@ class PersonController extends Controller
         };
         $pdf->setFnHeader($header);
 
+        if ($request['active'] == 1)
+            $active = 'Sim';
+        elseif ($request['active'] == '')
+            $active = '';
+        elseif ($request['active'] == 0)
+            $active = utf8_encode('Não');
+
         $filters = [
             'Nome' => $request['name_social_name'],
             'CPF / CNPJ' => $request['cpf_cnpj'],
-            'Ativo' => $request['active'] == '1' ? 'Sim' : utf8_encode('Não'),
+            'Ativo' => $active,
         ];
+//        dd($filters);
 
         $pdf->setFilters($filters);
 

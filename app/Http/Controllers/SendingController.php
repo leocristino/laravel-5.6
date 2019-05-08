@@ -87,6 +87,7 @@ class SendingController extends Controller
 
                 // Add multiples bill to a send object. Here need a array of instances of Boleto.
 //                $send->addBoletos($boleto);
+                $send->addBoletos($boleto);
 
             }
             elseif ($payable_receivable['id_bank'] == 1)
@@ -144,18 +145,24 @@ class SendingController extends Controller
 
                     ]
                 );
+                $send->addBoletos($boleto);
             }
 
-            $send->addBoletos($boleto);
 
 
 
 
         }
-        $banco = $payable_receivables[0]['id_bank'] == 1 ? 'BB' : 'Sicoob';
+        if ($payable_receivables[0]['id_bank'] == 1 || $payable_receivables[0]['id_bank'] == 756)
+        {
+            $banco = $payable_receivables[0]['id_bank'] == 1 ? 'BB' : 'Sicoob';
 //        dd($banco);
-        $filename = 'remessa' . $payable_receivables[0]['lot'] . $banco . '.txt';
-        $send->download($filename);
+            $filename = 'remessa' . $payable_receivables[0]['lot'] . $banco . '.txt';
+
+            $send->download($filename);
+        }
+        else
+            return view('errors.account_currente');
     }
 
 }

@@ -162,12 +162,19 @@ class ContractController extends Controller
         $pdf->setFnHeader($header);
 
         $data = Contract::getList($request, false);
+        if ($request['end_date'] == 1)
+            $active = 'Sim';
+        elseif ($request['end_date'] == '')
+            $active = '';
+        else
+            $active = utf8_encode('Não');
+//        dd($request->toArray());
         $filters = [
             utf8_encode('Tipo de Relatório') => $request['full'] == 'yes' ? 'Completo' : 'Simplificado',
             'Contrato' => $request['id_contract'],
             'Cliente' => $request['name_social_name'],
-            'Tipo de Pgamento' => !empty($data[0]['name']) ? $data[0]['name'] : '',
-            'Ativo' => $request['end_date'] == '1' ? 'Sim' : utf8_decode('Não'),
+            'Tipo de Pagamento' => !empty($data[0]['name']) ? $data[0]['name'] : '',
+            'Ativo' => $active,
         ];
 
         $pdf->setFilters($filters);
@@ -177,7 +184,7 @@ class ContractController extends Controller
 
         foreach ($data as $item)
         {
-            if ($_GET['full'] =='yes')
+            if ($_GET['full'] == 'yes')
             {
                 $pdf->SetFont('Arial', 'B', 8);
                 $pdf->HrLine();
