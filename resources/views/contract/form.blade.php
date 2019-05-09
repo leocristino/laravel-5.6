@@ -65,7 +65,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label >Dia de Vencimento</label>
-                                        <input type="number" class="form-control" v-model="form.data.due_day" required maxlength="2" min="1" max="31"/>
+                                        <input type="number" min="1" max="31" class="form-control" v-model="form.data.due_day" required v-mask="'##'"/>
                                     </div>
 
                                     <div class="form-group col-md-6">

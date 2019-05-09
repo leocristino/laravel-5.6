@@ -33,7 +33,7 @@
                                     <div class="form-group col-md-6">
                                         <label >Tipo de Pagamento</label>
                                         <select class="form-control" v-model="form.data.type" >
-                                            <option value="">Escolha uma forma de pagamento</option>
+                                            <option value="">Selecione</option>
                                             <option value="B">Boleto</option>
                                             <option value="C">Cheque</option>
                                         </select>

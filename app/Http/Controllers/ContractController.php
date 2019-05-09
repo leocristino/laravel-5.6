@@ -206,7 +206,7 @@ class ContractController extends Controller
             $pdf->Cell(39,4, $item->name);
             $pdf->Cell(39,4, date("d/m/Y", strtotime($item->start_date)));
             $pdf->Cell(39,4, $item->end_date != '' ? date("d/m/Y", strtotime($item->end_date)) : '');
-            $pdf->Cell(39,4, "R$ " . ($item->valueContract != '' ? $item->valueContract : '0,00'));
+            $pdf->Cell(39,4, "R$ " . ($item->valueContract != '' ? number_format($item->valueContract, 2, ',', '.') : '0,00'));
             $pdf->Ln();
 
             if ($_GET['full'] == 'yes')
@@ -229,7 +229,7 @@ class ContractController extends Controller
                     foreach ($contract_services as $contract_service)
                     {
                         $pdf->Cell(70, 4, $contract_service->name);
-                        $pdf->Cell(50, 4, "R$ " . ($contract_service->value != '' ? number_format($contract_service->value, 2, ',', ' ') : '0,00'));
+                        $pdf->Cell(50, 4, "R$ " . ($contract_service->value != '' ? number_format($contract_service->value, 2, ',', '.') : '0,00'));
                         $pdf->Cell(50, 4, "R$ " . number_format($contract_service->addition_discount, 2, ',', '.'));
                         $pdf->Cell(50, 4, "R$ " . number_format($contract_service->value + $contract_service->addition_discount, 2, ',', '.'));
                         $pdf->Ln();

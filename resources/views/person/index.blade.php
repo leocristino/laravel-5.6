@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="col-md-9">
-            <h1>Usuários do sistema</h1>
+            <h1>Pessoas</h1>
         </div>
         <div class="col-md-3">
             <a href="{{ url()->current() }}/create">

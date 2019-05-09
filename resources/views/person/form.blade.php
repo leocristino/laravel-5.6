@@ -48,19 +48,19 @@
 
                                     <div class="form-group" :class="picked == 'J' ? 'col-md-6' : 'col-md-4'">
                                         <label v-if="picked == 'F'">CPF</label>
-                                        <input v-if="picked == 'F'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="999.999.999-99" required v-mask="['###.###.###-##']"/>
+                                        <input v-if="picked == 'F'" type="tel"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="999.999.999-99" required v-mask="['###.###.###-##']"/>
                                         <label v-if="picked == 'J'">CNPJ</label>
-                                        <input v-if="picked == 'J'" type="text"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="99.999.999/9999-99" required v-mask="['##.###.###/####-##']"/>
+                                        <input v-if="picked == 'J'" type="tel"  class="form-control" v-model="form.data.cpf_cnpj " placeholder="99.999.999/9999-99" required v-mask="['##.###.###/####-##']"/>
                                     </div>
 
                                     <div  v-if="picked == 'F'" class="form-group col-md-4">
                                         <label>RG</label>
-                                        <input type="text" class="form-control" v-model="form.data.rg" maxlength="20"/>
+                                        <input type="tel" class="form-control" v-model="form.data.rg" maxlength="20"/>
                                     </div>
 
                                     <div v-if="picked == 'J'" class="form-group col-md-6">
                                         <label>Inscrição Estadual</label>
-                                        <input type="text" class="form-control" v-model="form.data.ie" maxlength="20"/>
+                                        <input type="tel" class="form-control" v-model="form.data.ie" maxlength="20"/>
                                     </div>
 
                                     <div  v-if="picked == 'F'" class="form-group col-md-4 type-date">
@@ -77,17 +77,17 @@
 
                                     <div class="form-group col-md-3">
                                         <label>Telefone Fixo</label>
-                                        <input type="text" class="form-control" v-model="form.data.fixed_telephone" placeholder="(99)9999-9999" maxlength="20" v-mask="['(##) ####-####', '(##) #####-####']"/>
+                                        <input type="tel" class="form-control" v-model="form.data.fixed_telephone" placeholder="(99)9999-9999" maxlength="20" v-mask="['(##) ####-####', '(##) #####-####']"/>
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label>Celular</label>
-                                        <input type="text" class="form-control" v-model="form.data.cellphone" maxlength="50" placeholder="(99)99999-9999" v-mask="['(##) ####-####', '(##) #####-####']"/>
+                                        <input type="tel" class="form-control" v-model="form.data.cellphone" maxlength="50" placeholder="(99)99999-9999" v-mask="['(##) ####-####', '(##) #####-####']"/>
                                     </div>
 
                                     <div class="form-group col-md-3">
                                         <label>CEP</label>
-                                        <input type="text" class="form-control" v-on:blur="findCep()" v-model="form.data.zip" placeholder="99.999-999" maxlength="100"  v-mask="['##.###-###']"/>
+                                        <input type="tel" class="form-control" v-on:blur="findCep()" v-model="form.data.zip" placeholder="99.999-999" maxlength="100"  v-mask="['##.###-###']"/>
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -97,7 +97,7 @@
 
                                     <div class="form-group col-md-3">
                                         <label>Número</label>
-                                        <input type="text" class="form-control" v-model="form.data.street_number" ref="street_number" maxlength="30"/>
+                                        <input type="tel" class="form-control" v-model="form.data.street_number" ref="street_number" maxlength="30"/>
                                     </div>
 
                                     <div class="form-group col-md-6">

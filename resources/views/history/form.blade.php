@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Horário</label>
-                                        <input type="time" class="form-control" style="line-height:100% !important;" v-model="form.data.contact_time_hour" />
+                                        <input type="time" class="form-control" v-mask="'##:##'" style="line-height:100% !important;" v-model="form.data.contact_time_hour" />
                                     </div>
 
 

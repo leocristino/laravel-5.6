@@ -154,9 +154,9 @@ class PersonController extends Controller
                 $type = 'Jurídica';
 
             if (strlen($item->fixed_telephone) == 10)
-                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)####-####');
+                $item->fixed_telephone = CawHelpers::mask($item->fixed_telephone, '(##)####-####');
             elseif (strlen($item->fixed_telephone) == 11)
-                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)#####-####');
+                $item->fixed_telephone = CawHelpers::mask($item->fixed_telephone, '(##)#####-####');
 
             if (strlen($item->cellphone) == 10)
                 $item->cellphone = CawHelpers::mask($item->cellphone, '(##)####-####');
@@ -216,12 +216,12 @@ class PersonController extends Controller
             else
                 $active = 'NÃO';
 
-            if (strlen($item->cellphone) == 10)
-                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)####-####');
-            elseif (strlen($item->cellphone) == 11)
-                $item->fixed_telephone = CawHelpers::mask($item->cellphone, '(##)#####-####');
-
             if (strlen($item->fixed_telephone) == 10)
+                $item->fixed_telephone = CawHelpers::mask($item->fixed_telephone, '(##)####-####');
+            elseif (strlen($item->fixed_telephone) == 11)
+                $item->fixed_telephone = CawHelpers::mask($item->fixed_telephone, '(##)#####-####');
+
+            if (strlen($item->cellphone) == 10)
                 $item->cellphone = CawHelpers::mask($item->cellphone, '(##)####-####');
             elseif (strlen($item->cellphone) == 11)
                 $item->cellphone = CawHelpers::mask($item->cellphone, '(##)#####-####');
